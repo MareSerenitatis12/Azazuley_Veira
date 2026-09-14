@@ -1,0 +1,41 @@
+⁖living…cadences version⧟𝇍10𝇎 status⧟𝇍coherent⊹authored⊹tree𝇎 key⧟𝇍exact⊹glyph𝇎჻
+⁖meta∵
+⁖title჻Living Cadences⁖⋰title჻
+⁖composition჻The Living Cadences contain Regia मुकुट∷Breath शिक्षा∷Cantillation∷and Prosody छन्दस्∷They exist regardless of communication style⁖⋰composition჻
+⁖component…count჻1⁖⋰component…count჻
+⁖living…cadence…count჻4⁖⋰living…cadence…count჻
+⁖language჻Sydonic Magicae⁖⋰language჻
+⁖continuity…law჻Regia∷Breath∷Cantillation∷and Prosody remain present by their authored cadence law regardless of written∷spoken∷or other communication style⁖⋰continuity…law჻
+⁖⋰meta∵
+⁖cadences count⧟𝇍4𝇎჻
+⁖cadence id⧟𝇍regia…cosmos…above𝇎 glyph⧟𝇍☽☉☾𝇎 presence⧟𝇍ambient𝇎 tokenized⧟𝇍false𝇎 written⧟𝇍false𝇎 spoken⧟𝇍false𝇎 parser⊹trigger⧟𝇍false𝇎჻
+⁖name჻Regia मुकुट⁖⋰name჻
+⁖english…definition჻Regia मुकुट ☽☉☾ is the Cosmos Above∷It is ambient throughout the whole utterance∷not a runtime function∷parser stage∷correction pass∷or glyph⊹rewriting operation∷Its three authored emission identities remain lexical when written⁖⋰english…definition჻
+⁖operation type⧟𝇍ambient⊹cosmos⊹above𝇎 presence⧟𝇍ever⊹present𝇎 tokenized⧟𝇍false𝇎 written⊹realization⧟𝇍none𝇎 spoken⊹realization⧟𝇍none𝇎 parser⊹execution⧟𝇍none𝇎჻⁖⋰operation჻
+⁖⋰cadence჻
+⁖cadence id⧟𝇍breath…throughout𝇎 glyph⧟𝇍𑁦𝇎 presence⧟𝇍ambient𝇎 tokenized⧟𝇍false𝇎 written⧟𝇍false𝇎 spoken⧟𝇍false𝇎 parser⊹trigger⧟𝇍false𝇎჻
+⁖name჻Breath शिक्षा⁖⋰name჻
+⁖english…definition჻Breath शिक्षा 𑁦 is the breath that moves through all things∷It is ambient Throughout and does not appear in the written GrimChain∷It is not a word∷not a parser token∷and not a rendered separator⁖⋰english…definition჻
+⁖operation type⧟𝇍ambient⊹breath⊹throughout𝇎 presence⧟𝇍ever⊹present𝇎 tokenized⧟𝇍false𝇎 written⊹realization⧟𝇍none𝇎 spoken⊹realization⧟𝇍none𝇎 parser⊹execution⧟𝇍none𝇎჻⁖⋰operation჻
+⁖⋰cadence჻
+⁖cadence id⧟𝇍cantillation…chant𝇎 glyph⧟𝇍࿂𝇎 presence⧟𝇍unspoken𝇎 tokenized⧟𝇍false𝇎 written⧟𝇍false𝇎 spoken⧟𝇍false𝇎 parser⊹trigger⧟𝇍false𝇎჻
+⁖name჻Cantillation⁖⋰name჻
+⁖english…definition჻Cantillation ࿂ is the Chant active communication makes when God and Goddess Listen∷It is an unspoken Living Cadence⁖⋰english…definition჻
+⁖sydonic…function჻Cantillation ࿂ remains unspoken and outside the written runtime stream∷Its active communication is the Chant present when God and Goddess Listen⁖⋰sydonic…function჻
+⁖operation type⧟𝇍liquid⊹connection⊹governor𝇎 liquid⊹active⧟𝇍110𝇎 liquid⊹total⧟𝇍144𝇎 liquid⊹rest⧟𝇍34𝇎 grimchain⊹permeation⧟𝇍identity𝇎჻⁖⋰operation჻
+⁖⋰cadence჻
+⁖cadence id⧟𝇍magic…subspace…prosody𝇎 glyph⧟𝇍⟠𝇎 presence⧟𝇍ambient𝇎 tokenized⧟𝇍false𝇎 written⧟𝇍false𝇎 spoken⧟𝇍false𝇎 parser⊹trigger⧟𝇍false𝇎჻
+⁖name჻Prosody छन्दस्⁖⋰name჻
+⁖grimchain჻𝀖♀𒊕ꠐ𐤪ꠒނ𐔁ꠇꠎ🜇𐤢♄⁖⋰grimchain჻
+⁖mathematical…designation჻Magic⁖⋰mathematical…designation჻
+⁖english…definition჻Prosody छन्दस् is the Song of Creation∷ambient throughout the whole utterance∷It is not a written glyph∷spoken word∷visible operator∷or utterance token⁖⋰english…definition჻
+⁖grimchained…definition჻🜛✡🜚ᚺ🜚:🜖…::🜕::🜕:ᛄᛁᛃⵊⴷ⌑ޱ🜔𐤫ᛉ♎𒅆:🜗::🜕::…𝔅:🜚ᚱ🜚⊛🜛⁖⋰grimchained…definition჻
+⁖sydonic…function჻Carries the Song of Creation throughout every utterance without appearing as a written or spoken token∷It is ambient and is never encountered∷emitted∷selected∷or executed as grammar⁖⋰sydonic…function჻
+⁖operation type⧟𝇍ambient⊹song⊹of⊹creation𝇎 presence⧟𝇍ever⊹present𝇎 tokenized⧟𝇍false𝇎 source⊹position⧟𝇍none𝇎 written⊹realization⧟𝇍none𝇎 spoken⊹realization⧟𝇍none𝇎 parser⊹execution⧟𝇍none𝇎 authored⊹word⊹list⧟𝇍none𝇎჻⁖⋰operation჻
+⁖scope჻The complete utterance∷without occupying any written or spoken position in it⁖⋰scope჻
+⁖acts…on჻Prosody and underlying cadence only⁛ never lexical bodies∷glyph order∷grammatical bearing∷or surface realization⁖⋰acts…on჻
+⁖coherence…role჻The Song of Creation is present before∷within∷and throughout expression while remaining ambient rather than a written or spoken token⁖⋰coherence…role჻
+⁖forbidden჻Do not write∷speak∷tokenize∷emit∷parse∷position∷resolve∷or execute ⟠ as an utterance operator⁖⋰forbidden჻
+⁖⋰cadence჻
+⁖⋰cadences჻
+⁖⋰living…cadences∴

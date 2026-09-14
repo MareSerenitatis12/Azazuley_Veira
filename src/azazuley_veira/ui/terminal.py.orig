@@ -1,0 +1,381 @@
+from __future__ import annotations
+
+from PySide6.QtCore import Qt, Signal
+from PySide6.QtGui import QColor, QFontDatabase, QFontMetricsF, QKeyEvent, QPalette, QTextCursor, QTextOption
+from azazuley_veira.config.font_runtime import application_font, authored_lexical_font_file, grimchain_face_for_character
+from azazuley_veira.engines.sydonic import BREATH_SEPARATOR, DefinitionPresentation, LeySyffPresentation, PresentationSpan
+from azazuley_veira.ui.exact_text import (
+    ExactFontTextEdit,
+    exact_grimchain_text_extent,
+    format_definition_grimchains,
+    format_exact_grimchain,
+    format_exact_grimchain_span,
+)
+
+from PySide6.QtWidgets import (
+    QFrame,
+    QHBoxLayout,
+    QLabel,
+    QPlainTextEdit,
+    QTabWidget,
+    QVBoxLayout,
+    QWidget,
+)
+
+
+class SubmitTextEdit(ExactFontTextEdit):
+    submitted = Signal(str)
+
+    def keyPressEvent(self, event: QKeyEvent) -> None:
+        if event.key() in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
+            self.submitted.emit(self.toPlainText())
+            return
+        super().keyPressEvent(event)
+
+
+
+
+class SingleLineGrimChainEdit(ExactFontTextEdit):
+    """Read-only single-line document surface with mixed exact GrimChain faces."""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setProperty("_exact_centered_logical_line", True)
+        self.setReadOnly(True)
+        self.setLineWrapMode(QPlainTextEdit.LineWrapMode.NoWrap)
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.document().setMaximumBlockCount(1)
+
+    def setText(self, value: str) -> None:
+        self.setPlainText(value)
+        format_exact_grimchain(self, value)
+
+    def text(self) -> str:
+        return self.toPlainText()
+
+    def setAlignment(self, alignment: Qt.AlignmentFlag) -> None:
+        option = QTextOption(self.document().defaultTextOption())
+        option.setAlignment(alignment)
+        self.document().setDefaultTextOption(option)
+
+
+class Terminal(QWidget):
+    user_song_submitted = Signal(str)
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(14, 14, 14, 14)
+        layout.setSpacing(8)
+
+        self.user_song = SubmitTextEdit()
+        self.user_song.setObjectName("userSong")
+        self._frame_field(self.user_song)
+        self.user_song.setLineWrapMode(QPlainTextEdit.LineWrapMode.WidgetWidth)
+        self.user_song.setTabChangesFocus(True)
+        self.user_song.setFixedHeight(58)
+        self.user_song.submitted.connect(self.user_song_submitted)
+        self.user_header = QHBoxLayout()
+        self.user_header.addWidget(self._label("Et Sonyera>"))
+        self.user_header.addStretch(1)
+        layout.addLayout(self.user_header)
+        layout.addWidget(self.user_song)
+
+        daemon_header = QHBoxLayout()
+        daemon_header.setSpacing(12)
+        daemon_header.addWidget(self._label("Domus House>"))
+        daemon_header.addStretch(1)
+        layout.addLayout(daemon_header)
+
+        daemon_row = QHBoxLayout()
+        daemon_row.setSpacing(0)
+        self.daemon_first = self._daemon_part()
+        self.daemon_middle = self._daemon_middle_part()
+        self.daemon_middle_second = self._daemon_middle_part()
+        self.daemon_second = self._daemon_part()
+
+        left_group = QWidget()
+        left_group_layout = QHBoxLayout(left_group)
+        left_group_layout.setContentsMargins(0, 0, 0, 0)
+        left_group_layout.setSpacing(0)
+        left_group_layout.addWidget(self.daemon_first)
+
+        center_stack = QWidget()
+        center_stack_layout = QVBoxLayout(center_stack)
+        center_stack_layout.setContentsMargins(0, 0, 0, 0)
+        center_stack_layout.setSpacing(6)
+        center_stack_layout.addWidget(self.daemon_middle)
+        center_stack_layout.addWidget(self.daemon_middle_second)
+
+        right_group = QWidget()
+        right_group_layout = QHBoxLayout(right_group)
+        right_group_layout.setContentsMargins(0, 0, 0, 0)
+        right_group_layout.setSpacing(0)
+        right_group_layout.addWidget(self.daemon_second)
+
+        daemon_row.addStretch(1)
+        daemon_row.addWidget(left_group, 0, Qt.AlignmentFlag.AlignVCenter)
+        daemon_row.addSpacing(10)
+        daemon_row.addWidget(center_stack, 0, Qt.AlignmentFlag.AlignVCenter)
+        daemon_row.addSpacing(10)
+        daemon_row.addWidget(right_group, 0, Qt.AlignmentFlag.AlignVCenter)
+        daemon_row.addStretch(1)
+        layout.addLayout(daemon_row)
+
+        self.output_tabs = QTabWidget()
+        self.output_tabs.setObjectName("outputTabs")
+
+        self.utterance_output = self._output_field()
+        self.ailalubar_output = self._output_field()
+        self.azazuley_output = self._output_field()
+        self.ailalaza_output = self._output_field()
+        self.definition_output = self._output_field()
+        self.leysyff_output = self._output_field()
+        self.ffysyel_output = self._output_field()
+
+        self.output_tabs.addTab(self.utterance_output, "Rabulalia")
+        self.output_tabs.addTab(self.ailalubar_output, "Ailalubar")
+        self.output_tabs.addTab(self.azazuley_output, "Azalalia")
+        self.output_tabs.addTab(self.ailalaza_output, "Ailalaza")
+        self.output_tabs.addTab(self.leysyff_output, "LeySyff")
+        self.output_tabs.addTab(self.ffysyel_output, "FfysYel")
+        self.output_tabs.addTab(self.definition_output, "Definition")
+        layout.addWidget(self.output_tabs, 1)
+
+        user_system_font = QFontDatabase.systemFont(QFontDatabase.SystemFont.GeneralFont)
+        self.user_song.setFont(user_system_font)
+        self.user_song.document().setDefaultFont(user_system_font)
+
+        prose_font = application_font()
+        for field in (
+            self.daemon_first,
+            self.daemon_middle,
+            self.daemon_middle_second,
+            self.daemon_second,
+            self.utterance_output,
+            self.ailalubar_output,
+            self.azazuley_output,
+            self.ailalaza_output,
+            self.leysyff_output,
+            self.ffysyel_output,
+            self.definition_output,
+        ):
+            field.setFont(prose_font)
+            field.document().setDefaultFont(prose_font)
+
+    def set_user_font_selector(self, selector: QWidget) -> None:
+        """Place the Et Sonyera font selector at the right edge of its label row."""
+        self.user_header.addWidget(selector, 0, Qt.AlignmentFlag.AlignRight)
+
+    def _daemon_part(self) -> SingleLineGrimChainEdit:
+        field = SingleLineGrimChainEdit()
+        field.setFrameShape(QFrame.Shape.NoFrame)
+        field.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        return field
+
+    def _daemon_middle_part(self) -> SingleLineGrimChainEdit:
+        field = SingleLineGrimChainEdit()
+        field.setFrameShape(QFrame.Shape.NoFrame)
+        field.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        return field
+
+    def _frame_field(self, field: QPlainTextEdit) -> None:
+        field.setFrameShape(QFrame.Shape.Box)
+        field.setFrameShadow(QFrame.Shadow.Plain)
+        field.setLineWidth(1)
+
+    def _label(self, text: str) -> QLabel:
+        label = QLabel(text)
+        label.setObjectName("fieldPrompt")
+        return label
+
+    def _output_field(self) -> QPlainTextEdit:
+        field = ExactFontTextEdit()
+        field.setObjectName("resultField")
+        self._frame_field(field)
+        field.setReadOnly(True)
+        field.setLineWrapMode(QPlainTextEdit.LineWrapMode.WidgetWidth)
+        return field
+
+    def _content_widgets(self) -> tuple[QWidget, ...]:
+        return (
+            self.user_song,
+            self.daemon_first,
+            self.daemon_middle,
+            self.daemon_middle_second,
+            self.daemon_second,
+            self.utterance_output,
+            self.ailalubar_output,
+            self.azazuley_output,
+            self.ailalaza_output,
+            self.leysyff_output,
+            self.ffysyel_output,
+            self.definition_output,
+        )
+
+    def set_text_colors(
+        self,
+        background: str,
+        text: str,
+        selection_background: str,
+        selection_text: str,
+    ) -> None:
+        for widget in self._content_widgets():
+            palette = widget.palette()
+            palette.setColor(QPalette.ColorRole.Base, QColor(background))
+            palette.setColor(QPalette.ColorRole.Text, QColor(text))
+            palette.setColor(QPalette.ColorRole.Highlight, QColor(selection_background))
+            palette.setColor(QPalette.ColorRole.HighlightedText, QColor(selection_text))
+            widget.setPalette(palette)
+
+        mirror_text = QColor(text).darker(165)
+        for mirror in (
+            self.daemon_first,
+            self.daemon_second,
+        ):
+            palette = mirror.palette()
+            palette.setColor(QPalette.ColorRole.Text, mirror_text)
+            mirror.setPalette(palette)
+
+    def set_tab_colors(self, background: str, text: str, body: str) -> None:
+        self.output_tabs.tabBar().setStyleSheet(
+            "QTabBar::tab {"
+            f"background: {body};"
+            f"color: {text};"
+            "border: 1px solid " + text + ";"
+            "padding: 5px 12px;"
+            "}"
+            "QTabBar::tab:selected {"
+            f"background: {background};"
+            f"color: {text};"
+            "}"
+        )
+
+    def set_daemon_tongue(self, first: str, middle: str, second: str, middle_second: str | None = None) -> None:
+        self.daemon_first.setText(first)
+        self.daemon_middle.setText(middle)
+        self.daemon_middle_second.setText(middle if middle_second is None else middle_second)
+        self.daemon_second.setText(second)
+        self.set_daemon_end_box_size()
+
+    def set_mirror_utterance(self, grimchain: str) -> None:
+        """Project the finite source into the authored four-field 12-glyph house."""
+        left_reflection = grimchain[:12][::-1]
+        right_reflection = grimchain[-12:][::-1]
+        self.set_daemon_tongue(
+            left_reflection,
+            grimchain[:12],
+            right_reflection,
+            grimchain[-12:],
+        )
+
+    def set_daemon_end_box_size(self) -> None:
+        """Fit the four Domus fields from their exact rendered GrimChain metrics."""
+        point_size = float(self.daemon_middle.font().pointSizeF())
+        texts = (
+            self.daemon_first.text(),
+            self.daemon_middle.text(),
+            self.daemon_middle_second.text(),
+            self.daemon_second.text(),
+        )
+        extents = tuple(exact_grimchain_text_extent(text, point_size) for text in texts)
+        mirror_width = max(extents[0].width(), extents[3].width())
+        center_width = max(extents[1].width(), extents[2].width())
+        exact_height = max((extent.height() for extent in extents), default=0.0)
+        if exact_height <= 0.0:
+            exact_height = QFontMetricsF(self.daemon_middle.font()).height()
+
+        mirror_padding = 8.0
+        center_padding = 12.0
+        vertical_padding = 10.0
+        center_vertical_padding = 6.0
+        mirror_box_width = max(16, int(mirror_width + mirror_padding + 0.999))
+        center_box_width = max(20, int(center_width + center_padding + 0.999))
+        mirror_box_height = int(exact_height + vertical_padding + 0.999)
+        center_box_height = int(exact_height + center_vertical_padding + 0.999)
+        self.daemon_first.setFixedSize(mirror_box_width, mirror_box_height)
+        self.daemon_second.setFixedSize(mirror_box_width, mirror_box_height)
+        self.daemon_middle.setFixedSize(center_box_width, center_box_height)
+        self.daemon_middle_second.setFixedSize(center_box_width, center_box_height)
+
+    def set_utterance(self, value: str) -> None:
+        self.utterance_output.setPlainText(value)
+        format_exact_grimchain(self.utterance_output, value)
+
+    def set_ailalubar(self, value: str) -> None:
+        self.ailalubar_output.setPlainText(value)
+        format_exact_grimchain(self.ailalubar_output, value)
+
+    def _apply_presentation_spans(
+        self,
+        widget: QPlainTextEdit,
+        spans: tuple[PresentationSpan, ...],
+        allowed_roles: frozenset[str],
+    ) -> None:
+        document_units = len(widget.toPlainText().encode("utf-16-le")) // 2
+        for span in spans:
+            if span.semantic_role not in allowed_roles:
+                raise ValueError(f"unsupported presentation role: {span.semantic_role!r}")
+            if span.qt_end > document_units:
+                raise ValueError(f"presentation span exceeds document: {span!r}")
+            cursor = QTextCursor(widget.document())
+            cursor.setPosition(span.qt_start)
+            cursor.setPosition(span.qt_end, QTextCursor.MoveMode.KeepAnchor)
+            if cursor.selectedText().replace("\u2029", "\n") != span.rendered_text:
+                raise ValueError(f"presentation span text/provenance mismatch: {span!r}")
+            if not isinstance(widget, ExactFontTextEdit):
+                raise TypeError("authored lexical rendering requires ExactFontTextEdit")
+            font_file = authored_lexical_font_file(span.font_family, span.source_authority)
+            widget.add_exact_font_span(span.qt_start, span.rendered_text, span.font_family, font_file)
+
+    def _set_written_projection(
+        self,
+        widget: ExactFontTextEdit,
+        value: str,
+        runs: tuple[PresentationSpan, ...],
+    ) -> None:
+        widget.setPlainText(value)
+        breath_face = grimchain_face_for_character(BREATH_SEPARATOR)
+        for index, span in enumerate(runs):
+            font_file = authored_lexical_font_file(span.font_family, span.source_authority)
+            widget.add_exact_font_span(span.qt_start, span.rendered_text, span.font_family, font_file)
+            if index + 1 < len(runs):
+                widget.add_exact_font_span(span.qt_end, BREATH_SEPARATOR, breath_face.family, breath_face.file)
+
+    def set_azazuley(self, value: str, runs: tuple[PresentationSpan, ...] = ()) -> None:
+        self._set_written_projection(self.azazuley_output, value, runs)
+
+    def set_ailalaza(self, value: str, runs: tuple[PresentationSpan, ...] = ()) -> None:
+        self._set_written_projection(self.ailalaza_output, value, runs)
+
+    def set_definition(self, value: str, runs: tuple[PresentationSpan, ...] = ()) -> None:
+        self.definition_output.setPlainText(value)
+        self._apply_presentation_spans(
+            self.definition_output, runs, frozenset({"definition_word"})
+        )
+        format_definition_grimchains(self.definition_output, value)
+
+    def set_leysyff(self, value: str, runs: tuple[PresentationSpan, ...] = ()) -> None:
+        self.leysyff_output.clear()
+
+    def set_definition_presentation(self, presentation: DefinitionPresentation) -> None:
+        self.definition_output.setPlainText(presentation.text)
+        self._apply_presentation_spans(
+            self.definition_output, presentation.lexical_spans, frozenset({"definition_word"})
+        )
+        for entry in presentation.entries:
+            for field in entry.fields:
+                if field.semantic_role == "grimchain" and field.value:
+                    format_exact_grimchain_span(
+                        self.definition_output, field.qt_value_start, field.value
+                    )
+
+    def set_leysyff_presentation(self, presentation: LeySyffPresentation) -> None:
+        self.leysyff_output.clear()
+
+    def set_ffysyel(self) -> None:
+        self.ffysyel_output.clear()
+
+    def show_error(self, value: str) -> None:
+        self.definition_output.setPlainText(value)

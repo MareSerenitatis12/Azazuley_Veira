@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Azazuley Veira
+Comment=Azazuley Veira Language Terminal
+Exec=/usr/local/bin/azazuley-veira
+Terminal=false
+Categories=Utility;Education;
+StartupNotify=true

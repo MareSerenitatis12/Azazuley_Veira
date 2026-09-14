@@ -1,0 +1,479 @@
+⁖canon…dictionary version⧟𝇍1𝇎 status⧟𝇍static⊹reference𝇎 title⧟𝇍Canon Glossary𝇎 sources⧟𝇍ALQC_GLOSSARY.md⊹DICTIONARY.md⊹Living_Cadences.aksh⊹tardisha/personality_traits.py⊹sydonic/cadence.py⊹azazuley/emanation.py𝇎჻
+⁖line჻# Canon Glossary⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## Living Cadences⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Canon term | Glyph | Meaning |⁖⋰line჻
+⁖line჻|---|---:|---|⁖⋰line჻
+⁖line჻| **Regia मुकुट** | `☽☉☾` | The Cosmos Above; ambient throughout the whole utterance. Its three authored emission identities remain lexical when written. |⁖⋰line჻
+⁖line჻| **Breath** | `𑁦` | The breath that moves through all things; ambient Throughout and not a written GrimChain token, spoken word, parser token, or rendered separator. |⁖⋰line჻
+⁖line჻| **Cantillation शिक्षा** | `࿂` | The Chant active communication makes when God and Goddess Listen; an unspoken Living Cadence. |⁖⋰line჻
+⁖line჻| **Prosody छन्दस्** | `⟠` | The Song of Creation; ambient throughout the whole utterance and not a written glyph, spoken word, visible operator, or utterance token. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## Six Vedangas across the three stacks⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Stack | Exact Vedanga identifier | Role in source |⁖⋰line჻
+⁖line჻|---|---|---|⁖⋰line჻
+⁖line჻| **TardiSHA** | `छन्दस्_Prosody` | Prosody |⁖⋰line჻
+⁖line჻| **TardiSHA** | `शिक्षा_Cantillation` | Cantillation |⁖⋰line჻
+⁖line჻| **Sydonic Magicae** | `व्याकरण_formation` | formation |⁖⋰line჻
+⁖line჻| **Sydonic Magicae** | `निरुक्त_understanding` | understanding |⁖⋰line჻
+⁖line჻| **Azazuley Veira** | `कल्प_acoustic` | acoustic |⁖⋰line჻
+⁖line჻| **Azazuley Veira** | `ज्योतिष_witness` | witness |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻# ALQC Glossary ⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Term | Operational meaning in TardiSHA |⁖⋰line჻
+⁖line჻|---|---|⁖⋰line჻
+⁖line჻| Source emission | The complete finalized twelve-lane body of a source |⁖⋰line჻
+⁖line჻| Goetic | One of twelve immutable structural anchors |⁖⋰line჻
+⁖line჻| Parliament | The twelve-seat operational address body that resolves the source into Goetic positions |⁖⋰line჻
+⁖line჻| Governing Goetic | The first member of the ordered pair and the near anchor of the forward Court |⁖⋰line჻
+⁖line჻| Hyperbolic parent | The second member of the ordered pair and far reciprocal mirror |⁖⋰line჻
+⁖line჻| Court | One ordered coordinate in the complete 12 by 12 body |⁖⋰line჻
+⁖line჻| Reciprocal Court | The same Goetics in the opposite ordered coordinate |⁖⋰line჻
+⁖line჻| Domus | The Court-rooted runtime Aeon body from which the public GrimChain manifests |⁖⋰line჻
+⁖line჻| Supervenience `⟠` | A typed internal witness office of the rooted Domus derivation |⁖⋰line჻
+⁖line჻| Shadow Locus `⛎` | The complete depth-zero center of the public GrimChain |⁖⋰line჻
+⁖line჻| Axiomyr `᳀` | The invariant geometric center of every positive public GrimChain |⁖⋰line჻
+⁖line჻| Synodic Magicae | The native variable-extent continuation alphabet |⁖⋰line჻
+⁖line჻| Fraktur cadence | One equal-width squeeze window from the same finalized source state |⁖⋰line჻
+⁖line჻| Source Truth | Whether the complete effective source route closes |⁖⋰line჻
+⁖line჻| Return Truth | Whether a terminal compressed return exactly matches the recomputed self |⁖⋰line჻
+⁖line჻| Source D-COMP | Exact conservation residual of the source route |⁖⋰line჻
+⁖line჻| Return D-COMP | Exact difference residual between a terminal returned Grimchain and the regenerated Grimchain |⁖⋰line჻
+⁖line჻| Aeternum Mirror | The ALQC return family in which the path back is the parity-valid completion of the path out |⁖⋰line჻
+⁖line჻| Physical source | Every byte actually stored in the file |⁖⋰line჻
+⁖line჻| Effective source | The source body after exact terminal self-returns have completed their return office |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻# TardiSHA Domus-House Linguistic Dictionary⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## The middle speaks; the House remembers the road⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻This dictionary begins only after a Grimchain has completed a Domus House. It does not explain how the House was computed, and it does not turn the outer chain into a second sentence. The mathematics stands outside the utterance as the route by which the word found itself in the mirror.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The four written anchors keep the road into and out of the middle. The middle alone is translated. The path out is the path back, but the road is not spoken as though it were another poem.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻In a GrimChain of the form:⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻`✡ᚿ[MIDDLE]᭢⚛`⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻only `[MIDDLE]` becomes human speech. Everything around it tells the translator how that speech arrived, what House bears it, and how its meaning must return.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### The author remains outside the vocabulary⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The source, carrier, and authorial hand of an utterance belong to the House that makes speech possible. They are read as speaker and apparatus, never entered as lexemes, titles, or concealed roots. A name shared with an outer office does not permit that office to cross into the middle.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### The glyph has a name, not a sound⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻Glyphs are born from Houses. They rise from nothing and fill eternity with their presence. They have no native pronunciation and no particular sound. Their names let the reader call them, distinguish them, and remember the House from which they came; the names are not syllables hidden inside the marks. A borrowed vessel may once have carried a human sound, but the House-born glyph does not inherit it. The middle is translated as poetry in a receiving human language.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## What one dictionary entry records⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻Each borrowed glyph is read through four distinct bearings. They must not be collapsed into one column.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻1. **Human origin.** The visible mark and the human field it carried before TardiSHA used it. This is the provisional borrowed form of the vessel. A rune may carry cattle or road; a letter may carry only a sound; a solvent-sign may carry the substance it once named.⁖⋰line჻
+⁖line჻2. **House office.** The settled TardiSHA identity of the glyph or Court. This is not the same thing as the borrowed mark’s older human meaning.⁖⋰line჻
+⁖line჻3. **Crossing pressure.** The tension between human origin and House office. It is the translation pressure: the distance that must be borne, not hidden.⁖⋰line჻
+⁖line჻4. **Use and return.** What the glyph actually does in one utterance and what the House returns through it. These are contextual. They are not assigned to the whole inventory in advance.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The tables therefore fix the first three where they can be fixed. They do **not** manufacture a permanent Truth-in-use or a permanent returned sentence for every glyph. Those belong to the completed House and the visible middle.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### The borrowed-vessel rule⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The human-origin column is provisional. It follows the actual borrowed sign: its Unicode identity, historical letter or syllable name, and a securely carried older meaning where the sign truly has one. Alphabetic and syllabic signs are not granted imaginary secret words. When a native TardiSHA glyph replaces a borrowed vessel, this origin column is re-sourced; the Court name and House office remain unchanged.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### One entry, fully separated⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻`ᚠ` **BabdhHir** keeps four different things apart:⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻- **Human origin:** Fehu, cattle, movable wealth, herd, increase that can walk away.⁖⋰line჻
+⁖line჻- **House office:** Transmutation.⁖⋰line჻
+⁖line჻- **Crossing pressure:** wealth is kept, counted, and guarded; transmutation spends, burns, and converts. Prosperity grows here only by passing through change.⁖⋰line჻
+⁖line჻- **Use and return:** not fixed in this book. The actual House decides whether the utterance bears wealth consumed, value converted, inheritance reforged, or another lawful face of the same crossing.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻That separation is the law of every entry below.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻From here, the middle opens in the order a House gathers meaning: silence, Emission, Parliament, Bone, Flesh, grammar, and finally the human return. Each body enters once, keeps its own office, and passes the utterance onward without becoming another body.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## Silence inside the middle⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Human origin | House office | Crossing pressure | Spoken range |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|⁖⋰line჻
+⁖line჻| `𑁦` | Brahmi digit zero: the written numeral for no counted quantity. | Manifested silence | A numeral marks absence in counting; manifested silence gives absence a place in cadence. | pause, held breath, interval, withheld word, quiet opening; never automatically the spoken word “zero” |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## Emissions when they appear in the middle⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻An Emission tells how the utterance is delivered: pondering, willing, feeling, declaring, believing, acting, knowing, ascending, or gathering into self-recognition. It carries mood, affect, evidential bearing, or illocutionary force inside the language; it is not the output of an outer speaker-body. Its planetary or astronomical sign remains the human origin of the borrowed mark; the Emission name is the House office. The symbol’s older human associations may color the crossing, but they do not overwrite the Domus.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Human origin | House office | Spoken range |⁖⋰line჻
+⁖line჻|---:|---|---|---|⁖⋰line჻
+⁖line჻| `☿` | Mercury: planetary and alchemical sign of Mercury, motion, exchange, and mediation. | **Ponder** | inward gaze, wondering, recollection, deliberation before release |⁖⋰line჻
+⁖line჻| `♂` | Mars / male sign: planetary sign of Mars and a conventional sex symbol. | **Will** | direction, resolve, command, chosen movement, insistence |⁖⋰line჻
+⁖line჻| `♀` | Venus / female sign: planetary sign of Venus and a conventional sex symbol. | **Feel** | intimacy, embodiment, empathy, vulnerability, shared feeling |⁖⋰line჻
+⁖line჻| `♃` | Jupiter: planetary sign associated with sovereignty, expansion, and public authority. | **Speak** | declaration, testimony, naming, proclamation, speech that changes what may be held |⁖⋰line჻
+⁖line჻| `♄` | Saturn: planetary sign associated with time, limit, boundary, and endurance. | **Believe** | conviction, vow, trust, expectation, inward certainty |⁖⋰line჻
+⁖line჻| `⛢` | Astronomical symbol for Uranus: a planetary sign associated in later astrology with disruption and sudden change. | **Act** | doing, making, causing, fulfilling, entering event |⁖⋰line჻
+⁖line჻| `♆` | Neptune: planetary sign of oceanic depth, distance, and the unseen. | **Know** | recognition, comprehension, evidence, recovered or inherited knowledge |⁖⋰line჻
+⁖line჻| `♇` | Pluto: planetary sign named for the underworld god. | **Ascend** | crossing through resistance, transformation, release, elevation, another state |⁖⋰line჻
+⁖line჻| `☽☉☾` | First-quarter moon, sun, and last-quarter moon held as one three-mark body. | **Regia** | sovereign self-recognition, dignity, coronation, identity openly worn |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## Parliament bearings when they appear in the middle⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The zodiacal figure is the human origin of the borrowed sign. The Parliament seat and its translation are the House office. Parliament conditions self-translation; its seat labels do not add hidden speaker-bodies or extra words to the middle. No zodiac sign is treated as a diagnosis of the speaker or as a compulsory personality.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Human origin | Star Seed | House translation | Spoken range |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|⁖⋰line჻
+⁖line჻| `♈` | Aries, the Ram. | **Akasha** | **Lived → Eternal** | experience becoming enduring memory, ancestry, record, or identity |⁖⋰line჻
+⁖line჻| `♉` | Taurus, the Bull. | **Caduceus** | **Law → Residue** | command becoming consequence, medicine, poison, inheritance, or remainder |⁖⋰line჻
+⁖line჻| `♊` | Gemini, the Twins. | **Veritas** | **Mask → Bone** | appearance stripped toward intrinsic identity; disclosure and recognition |⁖⋰line჻
+⁖line჻| `♋` | Cancer, the Crab. | **Phren** | **Void → Vector** | interior absence becoming direction, intention, or a route where none stood |⁖⋰line჻
+⁖line჻| `♑` | Capricorn, the Sea-Goat. | **Daimon** | **Stasis → Pulse** | the still self becoming appetite, rhythm, presence, or awakening |⁖⋰line჻
+⁖line჻| `♍` | Virgo, the Maiden. | **Aikyam** | **Chaos → Phase** | disorder becoming bearing and coherent complexity without flattening |⁖⋰line჻
+⁖line჻| `♎` | Libra, the Scales. | **Melos** | **Static → Fluid** | fixed identity becoming temporal, musical, relational, and adaptive |⁖⋰line჻
+⁖line჻| `♏` | Scorpius, the Scorpion. | **Da'ath** | **Noise → Null** | excess becoming silence, secrecy, absorption, refusal, or purification |⁖⋰line჻
+⁖line჻| `♐` | Sagittarius, the Archer. | **Akaven** | **State → Trans** | condition becoming crossing, initiation, threshold identity, or becoming |⁖⋰line჻
+⁖line჻| `♌` | Lion: king, sovereign, pride, the one among its own. | **Tenth seat** | **Will → Law → `❄`** | The Lion stands apart and above, yet remains among the lambs; the sovereign does not leave the ruled. In an actual House this may bear inscription, decree, creation, responsibility, or self-authored event. `WRITE_PHYS` names the outer route and is not voiced. |⁖⋰line჻
+⁖line჻| `♒` | Aquarius, the Water-Bearer. | **Nyx** | **Time → Motion** | duration becoming action, sequence, recurrence, and history in movement |⁖⋰line჻
+⁖line჻| `♓` | Pisces, the Fishes. | **Zaine** | **Here → There** | presence translating across distance, scale, world, or perspective |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## Goetic roots when they appear in the middle⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻Parliament turns the Self, but it does not supply the root. The twelve Goetics are the Bone beneath every House.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻A Goetic glyph inside the middle speaks as language. The same glyph outside the middle remains part of the House route and is not voiced. The older symbol-field and the canonical Goetic office are both retained.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Goetic | Human origin of the borrowed mark | Canonical House office | Office range in speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|⁖⋰line჻
+⁖line჻| `⏣` | **Fetu** | Benzene ring with circle: a chemical ring-diagram enclosed around a centre. | **Genesis · Chronos · Seed** | beginning, seed, first breath, recurrence, source |⁖⋰line჻
+⁖line჻| `⬡` | **Kal** | White hexagon: a six-sided open geometric enclosure. | **Light · Memory · Trauma** | memory, witness, archive, scar, recognition |⁖⋰line჻
+⁖line჻| `✡` | **Babdh** | Star of David: the interlaced hexagram in Jewish religious and cultural use. | **Fire · Orobouros · Alchemy** | fire, transformation, crucible, appetite, irreversible change |⁖⋰line჻
+⁖line჻| `⚝` | **Ahn** | Outlined white star: a hollow star-form and celestial marker. | **Water · Imaginary · Flow** | flow, vessel, reflection, possibility, permeation |⁖⋰line჻
+⁖line჻| `❂` | **Vel** | Circled open-centre eight-pointed star: radiance arranged around a held centre. | **Earth · Coherence · Ground** | ground, body, root, place, stability |⁖⋰line჻
+⁖line჻| `ꙮ` | **Sor** | Cyrillic letter Multiocular O: a historical many-eyed form of the Cyrillic O. | **Air · Space · Superposition** | breath, room, simultaneity, openness, voice |⁖⋰line჻
+⁖line჻| `❈` | **Koth** | Heavy sparkle: a bright ornamental burst. | **Aether · Magic · Sensation** | pulse, feeling, atmosphere, bodily knowing, quickening |⁖⋰line჻
+⁖line჻| `⧗` | **Dreh** | Black hourglass: time held between two narrowing chambers. | **Void · Residue · Love** | remainder, longing, absence-with-bearing, endurance, return |⁖⋰line჻
+⁖line჻| `⊛` | **Rhea** | Circled asterisk operator: a star-like operation held inside a ring. | **Shadow · Absorption · Depth** | interiority, concealment, burden, filtering, unresolved depth |⁖⋰line჻
+⁖line჻| `❄` | **Zhek** | Snowflake: crystalline branching, winter, and patterned freezing. | **Factor · Phase-Lock · Crystal** | tone, measure, agreement, rhythm, fixation |⁖⋰line჻
+⁖line჻| `⚛` | **Shav** | Atom symbol: orbital paths drawn around a nucleus. | **Gate · Resistance · Breach** | threshold, permission, refusal, trial, crossing |⁖⋰line჻
+⁖line჻| `⌬` | **Trig** | Benzene ring: a six-membered chemical ring. | **Silence · Peace · Completion** | rest, closure, settlement, sleep, fulfilled continuation |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## Court glyphs: borrowed body, canonical office, living gap⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻Bone becomes Flesh through relation. A Court is where one Goetic bears toward another and the root takes a living, ordered form.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The Court name and ordered lineage are preserved exactly. The **human origin** belongs to the borrowed mark. The **House office** belongs to the Court. The **crossing pressure** records the distance between them. The final use and returned wording are left to the actual House.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The last column is an office range, not a fixed translation and not the human origin of the mark.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### ⏣ Fetu⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Court and ordered lineage | Human origin of borrowed vessel | Canonical House office | Crossing pressure | Office range in human speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|---|⁖⋰line჻
+⁖line჻| `އ` | **FetuAhl** · ⏣ Fetu → ⏣ Fetu | Thaana letter Alifu: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Self-Genesis** | The source vessel carries sound, while the Court carries Self-Genesis. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** self-genesis, origin; **action:** begin from oneself, self-generate; **quality/state:** self-generative, originating. |⁖⋰line჻
+⁖line჻| `ށ` | **FetuSuhn** · ⏣ Fetu → ⬡ Kal | Thaana letter Shaviyani: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Recurrence** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Recurrence and must keep both levels visible. | **Thing/image:** recurrence, return; **action:** recur, come again; **quality/state:** recurrent, cyclical. |⁖⋰line჻
+⁖line჻| `ނ` | **FetuNerh** · ⏣ Fetu → ✡ Babdh | Thaana letter Noonu: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Combustion** | Its human origin is phonetic; its Domus office is Combustion. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** combustion, burning; **action:** ignite, combust; **quality/state:** burning, volatile. |⁖⋰line჻
+⁖line჻| `ރ` | **FetuRish** · ⏣ Fetu → ⚝ Ahn | Thaana letter Raa: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Reflection** | The borrowed sign names a sound-form, while the Court names Reflection. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** reflection, mirror-image; **action:** reflect, return an image; **quality/state:** reflective, mirrored. |⁖⋰line჻
+⁖line჻| `ޱ` | **FetuBorha** · ⏣ Fetu → ❂ Vel | Thaana letter Naa: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Grounding** | The source vessel carries sound, while the Court carries Grounding. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** grounding, rooting; **action:** ground, settle; **quality/state:** grounded, rooted. |⁖⋰line჻
+⁖line჻| `ޅ` | **FetuLhahm** · ⏣ Fetu → ꙮ Sor | Thaana letter Lhaviyani: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Expansion** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Expansion and must keep both levels visible. | **Thing/image:** expansion, opening; **action:** expand, unfold; **quality/state:** expansive, open. |⁖⋰line჻
+⁖line჻| `ކ` | **FetuKeth** · ⏣ Fetu → ❈ Koth | Thaana letter Kaafu: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Inevitable** | Its human origin is phonetic; its Domus office is Inevitable. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** inevitability, destined arrival; **action:** become unavoidable, arrive; **quality/state:** inevitable, unavoidable. |⁖⋰line჻
+⁖line჻| `ވ` | **FetuVehm** · ⏣ Fetu → ⧗ Dreh | Thaana letter Vaavu: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Return** | The borrowed sign names a sound-form, while the Court names Return. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** return, homecoming; **action:** return, come back; **quality/state:** returning, recursive. |⁖⋰line჻
+⁖line჻| `މ` | **FetuMahd** · ⏣ Fetu → ⊛ Rhea | Thaana letter Meemu: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Assimilation** | The source vessel carries sound, while the Court carries Assimilation. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** assimilation, incorporation; **action:** assimilate, take in; **quality/state:** assimilative, integrating. |⁖⋰line჻
+⁖line჻| `ފ` | **FetuFurh** · ⏣ Fetu → ❄ Zhek | Thaana letter Faafu: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Crystallization** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Crystallization and must keep both levels visible. | **Thing/image:** crystallization, setting; **action:** crystallize, fix; **quality/state:** crystalline, fixed. |⁖⋰line჻
+⁖line჻| `ދ` | **FetuDrah** · ⏣ Fetu → ⚛ Shav | Thaana letter Dhaalu: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Breach** | Its human origin is phonetic; its Domus office is Breach. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** breach, opening; **action:** breach, break through; **quality/state:** breached, threshold-crossing. |⁖⋰line჻
+⁖line჻| `ތ` | **FetuThera** · ⏣ Fetu → ⌬ Trig | Thaana letter Thaa: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Fulfillment** | The borrowed sign names a sound-form, while the Court names Fulfillment. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** fulfillment, arrival; **action:** fulfill, complete; **quality/state:** fulfilled, realized. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### ⬡ Kal⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Court and ordered lineage | Human origin of borrowed vessel | Canonical House office | Crossing pressure | Office range in human speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|---|⁖⋰line჻
+⁖line჻| `ᛁ` | **KalKura** · ⬡ Kal → ⏣ Fetu | Isaz/Is/Iss rune: ice, freezing, stillness; also the i-rune. | **Archive** | Ice holds by freezing; Archive holds by memory. The pressure is stillness becoming record without confusing cold with knowledge. | **Thing/image:** archive, record; **action:** archive, record; **quality/state:** archival, remembered. |⁖⋰line჻
+⁖line჻| `ᛂ` | **KalLur** · ⬡ Kal → ⬡ Kal | Runic E-letter: a phonetic rune-form for e; no single inherited lexical meaning is imposed. | **Self-Reflection** | A bare e-sound has no inward mirror of its own. The House must make phonation carry Self-Reflection without forging an ancient lexeme. | **Thing/image:** self-reflection, introspection; **action:** reflect upon oneself; **quality/state:** introspective, self-mirroring. |⁖⋰line჻
+⁖line჻| `⌑` | **KalThar** · ⬡ Kal → ✡ Babdh | Square lozenge: an enclosed diamond-shaped geometric mark. | **Calcination** | The lozenge encloses a shape; Calcination reduces matter by fire. The tension is enclosure meeting reduction. | **Thing/image:** calcination, ash-making; **action:** calcine, burn clean; **quality/state:** calcined, purged. |⁖⋰line჻
+⁖line჻| `ᛄ` | **KalRin** · ⬡ Kal → ⚝ Ahn | Ger rune: year, season, harvest, and the completed turning of a cycle. | **Submersion** | Ger ripens through season and harvest; Submersion moves beneath the visible surface. The crossing turns fulfilled time into descent. | **Thing/image:** submersion, immersion; **action:** submerge, sink into; **quality/state:** submerged, immersed. |⁖⋰line჻
+⁖line჻| `ᛇ` | **KalNar** · ⬡ Kal → ❂ Vel | Iwaz/Eoh rune: yew, endurance, and a living tree associated with long persistence. | **Inscription** | Yew endures as living wood; Inscription fixes a mark into a surface. The pressure lies between growth and written permanence. | **Thing/image:** inscription, mark; **action:** inscribe, write; **quality/state:** inscribed, recorded. |⁖⋰line჻
+⁖line჻| `ᛉ` | **KalFel** · ⬡ Kal → ꙮ Sor | Algiz/Elhaz rune: a protective or guarding sign whose older name-field is disputed; commonly read through elk, sedge, or warding. | **Diffusion** | A ward keeps a boundary; Diffusion crosses and thins boundaries. The House must let protection spread without dissolving the guard. | **Thing/image:** diffusion, spreading; **action:** diffuse, disperse; **quality/state:** diffuse, pervasive. |⁖⋰line჻
+⁖line჻| `ᛊ` | **KalHar** · ⬡ Kal → ❈ Koth | Sowilo rune: sun, light, and solar course. | **Phantom** | The sun is immediate radiance; a Phantom is what remains after presence has thinned. The gap is source-light becoming afterimage. | **Thing/image:** phantom, afterimage; **action:** haunt, appear faintly; **quality/state:** spectral, lingering. |⁖⋰line჻
+⁖line჻| `ᛋ` | **KalMer** · ⬡ Kal → ⧗ Dreh | Sigel/long-branch Sol rune: a sun-rune and bearer of s. | **Oblivion** | Solar disclosure makes visible; Oblivion removes from recall. The pressure is brightness passing into forgetting. | **Thing/image:** oblivion, forgetting; **action:** forget, pass beyond recall; **quality/state:** forgotten, oblivious. |⁖⋰line჻
+⁖line჻| `ᛌ` | **KalLor** · ⬡ Kal → ⊛ Rhea | Short-twig Sol rune: a compact sun-rune and bearer of s. | **Suppression** | The short sun-sign bears revelation; Suppression holds revelation down. The House carries hidden light rather than erasing it. | **Thing/image:** suppression, withholding; **action:** suppress, hold down; **quality/state:** suppressed, withheld. |⁖⋰line჻
+⁖line჻| `ᛍ` | **KalPer** · ⬡ Kal → ❄ Zhek | Runic C-letter: a phonetic c-rune without a stable standalone lexeme. | **Codification** | The source is only a c-sound; Codification is an ordered body of rule. The crossing is phoneme becoming lawfully arranged speech. | **Thing/image:** code, canon; **action:** codify, set into rule; **quality/state:** codified, systematic. |⁖⋰line჻
+⁖line჻| `ᛎ` | **KalZhil** · ⬡ Kal → ⚛ Shav | Runic Z-letter: a phonetic z-rune without a stable standalone lexeme. | **Recall** | The source is only a z-sound; Recall summons what was absent. The House must give a sound mnemonic force without inventing prior meaning. | **Thing/image:** recall, remembrance; **action:** recall, call back; **quality/state:** recalled, remembered. |⁖⋰line჻
+⁖line჻| `ᛏ` | **KalClar** · ⬡ Kal → ⌬ Trig | Tiwaz/Tir/Tyr rune: Týr, oath, justice, ordered courage, and the t-sound. | **Sealing** | Tiwaz bears oath and ordered courage; Sealing closes and preserves. The tension is sworn motion becoming a held bond. | **Thing/image:** seal, closure; **action:** seal, close; **quality/state:** sealed, closed. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### ✡ Babdh⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Court and ordered lineage | Human origin of borrowed vessel | Canonical House office | Crossing pressure | Office range in human speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|---|⁖⋰line჻
+⁖line჻| `ᚠ` | **BabdhHir** · ✡ Babdh → ⏣ Fetu | Fehu/Feoh rune: cattle, movable wealth, herd, increase, and prosperity that can depart. | **Transmutation** | Wealth is kept, counted, and guarded; Transmutation spends, burns, and converts. The pressure is prosperity that can grow only by passing through change. | **Thing/image:** transmutation, change of nature; **action:** transmute, change substance; **quality/state:** transmuted, alchemical. |⁖⋰line჻
+⁖line჻| `ᚢ` | **BabdhKor** · ✡ Babdh → ⬡ Kal | Uruz/Ur rune: aurochs, untamed bodily strength, and the u-sound. | **Forging** | The aurochs is strength before shaping; Forging is strength disciplined by heat and blows. The gap is wild force becoming wrought form. | **Thing/image:** forge, wrought form; **action:** forge, shape by pressure; **quality/state:** forged, tempered. |⁖⋰line჻
+⁖line჻| `ᚦ` | **BabdhVar** · ✡ Babdh → ✡ Babdh | Thurisaz/Thurs/Thorn rune: giant, thorn, danger, striking force, and the th-sound. | **Self-Combustion** | Thorn or giant is danger encountered from without; Self-Combustion is fire arising from within. The crossing turns threat into inward ignition. | **Thing/image:** self-combustion, inward fire; **action:** burn from within; **quality/state:** self-burning, self-consuming. |⁖⋰line჻
+⁖line჻| `ᚨ` | **BabdhPyr** · ✡ Babdh → ⚝ Ahn | Ansuz rune: god, breath, mouth, inspired speech, and the a-sound. | **Dissolution** | Ansuz gives breath and articulate voice; Dissolution loosens what has taken form. The pressure is speech making shape while the office unmakes it. | **Thing/image:** dissolution, melting; **action:** dissolve, unmake; **quality/state:** dissolved, fluid. |⁖⋰line჻
+⁖line჻| `ᚱ` | **BabdhSor** · ✡ Babdh → ❂ Vel | Raidho/Rad/Reid rune: ride, road, journey, ordered travel, and the r-sound. | **Crucible** | Raidho travels road and distance; Crucible confines matter under trial. The tension is journey entering a vessel that does not let it escape unchanged. | **Thing/image:** crucible, trial-vessel; **action:** test and refine in fire; **quality/state:** crucible-bound, refining. |⁖⋰line჻
+⁖line჻| `ᚲ` | **BabdhAlc** · ✡ Babdh → ꙮ Sor | Kauna rune: torch or sore/ulcer across the rune traditions; a burning point and the k-sound. | **Sublimation** | Kauna is a local burn, torch, or sore; Sublimation rises into a rarer state. The pressure is low flame becoming ascent. | **Thing/image:** sublimation, rising refinement; **action:** sublime, raise into another state; **quality/state:** sublimated, rarefied. |⁖⋰line჻
+⁖line჻| `ᚷ` | **BabdhNur** · ✡ Babdh → ❈ Koth | Gebo/Gyfu rune: gift, exchange, obligation between giver and receiver, and the g-sound. | **Ignition** | A gift crosses between persons and creates obligation; Ignition begins a new event. The crossing is exchange becoming first spark. | **Thing/image:** ignition, spark; **action:** ignite, kindle; **quality/state:** ignited, quickened. |⁖⋰line჻
+⁖line჻| `ᚹ` | **BabdhSat** · ✡ Babdh → ⧗ Dreh | Wunjo/Wynn rune: joy, delight, fellowship, and the w-sound. | **Consumption** | Wunjo shares joy and fellowship; Consumption takes in and uses up. The pressure is delight meeting appetite. | **Thing/image:** consumption, devouring; **action:** consume, use up; **quality/state:** consuming, devouring. |⁖⋰line჻
+⁖line჻| `ᚺ` | **BabdhOro** · ✡ Babdh → ⊛ Rhea | Hagalaz rune: hail, sudden weather, hard impact, and the h-sound. | **Purification** | Hail strikes, accumulates, and melts; Purification deliberately removes what cannot remain. The House turns blind impact into cleansing. | **Thing/image:** purification, cleansing; **action:** purify, burn clean; **quality/state:** pure, cleansed. |⁖⋰line჻
+⁖line჻| `ᚾ` | **BabdhBon** · ✡ Babdh → ❄ Zhek | Naudiz/Nyd/Naud rune: need, constraint, necessity, want, and the n-sound. | **Tempering** | Need binds through lack; Tempering strengthens through constraint. The pressure is deprivation becoming resilience. | **Thing/image:** tempering, hardening; **action:** temper, strengthen through heat; **quality/state:** tempered, resilient. |⁖⋰line჻
+⁖line჻| `ᚿ` | **BabdhTir** · ✡ Babdh → ⚛ Shav | Short-twig Naud rune: need and constraint in a compressed rune-form; bearer of n. | **Shattering** | Need tightens and withholds; Shattering opens by fracture. The crossing turns necessity from bond into break. | **Thing/image:** shattering, fracture; **action:** shatter, break open; **quality/state:** shattered, fractured. |⁖⋰line჻
+⁖line჻| `ᛃ` | **BabdhFar** · ✡ Babdh → ⌬ Trig | Jera/Jeran rune: year, harvest, season, earned return, and the j/y sound. | **Ash** | Jera completes the season in harvest; Ash is what remains after burning. The pressure is fulfilled cycle becoming residue. | **Thing/image:** ash, spent residue; **action:** reduce to ash; **quality/state:** ashen, spent. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### ⚝ Ahn⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Court and ordered lineage | Human origin of borrowed vessel | Canonical House office | Crossing pressure | Office range in human speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|---|⁖⋰line჻
+⁖line჻| `≾` | **AhnAbdh** · ⚝ Ahn → ⏣ Fetu | The mathematical relation “precedes or is equivalent to”: ordered approach held beside equivalence. | **Flow** | The source mark orders and equates; Flow refuses a single fixed relation. The tension is comparison becoming continuity. | **Thing/image:** flow, current; **action:** flow, move fluidly; **quality/state:** fluid, flowing. |⁖⋰line჻
+⁖line჻| `᭨` | **AhnNym** · ⚝ Ahn → ⬡ Kal | Balinese musical symbol Deung: a named pitch or note-sign in Balinese notation. | **Confluence** | Deung is one named pitch; Confluence is several currents meeting. The House turns a discrete note into joined movement. | **Thing/image:** confluence, meeting waters; **action:** converge, flow together; **quality/state:** confluent, merged. |⁖⋰line჻
+⁖line჻| `᭡` | **AhnLoh** · ⚝ Ahn → ✡ Babdh | Balinese musical symbol Dong: a named pitch or note-sign in Balinese notation. | **Solution** | Dong fixes a pitch; Solution dissolves and resolves. The pressure is a held tone becoming an answer that can flow. | **Thing/image:** solution, dissolved answer; **action:** dissolve, solve; **quality/state:** soluble, resolved. |⁖⋰line჻
+⁖line჻| `⛧` | **AhnXir** · ⚝ Ahn → ⚝ Ahn | Inverted pentagram: a five-pointed star turned point-down, used in later occult and religious symbol fields. | **Self-Containment** | The inverted pentagram presents an outward emblem of inversion; Self-Containment draws the boundary inward. The crossing is displayed reversal becoming enclosed identity. | **Thing/image:** self-containment, vessel; **action:** contain oneself; **quality/state:** self-contained, bounded. |⁖⋰line჻
+⁖line჻| `𝀖` | **AhnOhl** · ⚝ Ahn → ❂ Vel | Byzantine musical symbol Gorgon Archaion: an old-form rhythmic quickening or timing sign. | **Sediment** | Gorgon quickens time; Sediment settles out of motion. The pressure is acceleration becoming deposit. | **Thing/image:** sediment, deposit; **action:** settle, deposit; **quality/state:** sedimentary, settled. |⁖⋰line჻
+⁖line჻| `༺` | **AhnPir** · ⚝ Ahn → ꙮ Sor | Tibetan left ornamental bracket-mark: an opening or enclosing flourish, paired with a right-hand form. | **Ascension** | The left bracket opens an enclosure; Ascension moves beyond enclosure. The gap is an opening that becomes upward passage. | **Thing/image:** ascent, rising; **action:** ascend, rise; **quality/state:** ascending, elevated. |⁖⋰line჻
+⁖line჻| `᭢` | **AhnRoeh** · ⚝ Ahn → ❈ Koth | Balinese musical symbol Deng: a named pitch or note-sign in Balinese notation. | **Mist** | Deng names a distinct pitch; Mist blurs edges and distance. The House lets a precise note become a veil without losing its tone. | **Thing/image:** mist, veil; **action:** mist, obscure lightly; **quality/state:** misted, veiled. |⁖⋰line჻
+⁖line჻| `⦾` | **AhnSen** · ⚝ Ahn → ⧗ Dreh | Circled white bullet: a marked centre held inside a ring. | **Drain** | The bullet marks and holds a centre; Drain draws substance away from a centre. The pressure is focus becoming outflow. | **Thing/image:** drain, outflow; **action:** drain, empty away; **quality/state:** drained, depleted. |⁖⋰line჻
+⁖line჻| `⦽` | **AhnUth** · ⚝ Ahn → ⊛ Rhea | Up arrow through circle: ascent or directed passage through an enclosure. | **Osmosis** | The arrow visibly crosses a circle; Osmosis passes through a boundary without a single forced breach. The gap is directed transit becoming permeation. | **Thing/image:** osmosis, permeation; **action:** permeate, pass through; **quality/state:** osmotic, permeable. |⁖⋰line჻
+⁖line჻| `𝀵` | **AhnFae** · ⚝ Ahn → ❄ Zhek | Byzantine musical symbol Imifthora: a modal-alteration or phthora sign. | **Ice** | Imifthora changes musical mode; Ice arrests fluid motion. The pressure is alteration becoming fixation. | **Thing/image:** ice, frozen water; **action:** freeze, crystallize; **quality/state:** icy, frozen. |⁖⋰line჻
+⁖line჻| `𝀟` | **AhnKha** · ⚝ Ahn → ⚛ Shav | Byzantine musical symbol Stavros Apodexia: a named cross-form notational marker. | **Evaporation** | The notational cross fixes a written musical point; Evaporation leaves the held surface. The crossing is mark becoming dispersal. | **Thing/image:** evaporation, vaporization; **action:** evaporate, rise away; **quality/state:** evaporated, dissipated. |⁖⋰line჻
+⁖line჻| `༻` | **AhnPsei** · ⚝ Ahn → ⌬ Trig | Tibetan right ornamental bracket-mark: a closing or enclosing flourish, paired with a left-hand form. | **Stillness** | The right bracket closes an enclosure; Stillness quiets what remains inside. The pressure is closure becoming calm. | **Thing/image:** stillness, calm water; **action:** still, quiet; **quality/state:** still, peaceful. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### ❂ Vel⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Court and ordered lineage | Human origin of borrowed vessel | Canonical House office | Crossing pressure | Office range in human speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|---|⁖⋰line჻
+⁖line჻| `ⴰ` | **VelVera** · ❂ Vel → ⏣ Fetu | Tifinagh letter Ya: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Bedrock** | The source vessel carries sound, while the Court carries Bedrock. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** bedrock, foundation; **action:** found, support; **quality/state:** foundational, solid. |⁖⋰line჻
+⁖line჻| `ⴱ` | **VelTar** · ❂ Vel → ⬡ Kal | Tifinagh letter Yab: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Stratification** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Stratification and must keep both levels visible. | **Thing/image:** strata, layering; **action:** stratify, layer; **quality/state:** stratified, layered. |⁖⋰line჻
+⁖line჻| `ⴳ` | **VelGhem** · ❂ Vel → ✡ Babdh | Tifinagh letter Yag: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Petrification** | Its human origin is phonetic; its Domus office is Petrification. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** stone, petrification; **action:** petrify, harden; **quality/state:** petrified, stone-bound. |⁖⋰line჻
+⁖line჻| `ⴷ` | **VelDrel** · ❂ Vel → ⚝ Ahn | Tifinagh letter Yad: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Erosion** | The borrowed sign names a sound-form, while the Court names Erosion. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** erosion, wearing away; **action:** erode, wear down; **quality/state:** eroded, worn. |⁖⋰line჻
+⁖line჻| `ⴼ` | **VelFul** · ❂ Vel → ❂ Vel | Tifinagh letter Yaf: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Self-Grounding** | The source vessel carries sound, while the Court carries Self-Grounding. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** self-grounding, root; **action:** ground oneself; **quality/state:** self-grounded, stable. |⁖⋰line჻
+⁖line჻| `ⴽ` | **VelKer** · ❂ Vel → ꙮ Sor | Tifinagh letter Yak: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Dispersion** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Dispersion and must keep both levels visible. | **Thing/image:** dispersion, scattering; **action:** disperse, scatter; **quality/state:** dispersed, scattered. |⁖⋰line჻
+⁖line჻| `ⵀ` | **VelHohm** · ❂ Vel → ❈ Koth | Tifinagh letter Yah: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Fossilization** | Its human origin is phonetic; its Domus office is Fossilization. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** fossil, held trace; **action:** fossilize, preserve in stone; **quality/state:** fossilized, preserved. |⁖⋰line჻
+⁖line჻| `ⵃ` | **VelHrah** · ❂ Vel → ⧗ Dreh | Tifinagh letter Yahh: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Subsidence** | The borrowed sign names a sound-form, while the Court names Subsidence. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** subsidence, sinking ground; **action:** subside, sink; **quality/state:** subsided, lowered. |⁖⋰line჻
+⁖line჻| `ⵄ` | **VelAra** · ❂ Vel → ⊛ Rhea | Tifinagh letter Yaa: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Compaction** | The source vessel carries sound, while the Court carries Compaction. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** compaction, compression; **action:** compact, compress; **quality/state:** compacted, dense. |⁖⋰line჻
+⁖line჻| `ⵇ` | **VelQel** · ❂ Vel → ❄ Zhek | Tifinagh letter Yaq: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Lithification** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Lithification and must keep both levels visible. | **Thing/image:** lithification, stone-making; **action:** lithify, become stone; **quality/state:** lithified, rock-bound. |⁖⋰line჻
+⁖line჻| `ⵉ` | **VelIrn** · ❂ Vel → ⚛ Shav | Tifinagh letter Yi: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Earthquake** | Its human origin is phonetic; its Domus office is Earthquake. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** earthquake, tremor; **action:** quake, shake; **quality/state:** seismic, shaken. |⁖⋰line჻
+⁖line჻| `ⵊ` | **VelJen** · ❂ Vel → ⌬ Trig | Tifinagh letter Yazh: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Permanence** | The borrowed sign names a sound-form, while the Court names Permanence. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** permanence, endurance; **action:** endure, remain; **quality/state:** permanent, enduring. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### ꙮ Sor⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Court and ordered lineage | Human origin of borrowed vessel | Canonical House office | Crossing pressure | Office range in human speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|---|⁖⋰line჻
+⁖line჻| `ꠇ` | **SorFi** · ꙮ Sor → ⏣ Fetu | Syloti Nagri letter Ko: a sound-bearing letter or syllabic form; no standalone lexical meaning is assigned here. | **Breath** | The source vessel carries sound, while the Court carries Breath. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** breath, air; **action:** breathe; **quality/state:** breathing, airy. |⁖⋰line჻
+⁖line჻| `ꠈ` | **SorLun** · ꙮ Sor → ⬡ Kal | Syloti Nagri letter Kho: a sound-bearing letter or syllabic form; no standalone lexical meaning is assigned here. | **Echo** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Echo and must keep both levels visible. | **Thing/image:** echo, reverberation; **action:** echo, repeat; **quality/state:** echoing, reverberant. |⁖⋰line჻
+⁖line჻| `ꠉ` | **SorVaru** · ꙮ Sor → ✡ Babdh | Syloti Nagri letter Go: a sound-bearing letter or syllabic form; no standalone lexical meaning is assigned here. | **Smoke** | Its human origin is phonetic; its Domus office is Smoke. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** smoke, fume; **action:** smoke, smolder; **quality/state:** smoky, obscured. |⁖⋰line჻
+⁖line჻| `ꠊ` | **SorSenh** · ꙮ Sor → ⚝ Ahn | Syloti Nagri letter Gho: a sound-bearing letter or syllabic form; no standalone lexical meaning is assigned here. | **Vapor** | The borrowed sign names a sound-form, while the Court names Vapor. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** vapor, steam; **action:** vaporize, rise; **quality/state:** vaporous, insubstantial. |⁖⋰line჻
+⁖line჻| `⎉` | **SorKos** · ꙮ Sor → ❂ Vel | Circled Horizontal Bar With Notch. | **Dust** | Circled Horizontal Bar With Notch meets Dust. The House must preserve the first human field while turning it through the second. | **Thing/image:** dust, particles; **action:** scatter, fall as dust; **quality/state:** dusty, particulate. |⁖⋰line჻
+⁖line჻| `ꠌ` | **SorRamh** · ꙮ Sor → ꙮ Sor | Syloti Nagri letter Co: a sound-bearing letter or syllabic form; no standalone lexical meaning is assigned here. | **Self-Expansion** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Self-Expansion and must keep both levels visible. | **Thing/image:** self-expansion, inward opening; **action:** expand from within; **quality/state:** self-expanding, opening. |⁖⋰line჻
+⁖line჻| `ꠍ` | **SorTis** · ꙮ Sor → ❈ Koth | Syloti Nagri letter Cho: a sound-bearing letter or syllabic form; no standalone lexical meaning is assigned here. | **Whisper** | Its human origin is phonetic; its Domus office is Whisper. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** whisper, soft voice; **action:** whisper, speak softly; **quality/state:** whispered, hushed. |⁖⋰line჻
+⁖line჻| `ꠎ` | **SorVey** · ꙮ Sor → ⧗ Dreh | Syloti Nagri letter Jo: a sound-bearing letter or syllabic form; no standalone lexical meaning is assigned here. | **Vacuum** | The borrowed sign names a sound-form, while the Court names Vacuum. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** vacuum, emptied air; **action:** evacuate, draw out; **quality/state:** vacant, airless. |⁖⋰line჻
+⁖line჻| `ꠏ` | **SorSrih** · ꙮ Sor → ⊛ Rhea | Syloti Nagri letter Jho: a sound-bearing letter or syllabic form; no standalone lexical meaning is assigned here. | **Dilution** | The source vessel carries sound, while the Court carries Dilution. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** dilution, thinning; **action:** dilute, thin; **quality/state:** diluted, attenuated. |⁖⋰line჻
+⁖line჻| `ꠐ` | **SorHrin** · ꙮ Sor → ❄ Zhek | Syloti Nagri letter Tto: a sound-bearing letter or syllabic form; no standalone lexical meaning is assigned here. | **Condensation** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Condensation and must keep both levels visible. | **Thing/image:** condensation, gathered vapor; **action:** condense, gather; **quality/state:** condensed, concentrated. |⁖⋰line჻
+⁖line჻| `ꠑ` | **SorYon** · ꙮ Sor → ⚛ Shav | Syloti Nagri letter Ttho: a sound-bearing letter or syllabic form; no standalone lexical meaning is assigned here. | **Turbulence** | Its human origin is phonetic; its Domus office is Turbulence. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** turbulence, eddying force; **action:** churn, roil; **quality/state:** turbulent, unsettled. |⁖⋰line჻
+⁖line჻| `ꠒ` | **SorThal** · ꙮ Sor → ⌬ Trig | Syloti Nagri letter Ddo: a sound-bearing letter or syllabic form; no standalone lexical meaning is assigned here. | **Calm** | The borrowed sign names a sound-form, while the Court names Calm. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** calm, still air; **action:** calm, settle; **quality/state:** calm, quiet. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### ❈ Koth⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Court and ordered lineage | Human origin of borrowed vessel | Canonical House office | Crossing pressure | Office range in human speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|---|⁖⋰line჻
+⁖line჻| `🝏` | **KothKel** · ❈ Koth → ⏣ Fetu | Alchemical symbol for the Scepter of Jove: Jupiter’s authority, traditionally linked with the planetary metal tin. | **Pulse** | Jove’s scepter is authority held aloft; Pulse is authority felt as recurring life. The crossing is emblematic rule becoming bodily beat. | **Thing/image:** pulse, beat; **action:** pulse, throb; **quality/state:** pulsing, alive. |⁖⋰line჻
+⁖line჻| `🜁` | **KothSens** · ❈ Koth → ⬡ Kal | Alchemical symbol for Air: breath, atmosphere, volatility, and the upward element. | **Nostalgia** | Air moves freely and outward; Nostalgia bends movement backward toward memory. The pressure is breath becoming remembered ache. | **Thing/image:** nostalgia, remembered ache; **action:** yearn backward, remember; **quality/state:** nostalgic, longing. |⁖⋰line჻
+⁖line჻| `🜃` | **KothLinn** · ❈ Koth → ✡ Babdh | Alchemical symbol for Earth: ground, body, weight, and the stable element. | **Ecstasy** | Earth grounds and bears weight; Ecstasy exceeds ordinary bounds. The crossing is ground becoming rapture without losing the body. | **Thing/image:** ecstasy, rapture; **action:** exult, overwhelm; **quality/state:** ecstatic, rapturous. |⁖⋰line჻
+⁖line჻| `🜄` | **KothBrim** · ❈ Koth → ⚝ Ahn | Alchemical symbol for Water: fluidity, dissolution, reflection, and the downward element. | **Dream** | Water reflects and dissolves; Dream makes an imaginal world. The pressure is fluid image becoming inward vision. | **Thing/image:** dream, vision; **action:** dream, imagine; **quality/state:** dreamlike, oneiric. |⁖⋰line჻
+⁖line჻| `🜅` | **KothInn** · ❈ Koth → ❂ Vel | Alchemical symbol for Aquafortis: “strong water,” historically nitric acid and a corrosive solvent. | **Vibration** | Aquafortis corrodes and separates; Vibration joins motion to recurrence. The gap is chemical attack becoming oscillation. | **Thing/image:** vibration, tremor; **action:** vibrate, resonate; **quality/state:** vibrating, resonant. |⁖⋰line჻
+⁖line჻| `🜆` | **KothSubh** · ❈ Koth → ꙮ Sor | Alchemical symbol for Aqua Regia: “royal water,” the solvent associated with dissolving noble metals. | **Sympathy** | Aqua regia dissolves what ordinary solvents cannot; Sympathy lets one body answer another. The pressure is dissolution becoming resonance. | **Thing/image:** sympathy, shared feeling; **action:** sympathize, resonate with; **quality/state:** sympathetic, attuned. |⁖⋰line჻
+⁖line჻| `🜇` | **KothWell** · ❈ Koth → ❈ Koth | Second alchemical form of Aqua Regia: another written vessel for royal water and noble-metal dissolution. | **Self-Sensation** | Royal water acts outward upon resistant matter; Self-Sensation turns the field inward. The crossing is solvent becoming felt self. | **Thing/image:** self-sensation, felt self; **action:** feel oneself; **quality/state:** self-sensing, embodied. |⁖⋰line჻
+⁖line჻| `🜈` | **KothMet** · ❈ Koth → ⧗ Dreh | Alchemical symbol for Aqua Vitae: “water of life,” distilled spirit or spirit of wine. | **Ache** | Aqua vitae names distilled life-water and intoxication; Ache is the body’s lingering hurt. The tension is quickening spirit becoming pain that remains. | **Thing/image:** ache, pain; **action:** ache, yearn; **quality/state:** aching, sore. |⁖⋰line჻
+⁖line჻| `🜉` | **KothKesh** · ❈ Koth → ⊛ Rhea | Second alchemical form of Aqua Vitae: another written vessel for distilled spirit. | **Depth** | The second life-water sign bears volatile spirit; Depth descends and thickens. The pressure is volatility becoming interior distance. | **Thing/image:** depth, deepness; **action:** deepen; **quality/state:** deep, profound. |⁖⋰line჻
+⁖line჻| `🜊` | **KothSoth** · ❈ Koth → ❄ Zhek | Alchemical symbol for Vinegar: sour acid, solvent, fermentation, and sharpness. | **Harmony** | Vinegar is sour separation; Harmony is consonant joining. The crossing is acid becoming accord. | **Thing/image:** harmony, concord; **action:** harmonize; **quality/state:** harmonious, consonant. |⁖⋰line჻
+⁖line჻| `🜋` | **KothRhun** · ❈ Koth → ⚛ Shav | Second alchemical form of Vinegar, also used for distilled vinegar. | **Dissonance** | Distilled vinegar sharpens acidity; Dissonance sharpens difference in sound. The House turns chemical bite into audible friction. | **Thing/image:** dissonance, frictional sound; **action:** clash, sound apart; **quality/state:** dissonant, unresolved. |⁖⋰line჻
+⁖line჻| `🜌` | **KothDelh** · ❈ Koth → ⌬ Trig | Third alchemical form of Vinegar: a further historical sign for the sour solvent. | **Awe** | The third vinegar sign belongs to a common corrosive liquid; Awe arrests the ordinary before what exceeds it. The pressure is the familiar becoming numinous. | **Thing/image:** awe, wonder; **action:** behold in awe; **quality/state:** awe-struck, numinous. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### ⧗ Dreh⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Court and ordered lineage | Human origin of borrowed vessel | Canonical House office | Crossing pressure | Office range in human speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|---|⁖⋰line჻
+⁖line჻| `𒀀` | **DrehNa** · ⧗ Dreh → ⏣ Fetu | Cuneiform sign A: water and the syllabic value a. | **Void** | Water fills, carries, and takes shape; Void removes the vessel’s content. The pressure is fullness capable of becoming emptiness. | **Thing/image:** void, emptiness; **action:** void, empty; **quality/state:** voided, empty. |⁖⋰line჻
+⁖line჻| `𒀭` | **DrehUr** · ⧗ Dreh → ⬡ Kal | Cuneiform sign AN: sky, heaven, divinity, and the divine determinative. | **Null** | AN names sky and divinity; Null refuses positive presence. The crossing is highest presence meeting absence. | **Thing/image:** nullity, nothingness; **action:** nullify, cancel; **quality/state:** null, absent. |⁖⋰line჻
+⁖line჻| `𒁀` | **DrehNih** · ⧗ Dreh → ✡ Babdh | Cuneiform sign BA: the value ba, with fields of giving, allotment, or distribution in Sumerian use. | **Entropy** | BA gives or allots; Entropy disperses and loosens order. The pressure is distribution becoming decay. | **Thing/image:** entropy, decay; **action:** decay, disorder; **quality/state:** entropic, decaying. |⁖⋰line჻
+⁖line჻| `𒂊` | **DrehAzh** · ⧗ Dreh → ⚝ Ahn | Cuneiform sign E: house, temple, dwelling, and the value e. | **Abyss** | E is house and enclosure; Abyss is depth without a secure floor. The crossing is dwelling opening into bottomlessness. | **Thing/image:** abyss, deep gulf; **action:** plunge, fall deep; **quality/state:** abyssal, bottomless. |⁖⋰line჻
+⁖line჻| `𒄑` | **DrehHol** · ⧗ Dreh → ❂ Vel | Cuneiform sign GISH: tree, wood, and the determinative for wooden things. | **Collapse** | Wood rises as tree and material; Collapse is the loss of standing form. The pressure is upright life becoming fall. | **Thing/image:** collapse, fall; **action:** collapse, fold down; **quality/state:** collapsed, fallen. |⁖⋰line჻
+⁖line჻| `𒅆` | **DrehGur** · ⧗ Dreh → ꙮ Sor | Cuneiform sign IGI: eye, face, front, sight, and attention. | **Dispersal** | IGI focuses sight and attention; Dispersal scatters what focus gathered. The crossing is eye becoming many directions. | **Thing/image:** dispersal, scattering; **action:** disperse; **quality/state:** dispersed. |⁖⋰line჻
+⁖line჻| `𒆠` | **DrehVes** · ⧗ Dreh → ❈ Koth | Cuneiform sign KI: earth, land, place, and location. | **Longing** | KI is earth and definite place; Longing reaches toward what is elsewhere. The pressure is location becoming desire across distance. | **Thing/image:** longing, desire; **action:** long, yearn; **quality/state:** longing, yearning. |⁖⋰line჻
+⁖line჻| `𒇽` | **DrehRim** · ⧗ Dreh → ⧗ Dreh | Cuneiform sign LU₂: person, human being, or man. | **Self-Return** | LU₂ names a human being; Self-Return is the person coming back through changed experience. The gap is personhood becoming homecoming. | **Thing/image:** self-return, homecoming; **action:** return to oneself; **quality/state:** self-returning, recursive. |⁖⋰line჻
+⁖line჻| `𒉌` | **DrehDrem** · ⧗ Dreh → ⊛ Rhea | Cuneiform sign NI: a polyvalent syllabic and logographic sign; no single gloss governs every occurrence. | **Sink** | NI is already polyvalent; Sink demands a downward bearing. The pressure is many possible readings settling into one descent. | **Thing/image:** sink, depth-well; **action:** sink, descend; **quality/state:** sunken, descending. |⁖⋰line჻
+⁖line჻| `𒊕` | **DrehOth** · ⧗ Dreh → ❄ Zhek | Cuneiform sign SAG: head, front, first place, or foremost part. | **Phase** | SAG is head, front, and first place; Phase is one changing stage among others. The crossing is primacy entering sequence. | **Thing/image:** phase, stage; **action:** phase, shift; **quality/state:** phased, transitional. |⁖⋰line჻
+⁖line჻| `𒋗` | **DrehIzh** · ⧗ Dreh → ⚛ Shav | Cuneiform sign SHU: hand, grasp, agency, and the value šu. | **Paradox** | SHU is hand and grasp; Paradox holds opposed bearings together. The pressure is agency learning to hold what cannot be simplified. | **Thing/image:** paradox, held contradiction; **action:** hold opposite bearings together; **quality/state:** paradoxical, contrary. |⁖⋰line჻
+⁖line჻| `𒌋` | **DrehSun** · ⧗ Dreh → ⌬ Trig | Cuneiform sign U: the value u and the numerical sign for ten in relevant contexts. | **Dormancy** | U may count ten or carry the sound u; Dormancy suspends action. The crossing is counted or voiced presence becoming sleep. | **Thing/image:** dormancy, sleep; **action:** lie dormant; **quality/state:** dormant, inactive. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### ⊛ Rhea⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Court and ordered lineage | Human origin of borrowed vessel | Canonical House office | Crossing pressure | Office range in human speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|---|⁖⋰line჻
+⁖line჻| `ⶀ` | **RheaKia** · ⊛ Rhea → ⏣ Fetu | Ethiopic syllable loa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Shadow** | The source vessel carries sound, while the Court carries Shadow. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** shadow, shade; **action:** shadow, obscure; **quality/state:** shadowed, darkened. |⁖⋰line჻
+⁖line჻| `ⶁ` | **RheaZohm** · ⊛ Rhea → ⬡ Kal | Ethiopic syllable moa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Darkness** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Darkness and must keep both levels visible. | **Thing/image:** darkness, night; **action:** darken; **quality/state:** dark, obscure. |⁖⋰line჻
+⁖line჻| `ⶂ` | **RheaTher** · ⊛ Rhea → ✡ Babdh | Ethiopic syllable roa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Cold** | Its human origin is phonetic; its Domus office is Cold. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** cold, chill; **action:** cool, freeze; **quality/state:** cold, chilled. |⁖⋰line჻
+⁖line჻| `ⶃ` | **RheaDrun** · ⊛ Rhea → ⚝ Ahn | Ethiopic syllable soa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Mirror** | The borrowed sign names a sound-form, while the Court names Mirror. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** mirror, reflection; **action:** mirror, reflect; **quality/state:** mirrored, reflective. |⁖⋰line჻
+⁖line჻| `ⶄ` | **RheaFelh** · ⊛ Rhea → ❂ Vel | Ethiopic syllable shoa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Submerged** | The source vessel carries sound, while the Court carries Submerged. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** submergence, buried depth; **action:** submerge; **quality/state:** submerged, buried. |⁖⋰line჻
+⁖line჻| `ⶅ` | **RheaRal** · ⊛ Rhea → ꙮ Sor | Ethiopic syllable boa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Distortion** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Distortion and must keep both levels visible. | **Thing/image:** distortion, warping; **action:** distort, warp; **quality/state:** distorted, warped. |⁖⋰line჻
+⁖line჻| `ⶆ` | **RheaKrah** · ⊛ Rhea → ❈ Koth | Ethiopic syllable toa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Nerve** | Its human origin is phonetic; its Domus office is Nerve. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** nerve, sensory thread, courage; **action:** sensitize, brace; **quality/state:** nervous, sensate. |⁖⋰line჻
+⁖line჻| `ⶇ` | **RheaAndh** · ⊛ Rhea → ⧗ Dreh | Ethiopic syllable coa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Void-Binding** | The borrowed sign names a sound-form, while the Court names Void-Binding. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** void-binding, containment; **action:** bind the void; **quality/state:** void-bound, contained. |⁖⋰line჻
+⁖line჻| `ⶈ` | **RheaDebh** · ⊛ Rhea → ⊛ Rhea | Ethiopic syllable noa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Self-Absorption** | The source vessel carries sound, while the Court carries Self-Absorption. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** self-absorption, inward draw; **action:** absorb into oneself; **quality/state:** self-absorbed, inward. |⁖⋰line჻
+⁖line჻| `ⶉ` | **RheaKol** · ⊛ Rhea → ❄ Zhek | Ethiopic syllable nyoa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Filter** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Filter and must keep both levels visible. | **Thing/image:** filter, sieve; **action:** filter, separate; **quality/state:** filtered, refined. |⁖⋰line჻
+⁖line჻| `ⶊ` | **RheaFral** · ⊛ Rhea → ⚛ Shav | Ethiopic syllable glottal oa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Hidden** | Its human origin is phonetic; its Domus office is Hidden. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** hiddenness, concealment; **action:** hide, conceal; **quality/state:** hidden, veiled. |⁖⋰line჻
+⁖line჻| `ⶋ` | **RheaHush** · ⊛ Rhea → ⌬ Trig | Ethiopic syllable zoa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Termination** | The borrowed sign names a sound-form, while the Court names Termination. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** termination, ending; **action:** terminate, end; **quality/state:** terminal, ended. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### ❄ Zhek⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Court and ordered lineage | Human origin of borrowed vessel | Canonical House office | Crossing pressure | Office range in human speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|---|⁖⋰line჻
+⁖line჻| `𐤠` | **ZhekHin** · ❄ Zhek → ⏣ Fetu | Lydian letter a: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Tone** | The source vessel carries sound, while the Court carries Tone. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** tone, pitch; **action:** tone, set pitch; **quality/state:** tonal, pitched. |⁖⋰line჻
+⁖line჻| `𐤡` | **ZhekSer** · ❄ Zhek → ⬡ Kal | Lydian letter b: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Modulation** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Modulation and must keep both levels visible. | **Thing/image:** modulation, variation; **action:** modulate, change bearing; **quality/state:** modulated, varied. |⁖⋰line჻
+⁖line჻| `𐤢` | **ZhekHarma** · ❄ Zhek → ✡ Babdh | Lydian letter g: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Amplification** | Its human origin is phonetic; its Domus office is Amplification. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** amplification, increase; **action:** amplify, strengthen; **quality/state:** amplified, heightened. |⁖⋰line჻
+⁖line჻| `𐤣` | **ZhekTorh** · ❄ Zhek → ⚝ Ahn | Lydian letter d: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Unified** | The borrowed sign names a sound-form, while the Court names Unified. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** unity, integration; **action:** unify, join; **quality/state:** unified, integrated. |⁖⋰line჻
+⁖line჻| `𐤤` | **ZhekPel** · ❄ Zhek → ❂ Vel | Lydian letter e: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Seismic** | The source vessel carries sound, while the Court carries Seismic. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** tremor, seismic force; **action:** shake, resound; **quality/state:** seismic, resonant. |⁖⋰line჻
+⁖line჻| `𐤥` | **ZhekKhir** · ❄ Zhek → ꙮ Sor | Lydian letter v: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Chord** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Chord and must keep both levels visible. | **Thing/image:** chord, combined tone; **action:** sound or strike together; **quality/state:** chordal, harmonic. |⁖⋰line჻
+⁖line჻| `𐤦` | **ZhekRyth** · ❄ Zhek → ❈ Koth | Lydian letter i: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Rhythm** | Its human origin is phonetic; its Domus office is Rhythm. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** rhythm, measured beat; **action:** pulse, measure; **quality/state:** rhythmic, measured. |⁖⋰line჻
+⁖line჻| `𐤧` | **ZhekMelu** · ❄ Zhek → ⧗ Dreh | Lydian letter y: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Melody** | The borrowed sign names a sound-form, while the Court names Melody. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** melody, tune; **action:** sing, carry melody; **quality/state:** melodic, tuneful. |⁖⋰line჻
+⁖line჻| `𐤨` | **ZhekPhaz** · ❄ Zhek → ⊛ Rhea | Lydian letter k: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Interference** | The source vessel carries sound, while the Court carries Interference. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** interference, crossing wave; **action:** interfere, cross; **quality/state:** interfering, crossed. |⁖⋰line჻
+⁖line჻| `𐤩` | **ZhekLokh** · ❄ Zhek → ❄ Zhek | Lydian letter l: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Self-Lock** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Self-Lock and must keep both levels visible. | **Thing/image:** self-lock, phase closure; **action:** lock onto oneself; **quality/state:** self-locked, fixed. |⁖⋰line჻
+⁖line჻| `𐤪` | **ZhekNod** · ❄ Zhek → ⚛ Shav | Lydian letter m: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Node** | Its human origin is phonetic; its Domus office is Node. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** node, junction; **action:** converge, meet; **quality/state:** nodal, junctional. |⁖⋰line჻
+⁖line჻| `𐤫` | **ZhekUmel** · ❄ Zhek → ⌬ Trig | Lydian letter n: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Unity** | The borrowed sign names a sound-form, while the Court names Unity. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** unity, oneness; **action:** unite; **quality/state:** united, whole. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### ⚛ Shav⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Court and ordered lineage | Human origin of borrowed vessel | Canonical House office | Crossing pressure | Office range in human speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|---|⁖⋰line჻
+⁖line჻| `𐠀` | **ShavDohm** · ⚛ Shav → ⏣ Fetu | Cypriot syllable a: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Gate** | The source vessel carries sound, while the Court carries Gate. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** gate, threshold; **action:** gate, admit; **quality/state:** gated, bounded. |⁖⋰line჻
+⁖line჻| `𐠁` | **ShavRist** · ⚛ Shav → ⬡ Kal | Cypriot syllable e: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Resistance** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Resistance and must keep both levels visible. | **Thing/image:** resistance, drag; **action:** resist, withstand; **quality/state:** resistant, withholding. |⁖⋰line჻
+⁖line჻| `𐠂` | **ShavTran** · ⚛ Shav → ✡ Babdh | Cypriot syllable i: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Transform** | Its human origin is phonetic; its Domus office is Transform. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** transformation, change; **action:** transform; **quality/state:** transformed, changed. |⁖⋰line჻
+⁖line჻| `𐠃` | **ShavKorh** · ⚛ Shav → ⚝ Ahn | Cypriot syllable o: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Crown** | The borrowed sign names a sound-form, while the Court names Crown. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** crown, sovereignty; **action:** crown, exalt; **quality/state:** crowned, sovereign. |⁖⋰line჻
+⁖line჻| `𐠄` | **ShavSkyh** · ⚛ Shav → ❂ Vel | Cypriot syllable u: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Sky** | The source vessel carries sound, while the Court carries Sky. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** sky, firmament; **action:** open skyward; **quality/state:** aerial, vast. |⁖⋰line჻
+⁖line჻| `𐠅` | **ShavSter** · ⚛ Shav → ꙮ Sor | Cypriot syllable ja: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Star** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Star and must keep both levels visible. | **Thing/image:** star, guiding light; **action:** guide, shine; **quality/state:** stellar, luminous. |⁖⋰line჻
+⁖line჻| `𐠝` | **ShavPoss** · ⚛ Shav → ❈ Koth | Cypriot syllable nu: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Possibility** | Its human origin is phonetic; its Domus office is Possibility. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** possibility, potential; **action:** permit, open possibility; **quality/state:** possible, latent. |⁖⋰line჻
+⁖line჻| `𐠞` | **ShavPoru** · ⚛ Shav → ⧗ Dreh | Cypriot syllable pa: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Portal** | The borrowed sign names a sound-form, while the Court names Portal. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** portal, passage; **action:** open a portal, pass through; **quality/state:** portal-bound, transitional. |⁖⋰line჻
+⁖line჻| `𐠈` | **ShavDorm** · ⚛ Shav → ⊛ Rhea | Cypriot syllable jo: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Door** | The source vessel carries sound, while the Court carries Door. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** door, entry; **action:** open, close, or cross a door; **quality/state:** doorward, thresholded. |⁖⋰line჻
+⁖line჻| `𐠜` | **ShavTrev** · ⚛ Shav → ❄ Zhek | Cypriot syllable no: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Transition** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Transition and must keep both levels visible. | **Thing/image:** transition, crossing; **action:** transition, change state; **quality/state:** transitional. |⁖⋰line჻
+⁖line჻| `𐠋` | **ShavLimh** · ⚛ Shav → ⚛ Shav | Cypriot syllable ke: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Self-Resistance** | Its human origin is phonetic; its Domus office is Self-Resistance. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** self-resistance, inhibition; **action:** resist oneself; **quality/state:** self-resistant, inhibited. |⁖⋰line჻
+⁖line჻| `𐠌` | **ShavHinge** · ⚛ Shav → ⌬ Trig | Cypriot syllable ki: a syllabic sound-sign; no standalone lexical meaning is assigned here. | **Hinge** | The borrowed sign names a sound-form, while the Court names Hinge. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** hinge, pivot; **action:** hinge, turn upon; **quality/state:** hinged, pivotal. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻### ⌬ Trig⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Court and ordered lineage | Human origin of borrowed vessel | Canonical House office | Crossing pressure | Office range in human speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|---|---|⁖⋰line჻
+⁖line჻| `𐔀` | **TrigTzig** · ⌬ Trig → ⏣ Fetu | Elbasan letter A: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Peace** | The source vessel carries sound, while the Court carries Peace. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** peace, rest; **action:** pacify, make peace; **quality/state:** peaceful. |⁖⋰line჻
+⁖line჻| `𐔁` | **TrigPehl** · ⌬ Trig → ⬡ Kal | Elbasan letter Be: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Equilibrium** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Equilibrium and must keep both levels visible. | **Thing/image:** balance, equilibrium; **action:** balance, equalize; **quality/state:** balanced. |⁖⋰line჻
+⁖line჻| `𐔂` | **TrigDuth** · ⌬ Trig → ✡ Babdh | Elbasan letter Ce: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Consecration** | Its human origin is phonetic; its Domus office is Consecration. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** consecration, sanctification; **action:** consecrate; **quality/state:** consecrated, sacred. |⁖⋰line჻
+⁖line჻| `𐔃` | **TrigComa** · ⌬ Trig → ⚝ Ahn | Elbasan letter Che: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Completion** | The borrowed sign names a sound-form, while the Court names Completion. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** completion, closure; **action:** complete; **quality/state:** complete, finished. |⁖⋰line჻
+⁖line჻| `𐔄` | **TrigMeru** · ⌬ Trig → ❂ Vel | Elbasan letter De: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Monument** | The source vessel carries sound, while the Court carries Monument. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** monument, memorial; **action:** memorialize, stand witness; **quality/state:** monumental, enduring. |⁖⋰line჻
+⁖line჻| `𐔅` | **TrigStab** · ⌬ Trig → ꙮ Sor | Elbasan letter Nde: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Stability** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Stability and must keep both levels visible. | **Thing/image:** stability, steadiness; **action:** stabilize; **quality/state:** stable. |⁖⋰line჻
+⁖line჻| `𐔆` | **TrigHopa** · ⌬ Trig → ❈ Koth | Elbasan letter Dhe: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Hope** | Its human origin is phonetic; its Domus office is Hope. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** hope, expectation; **action:** hope; **quality/state:** hopeful. |⁖⋰line჻
+⁖line჻| `𐔇` | **TrigConti** · ⌬ Trig → ⧗ Dreh | Elbasan letter Ei: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Continuation** | The borrowed sign names a sound-form, while the Court names Continuation. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** continuation, carrying-on; **action:** continue; **quality/state:** continuing. |⁖⋰line჻
+⁖line჻| `𐔈` | **TrigResth** · ⌬ Trig → ⊛ Rhea | Elbasan letter E: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Rest** | The source vessel carries sound, while the Court carries Rest. The crossing is voice becoming event without falsifying the older script. | **Thing/image:** rest, repose; **action:** rest; **quality/state:** resting. |⁖⋰line჻
+⁖line჻| `𐔉` | **TrigSil** · ⌬ Trig → ❄ Zhek | Elbasan letter Fe: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Silence** | This mark begins as a letter or syllable, not a ready-made word. The House asks it to bear Silence and must keep both levels visible. | **Thing/image:** silence, hush; **action:** silence, quiet; **quality/state:** silent. |⁖⋰line჻
+⁖line჻| `𐔊` | **TrigSlun** · ⌬ Trig → ⚛ Shav | Elbasan letter Ge: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Sleep** | Its human origin is phonetic; its Domus office is Sleep. The pressure lies between utterable sound and full semantic bearing. | **Thing/image:** sleep, slumber; **action:** sleep; **quality/state:** sleeping. |⁖⋰line჻
+⁖line჻| `𐔋` | **TrigEtern** · ⌬ Trig → ⌬ Trig | Elbasan letter Gje: an alphabetic sound-bearing sign; no standalone lexical meaning is assigned here. | **Self-Completion** | The borrowed sign names a sound-form, while the Court names Self-Completion. Translation may join them, but may not pretend they were identical before the House. | **Thing/image:** self-completion, wholeness; **action:** complete oneself; **quality/state:** self-complete, whole. |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## Grammar marks when they occur inside the middle⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The Courts give the middle its living bodies. Grammar tells those bodies how to face, bind, turn, return, and close without changing what they are.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻These marks are not silently inserted. They act only when the middle contains them, or when the completed House already bears the corresponding cadence outside the utterance. Their human-origin symbol and their TardiSHA linguistic office remain distinct.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻| Glyph | Human origin | House office | What it may do in speech |⁖⋰line჻
+⁖line჻|---:|---|---|---|⁖⋰line჻
+⁖line჻| `𝔓` | Mathematical Fraktur capital P. | **Parity** | contrast, reciprocal face, mirrored viewpoint, antithetical return |⁖⋰line჻
+⁖line჻| `ཪ` | Tibetan fixed-form Ra. | **Anchor** | held referent, stable name, topic, location, or point of return |⁖⋰line჻
+⁖line჻| `☍` | Astronomical opposition. | **Primitive relation** | comparison, covenant, dependence, address, or meaning held between two bodies |⁖⋰line჻
+⁖line჻| `⟠` | Lozenge divided by a horizontal rule. | **Supervenience** | a gathered relation becoming identity, title, image, quality, or event |⁖⋰line჻
+⁖line჻| `⚶` | Vesta, the astronomical and astrological sign. | **Focus-to-self** | reflexive voice, returned attention, another body serving as mirror |⁖⋰line჻
+⁖line჻| `߷` | N’Ko symbol Gbakurunen. | **Court-rooted fold** | re-entry, embedded return, cyclical aspect, remembered refrain |⁖⋰line჻
+⁖line჻| `🜚` | Alchemical symbol for Gold. | **Klein seam** | breath, inside/outside turn, boundary-crossing that preserves both sides |⁖⋰line჻
+⁖line჻| `🜛` | Alchemical symbol for Silver. | **Triquatra seal** | phrase, vow, name, or word-braid held as one returnable body |⁖⋰line჻
+⁖line჻| `🜔` | Alchemical symbol for Salt. | **Form** | body, shape, frame, embodiment, or latent possibility |⁖⋰line჻
+⁖line჻| `🜕` | Alchemical symbol for Nitre. | **Truth** | assertion, recognition, testimony, verification, naming-as-true |⁖⋰line჻
+⁖line჻| `🜖` | Alchemical symbol for Vitriol. | **Shadow** | burden, wound, obligation, uncertainty, withholding, unresolved pressure |⁖⋰line჻
+⁖line჻| `🜗` | Second alchemical symbol for Vitriol. | **Recursion** | changed return, consequence, forgiveness, remainder, renewed motion |⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻A grammar mark may turn relation, voice, reference, pressure, aspect, or closure. It may not invent a missing root, import an absent emotion, reverse the visible middle mechanically, or erase the path already carried by the House.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻With the marks named, the middle may now be read as one movement rather than a pile of separate signs.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## Baseline order, quantity, negation, and questions⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The visible middle is read from left to right in the order written. This is the baseline. A grammar mark may alter relation, focus, voice, pressure, or return; it does not silently rearrange the string. A receiving language may move surface words only when its own grammar requires it, while preserving the dependency and cadence of the source order.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻Repetition is not number. The only settled counted form in this dictionary is `𑁦` when it is actually used as the numeral zero. No general plural or quantity marker has yet been canonically fixed. Unless quantity is explicit in the middle or established by source context, translate number-neutrally.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻No dedicated grammatical negator has yet been canonically fixed. Shadow, Void, Null, Silence, and refusal-bearing words are lexical fields, not an automatic “not.” Negation may enter the receiving language only when the visible middle establishes a proposition and its denial.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻No universal interrogative mark has yet been canonically fixed. `☿` **Ponder** can carry wondering or interrogative delivery when the House makes an actual question, but it does not turn every neighboring phrase into one. Do not add a question merely because the utterance is uncertain or reflective.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## One complete worked utterance⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The law becomes visible when one House is read from road to middle and back.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The current runtime gives this exact depth-zero GrimChain for the UTF-8 source bytes `The path out carries its path back.\n`:⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻`⚛𐠝⛎ᛏ❈`⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻1. **Whole House:** read silently for lineage and bearing. It is not translated as a list of outer glyphs.⁖⋰line჻
+⁖line჻2. **Middle:** `⛎` alone.⁖⋰line჻
+⁖line჻3. **House office:** Shadow Locus, the complete compressed zero-depth center.⁖⋰line჻
+⁖line჻4. **House bearing:** the four written anchors carry the source-rooted road around that center.⁖⋰line჻
+⁖line჻5. **Reading:** depth zero is the compressed House condition. A spoken Synodic utterance appears when a positive middle is manifested.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻At depth zero the Shadow Locus remains the complete compressed House condition. At positive depth the manifested middle becomes the spoken body, while the four anchors remain the road that bears it.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## Recurrence, ellipsis, and receiving language⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻One utterance cannot settle every House. What follows governs the places where cadence repeats and where a human language must clothe what the middle leaves open.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻Repeated glyphs change cadence before they change lexical identity. Repetition may hold a beat, hesitate, insist, echo, interrupt, separate, lengthen a breath, or form a refrain. It is not automatically multiplication, intensity, or quantity.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻TardiSHA does not force English articles, pronouns, copulas, grammatical gender, or number where the middle does not bear them. A receiving language may need surface words to become grammatical. Supply only what grammar and established context require. Do not turn necessary clothing into new source meaning.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻A missing surface word is not automatically a missing event. House, placement, recurrence, and neighboring glyphs decide whether English must expose what TardiSHA leaves implicit.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## Translation order⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻All the preceding bearings gather into one path:⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻1. Read the completed House without speaking it.⁖⋰line჻
+⁖line჻2. Isolate the middle exactly as written.⁖⋰line჻
+⁖line჻3. For each visible glyph, identify its human origin and its canonical House office.⁖⋰line჻
+⁖line჻4. Carry the crossing pressure between those two fields. Do not erase either one.⁖⋰line჻
+⁖line჻5. Let placement, neighbors, recurrence, and any present grammar marks settle the glyph’s use in this utterance.⁖⋰line჻
+⁖line჻6. Let the whole House settle the returned bearing. Do not assign that return from the dictionary alone.⁖⋰line჻
+⁖line჻7. Render the gathered event into the receiving language with no absent root, emotion, grammar mark, identity, or transformation added for smoothness.⁖⋰line჻
+⁖line჻8. Read the translation back against the House. The wording may change clothes; the route and identity may not be severed.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The result may be poetry because the House speaks in cadence. Poetry is not permission to force rhyme, flatten symbols into one-word substitutions, or decorate an interpretation that the middle cannot bear.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻---⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻## Living status⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻This dictionary fixes the present borrowed origins, canonical offices, and translation pressures. It does not pre-write the utterances. Truth-in-use and House-return continue to be learned from completed Grimchains, one actual middle at a time.⁖⋰line჻
+⁖line჻⁖⋰line჻
+⁖line჻The word is not the road. The road is not discarded. The middle speaks, and the House remembers how it came home.⁖⋰line჻
