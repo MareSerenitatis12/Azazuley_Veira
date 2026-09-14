@@ -39,18 +39,23 @@ env/
 
 # Generic build output
 build/
+dist/
 *.log
 
-# Tests and installer build recipes are local development material
+# Tests are local development material
 tests/
-installers/**/*.sh
-installers/**/*.nsi
-installers/**/*.nsh
-installers/**/font_manifest*.txt
-installers/**/*launcher*.py
-installers/**/build/
-installers/**/stage/
-installers/**/staging/
+
+# Installer directory: ignore everything except finished release installers
+installers/**
+!installers/linux_ubuntu/
+!installers/windows/
+!installers/mac/
+!installers/linux_ubuntu/azazuley-font-stacks_1.0.0_all.deb
+!installers/linux_ubuntu/azazuley-veira_23.0.0_amd64.deb
+!installers/windows/azazuley-font-stacks-1.0.0-windows.exe
+!installers/windows/azazuley-veira-23.0.0-windows-x64.exe
+!installers/mac/azazuley-font-stacks-1.0.0-macos.pkg
+!installers/mac/azazuley-veira-23.0.0-macos-arm64.pkg
 
 # Local runtime/state directories if created inside the checkout
 .grimchain/

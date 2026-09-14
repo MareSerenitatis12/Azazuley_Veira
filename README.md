@@ -1,5 +1,18 @@
 # Azazuley Veira Language Terminal
 
+> **FONT STACK REQUIRED BEFORE INSTALLING AZAZULEY**
+>
+> Install the standalone font-stack installer for your operating system **before** installing or launching Azazuley Veira. Azazuley does not bundle the font stack inside the application installer.
+>
+> The required font stack provides the exact physical `azazuley` and `tardisha` font bodies used by Azazuley for authored fantasy faces, GrimChain coverage, exact HarfBuzz layout, and TardiSHA rendering. These are runtime authorities, not optional decoration. Without them Azazuley will refuse to treat the font authority as complete and exact rendering cannot be guaranteed.
+>
+> The font installer only creates the lowercase `azazuley` and `tardisha` font directories, copies the supplied fonts, and refreshes the host font registry/cache. It does not delete, replace, or modify unrelated system fonts.
+
+> Use the matching standalone font installer first:
+> - Linux/Ubuntu: `installers/linux_ubuntu/azazuley-font-stacks_1.0.0_all.deb`
+> - Windows: `installers/windows/azazuley-font-stacks-1.0.0-windows.exe`
+> - macOS: `installers/mac/azazuley-font-stacks-1.0.0-macos.pkg`
+>
 Azazuley Veira is a standalone terminal-shaped application joining exactly two
 engine bodies:
 
