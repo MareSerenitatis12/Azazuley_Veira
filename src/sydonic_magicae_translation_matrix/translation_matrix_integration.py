@@ -14,7 +14,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 import hashlib
 from pathlib import Path
-from typing import Iterable
 
 from .goetic_outward_return import BEARINGS, GoeticBearing
 from .aksh_reader import attributes

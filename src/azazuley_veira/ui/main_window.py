@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PySide6.QtCore import QAbstractListModel, QModelIndex, QRegularExpression, QTimer, Qt
-from PySide6.QtGui import QAction, QColor, QPalette, QRegularExpressionValidator, QResizeEvent
+from PySide6.QtCore import QAbstractListModel, QModelIndex, QRegularExpression, Qt
+from PySide6.QtGui import QAction, QColor, QFont, QFontDatabase, QPalette, QRegularExpressionValidator, QResizeEvent, QTextCharFormat
 from PySide6.QtWidgets import (
     QBoxLayout,
     QColorDialog,
@@ -22,15 +22,13 @@ from PySide6.QtWidgets import (
 
 from azazuley_veira.ailalubar_render import render_ailalubar
 from azazuley_veira.config import font_catalog, visual
-from azazuley_veira.config.font_runtime import (
-    et_sonyera_font_file,
-    installed_font_families,
-)
+from azazuley_veira.config.font_runtime import DEFAULT_POINT_SIZE
 from azazuley_veira.engines import emanation, grimchain, sydonic
+from azazuley_veira import grimchain_journal
 from azazuley_veira.grimchain_journal import GrimchainHistorySession, append_grimchain, read_grim_import
 from azazuley_veira.ui.help_viewer import HelpViewer
 from azazuley_veira.ui.terminal import SubmitTextEdit, Terminal
-from azazuley_veira.ui.exact_text import format_exact_grimchain, write_exact_surface_groups_pdf, write_exact_surface_pdf
+from azazuley_veira.ui.exact_text import format_exact_grimchain, write_exact_surface_groups_pdf
 
 
 class _GrimchainHistoryModel(QAbstractListModel):
@@ -210,23 +208,18 @@ class MainWindow(QMainWindow):
         self.help_button.clicked.connect(self._show_help)
         self.import_button.clicked.connect(self._import_grim_files)
         self.export_menu = QMenu(self.export_button)
-        self._export_actions: dict[str, QAction] = {}
-        for key, label in (
-            ("rabulalia", "Rabulalia"),
-            ("ailalubar", "Ailalubar"),
-            ("azalalia", "Azalalia"),
-            ("ailalaza", "Ailalaza"),
-            ("glossolalia", "Glossolalia"),
-            ("ailalossolg", "Ailalossolg"),
-            ("scripture", "LeySyff | FfysYel"),
-            ("definition", "Definition"),
-        ):
-            action = self.export_menu.addAction(f"Export {label}...")
-            action.triggered.connect(lambda _checked=False, export_key=key: self._export_rendered_tab(export_key))
-            self._export_actions[key] = action
-        self.export_menu.addSeparator()
-        self._export_all_action = self.export_menu.addAction("Export All...")
-        self._export_all_action.triggered.connect(self._export_all_rendered)
+        self._export_bio_action = self.export_menu.addAction("Export GrimChained Bio (.shk)")
+        self._export_words_action = self.export_menu.addAction("Export Words & Definitions (PDF)")
+        self._export_glossary_action = self.export_menu.addAction("Export Canon Glossary (PDF)")
+        self._export_bio_action.triggered.connect(
+            lambda _checked=False: self._run_export(self._export_grimchained_bio)
+        )
+        self._export_words_action.triggered.connect(
+            lambda _checked=False: self._run_export(self._export_words_definitions_pdf)
+        )
+        self._export_glossary_action.triggered.connect(
+            lambda _checked=False: self._run_export(self._export_canon_glossary_pdf)
+        )
         self.export_menu.aboutToShow.connect(self._refresh_export_menu)
         self.export_button.setMenu(self.export_menu)
 
@@ -269,9 +262,9 @@ class MainWindow(QMainWindow):
         self._apply_style()
         self._choose_initial_font()
         self._apply_responsive_geometry(self.width())
-        QTimer.singleShot(0, self._ensure_canon_glossary_export)
 
     def _load_history_grimchain(self, index: int) -> None:
+        self.statusBar().clearMessage()
         chain = self.grimchain_history.itemData(index, Qt.ItemDataRole.UserRole)
         if isinstance(chain, str) and chain:
             self.grimchain_input.setPlainText(chain)
@@ -297,92 +290,116 @@ class MainWindow(QMainWindow):
         for user_input, chain in records:
             append_grimchain(user_input, chain)
 
-    def _canon_glossary_export_path(self) -> Path:
-        return Path.home() / ".grimchain" / "azazuley" / "exports" / "Canon Glossary.pdf"
-
-    def _write_canon_glossary_export(self) -> Path:
-        return write_exact_surface_pdf(
-            self.terminal.canon_glossary_output,
-            self._canon_glossary_export_path(),
-        )
-
-    def _ensure_canon_glossary_export(self) -> None:
-        destination = self._canon_glossary_export_path()
-        if destination.exists():
-            return
-        try:
-            self._write_canon_glossary_export()
-        except (OSError, RuntimeError, ValueError) as exc:
-            self.terminal.show_error(str(exc))
-
-    def _rendered_export_groups(self) -> dict[str, tuple[tuple[object, ...], str]]:
-        return {
-            "rabulalia": ((self.terminal.utterance_output,), "Rabulalia"),
-            "ailalubar": ((self.terminal.ailalubar_output,), "Ailalubar"),
-            "azalalia": ((self.terminal.azazuley_output,), "Azalalia"),
-            "ailalaza": ((self.terminal.ailalaza_output,), "Ailalaza"),
-            "glossolalia": ((self.terminal.glossolalia_output,), "Glossolalia"),
-            "ailalossolg": ((self.terminal.ailalossolg_output,), "Ailalossolg"),
-            "scripture": ((self.terminal.leysyff_output, self.terminal.ffysyel_output), "LeySyff-FfysYel"),
-            "definition": ((self.terminal.definition_output,), "Definition"),
-        }
-
-    @staticmethod
-    def _group_has_rendered_text(group: tuple[object, ...]) -> bool:
-        return any(bool(surface.toPlainText()) for surface in group)
-
-    def _refresh_export_menu(self) -> None:
-        groups = self._rendered_export_groups()
-        populated = False
-        for key, action in self._export_actions.items():
-            enabled = self._group_has_rendered_text(groups[key][0])
-            action.setEnabled(enabled)
-            populated = populated or enabled
-        self._export_all_action.setEnabled(populated)
-
-    def _choose_pdf_export_path(self, suggested_name: str) -> Path | None:
-        export_directory = Path.home() / ".grimchain" / "azazuley" / "exports"
-        export_directory.mkdir(parents=True, exist_ok=True)
-        selected, _selected_filter = QFileDialog.getSaveFileName(
-            self,
-            "Export PDF",
-            str(export_directory / f"{suggested_name}.pdf"),
-            "PDF files (*.pdf)",
-        )
-        if not selected:
-            return None
-        destination = Path(selected)
-        if destination.suffix.lower() != ".pdf":
-            destination = destination.with_suffix(".pdf")
+    def _export_directory(self) -> Path:
+        destination = Path.home() / ".grimchain" / "azazuley" / "exports"
+        destination.mkdir(parents=True, exist_ok=True)
         return destination
 
-    def _export_rendered_tab(self, key: str) -> None:
-        group, label = self._rendered_export_groups()[key]
-        if not self._group_has_rendered_text(group):
-            return
-        destination = self._choose_pdf_export_path(label)
-        if destination is None:
-            return
-        try:
-            write_exact_surface_groups_pdf((group,), destination)
-        except (OSError, RuntimeError, ValueError) as exc:
-            self.terminal.show_error(str(exc))
+    def _export_depth_text(self) -> str:
+        middle_text = self.domus_count.text().strip()
+        depth = int(middle_text) if middle_text else 0
+        if depth < 0:
+            depth = 0
+        return str(depth)
 
-    def _export_all_rendered(self) -> None:
-        groups = tuple(
-            group
-            for group, _label in self._rendered_export_groups().values()
-            if self._group_has_rendered_text(group)
+    def _words_definition_groups(self) -> tuple[tuple[object, ...], ...]:
+        return (
+            (self.terminal.utterance_output,),
+            (self.terminal.ailalubar_output,),
+            (self.terminal.azazuley_output,),
+            (self.terminal.ailalaza_output,),
+            (self.terminal.glossolalia_output,),
+            (self.terminal.ailalossolg_output,),
+            (self.terminal.leysyff_output, self.terminal.ffysyel_output),
+            (self.terminal.definition_output,),
         )
-        if not groups:
-            return
-        destination = self._choose_pdf_export_path("Azazuley Export")
-        if destination is None:
-            return
+
+    @staticmethod
+    def _export_section_header(name: str) -> str:
+        rule = "⧟" * 27
+        return f"{rule}\n{name}\n{rule}\n\n"
+
+    def _words_definition_section_headers(self) -> tuple[str, ...]:
+        return tuple(
+            self._export_section_header(name)
+            for name in (
+                "Rabulalia",
+                "Ailalubar",
+                "Azalalia",
+                "Ailalaza",
+                "Glossolalia",
+                "Ailalossolg",
+                "LeySyff/FfysYel",
+                "Definition",
+            )
+        )
+
+    def _refresh_export_menu(self) -> None:
+        active = grimchain_journal.ACTIVE_JOURNAL
+        self._export_bio_action.setEnabled(active.is_file() and active.stat().st_size > 0)
+        self._export_words_action.setEnabled(
+            all(any(bool(surface.toPlainText()) for surface in group) for group in self._words_definition_groups())
+        )
+        self._export_glossary_action.setEnabled(bool(self.terminal.canon_glossary_output.toPlainText()))
+
+    def _run_export(self, operation) -> None:
         try:
-            write_exact_surface_groups_pdf(groups, destination)
-        except (OSError, RuntimeError, ValueError) as exc:
+            destination = operation()
+        except (OSError, RuntimeError, UnicodeError, ValueError) as exc:
             self.terminal.show_error(str(exc))
+            return
+        self.statusBar().showMessage(f"Exported {destination}")
+
+    def _export_grimchained_bio(self) -> Path:
+        source = grimchain_journal.ensure_grimchain_journal()
+        if source.stat().st_size == 0:
+            raise ValueError("there is no active GrimChain .bio to export")
+        depth = self._export_depth_text()
+        code, chain = grimchain.file(source, depth)
+        if code != 0:
+            raise RuntimeError(chain)
+        destination = self._export_directory() / "grimchains.shk"
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        original = source.read_bytes()
+        prefix = original if original.endswith(b"\n") else original + b"\n"
+        temporary = destination.with_name(destination.name + ".tmp")
+        try:
+            temporary.write_bytes(prefix + chain.encode("utf-8") + b"\n")
+            temporary.replace(destination)
+        except Exception:
+            temporary.unlink(missing_ok=True)
+            raise
+        return destination
+
+    def _embed_export_pdf(self, destination: Path) -> Path:
+        code, result = grimchain.pdf_embed(destination, self._export_depth_text())
+        if code != 0:
+            destination.unlink(missing_ok=True)
+            raise RuntimeError(result)
+        return destination
+
+    def _export_words_definitions_pdf(self) -> Path:
+        groups = self._words_definition_groups()
+        if not all(any(bool(surface.toPlainText()) for surface in group) for group in groups):
+            raise ValueError("render a GrimChain before exporting Words & Definitions")
+        destination = self._export_directory() / "Azazuley Words and Definitions.pdf"
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        write_exact_surface_groups_pdf(
+            groups,
+            destination,
+            section_headers=self._words_definition_section_headers(),
+        )
+        return self._embed_export_pdf(destination)
+
+    def _export_canon_glossary_pdf(self) -> Path:
+        destination = self._export_directory() / "Canon Glossary.pdf"
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        write_exact_surface_groups_pdf(
+            ((self.terminal.canon_glossary_output,),),
+            destination,
+            section_headers=(self._export_section_header("Canon Glossary"),),
+        )
+        return self._embed_export_pdf(destination)
 
     def _show_help(self) -> None:
         viewer = HelpViewer(self)
@@ -418,7 +435,7 @@ class MainWindow(QMainWindow):
 
     def _populate_font_box(self) -> None:
         self.font_box.addItem(font_catalog.SYSTEM_DEFAULT)
-        for family in installed_font_families():
+        for family in sorted(QFontDatabase.families(), key=str.casefold):
             self.font_box.addItem(family)
 
     def _choose_initial_font(self) -> None:
@@ -429,18 +446,25 @@ class MainWindow(QMainWindow):
         self._set_terminal_font(font_catalog.SYSTEM_DEFAULT)
 
     def _set_terminal_font(self, family: str) -> None:
-        resolved_family = font_catalog.DEFAULT_FAMILY if family == font_catalog.SYSTEM_DEFAULT else family
-        if resolved_family not in installed_font_families():
-            raise RuntimeError(f"user-selected font is not installed: {resolved_family}")
-        font_file = et_sonyera_font_file(resolved_family)
+        if family == font_catalog.SYSTEM_DEFAULT:
+            resolved_family = font_catalog.DEFAULT_FAMILY
+            selected = QFont(resolved_family, DEFAULT_POINT_SIZE)
+        else:
+            if family not in QFontDatabase.families():
+                raise RuntimeError(f"user-selected font is not available: {family}")
+            selected = QFont(family, DEFAULT_POINT_SIZE)
+            resolved_family = family
+
         user_song = self.terminal.user_song
         cursor = user_song.textCursor()
         if cursor.hasSelection():
-            qt_start, qt_end = sorted((cursor.position(), cursor.anchor()))
-            selected_text = user_song.textForUtf16Range(qt_start, qt_end)
-            user_song.add_exact_font_span(qt_start, selected_text, resolved_family, font_file)
+            character_format = QTextCharFormat()
+            character_format.setFont(selected)
+            cursor.mergeCharFormat(character_format)
+            user_song.setTextCursor(cursor)
             return
-        user_song.setDefaultFontFile(font_file)
+        user_song.setFont(selected)
+        user_song.document().setDefaultFont(selected)
 
     def _submit_grimchain_bar(self, chain: str | None = None) -> None:
         if chain is None:
@@ -448,6 +472,7 @@ class MainWindow(QMainWindow):
         if not chain:
             return
 
+        self.statusBar().clearMessage()
         try:
             grimchain.validate(chain)
         except ValueError:
@@ -467,9 +492,27 @@ class MainWindow(QMainWindow):
         if source == "":
             return
 
-        code, chain = grimchain.string(source, self.domus_count.text())
-        if code != 0 or not chain:
-            self.terminal.show_error(chain or "GrimChain did not return a body.")
+        self.statusBar().clearMessage()
+        try:
+            middle_text = self.domus_count.text().strip()
+            requested_depth = int(middle_text) if middle_text else 0
+            if requested_depth < 0:
+                requested_depth = 0
+            session = grimchain.GrimChainContinuationSession(source, requested_depth)
+        except Exception as exc:
+            self.terminal.show_error(f"grimchain: {exc}")
+            return
+
+        try:
+            unfold = sydonic._SYDONIC_ENGINE.resolve_grimchain_unfold(
+                requested_depth, session.chain_at
+            )
+            chain = unfold.final_chain
+        except grimchain.GrimChainContinuationError as exc:
+            self.terminal.show_error(f"grimchain: {exc}")
+            return
+        except Exception as exc:
+            self.terminal.show_error(f"{exc.__class__.__name__}: {exc}")
             return
 
         try:
@@ -480,6 +523,11 @@ class MainWindow(QMainWindow):
 
         self.grimchain_input.setPlainText(chain)
         self._render_selected(chain, source)
+        if unfold.additional_depth > 0:
+            self.statusBar().showMessage(
+                f"Sydonic unfolded +{unfold.additional_depth}: requested {unfold.requested_depth} → "
+                f"final {unfold.final_depth}. Full same GrimChain saved to .bio."
+            )
 
     def _render_selected(self, chain: str, user_input: str) -> None:
         append_grimchain(user_input, chain)

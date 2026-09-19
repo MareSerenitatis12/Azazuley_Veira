@@ -1,7 +1,0 @@
-#!/bin/sh
-set -eu
-mkdir -p "$HOME/.grimchain/azazuley/grimchains" "$HOME/.grimchain/azazuley/exports"
-touch "$HOME/.grimchain/azazuley/grimchains/grimchains.bio"
-export PYTHONDONTWRITEBYTECODE=1
-export PYTHONPATH=/opt/azazuley-veira/src
-exec /opt/azazuley-veira/runtime/bin/python3.12 /opt/azazuley-veira/launcher.py "$@"

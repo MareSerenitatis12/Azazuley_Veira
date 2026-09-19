@@ -19,7 +19,6 @@ from typing import Final
 
 from .court_outward_return import COURTS, CourtClosure, CourtIdentity
 from .exhaustive_chooser import (
-    CandidateKey,
     ExhaustiveBearingResult,
     ExhaustiveChooserField,
 )

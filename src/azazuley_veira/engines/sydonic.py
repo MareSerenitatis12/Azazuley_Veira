@@ -275,7 +275,7 @@ class _AilalubarSydonicAdapter:
         extent = len(self.frame.tokens)
         if extent == 0:
             raise ValueError("Ailalubar traversal requires a non-empty rendered body")
-        position = virtual_position % extent
+        position = self.frame.aeternum_source_position(virtual_position)
         token = self.frame.tokens[position]
         return ReflectedGlyphToken(
             value=token.value,

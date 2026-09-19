@@ -123,6 +123,7 @@ class GrimchainHistorySession:
         self._mapping = None
         self._right_separator = -1
         self._current_source: Path | None = None
+        self._seen_chains: set[str] = set()
         self._exhausted = False
 
     @property
@@ -192,7 +193,11 @@ class GrimchainHistorySession:
             self._right_separator = left_separator
             if not body.strip():
                 continue
-            records.append(_history_record_from_body(body, self._current_source))
+            record = _history_record_from_body(body, self._current_source)
+            if record[2] in self._seen_chains:
+                continue
+            self._seen_chains.add(record[2])
+            records.append(record)
         return tuple(records)
 
     def __enter__(self) -> "GrimchainHistorySession":
@@ -201,14 +206,84 @@ class GrimchainHistorySession:
     def __exit__(self, _exc_type, _exc, _traceback) -> None:
         self.close()
 
+def _generation_records(path: Path) -> tuple[tuple[str, str, str], ...]:
+    """Read one journal generation in its physical oldest-to-newest order."""
+    if not path.exists():
+        return ()
+    if path == ACTIVE_JOURNAL:
+        payload = path.read_bytes()
+    else:
+        with gzip.open(path, "rb") as stream:
+            payload = stream.read()
+    if not payload:
+        return ()
+    separator = RECORD_SEPARATOR.encode("utf-8")
+    return tuple(
+        _history_record_from_body(body, path)
+        for body in payload.split(separator)
+        if body.strip()
+    )
+
+
+def _write_generation_records(path: Path, records: tuple[tuple[str, str, str], ...]) -> None:
+    """Rewrite one generation with exactly the supplied ordered records."""
+    if not records:
+        if path == ACTIVE_JOURNAL:
+            path.write_bytes(b"")
+        else:
+            path.unlink(missing_ok=True)
+        return
+    payload = b"".join(
+        _record_bytes(user_input, grimchain, timestamp, first_record=index == 0)
+        for index, (timestamp, user_input, grimchain) in enumerate(records)
+    )
+    temporary = path.with_name(path.name + ".tmp")
+    try:
+        if path == ACTIVE_JOURNAL:
+            temporary.write_bytes(payload)
+        else:
+            with gzip.open(temporary, "wb") as stream:
+                stream.write(payload)
+        os.replace(temporary, path)
+    except Exception:
+        temporary.unlink(missing_ok=True)
+        raise
+
+
+def _remove_existing_chain(grimchain: str) -> str | None:
+    """Remove every stored occurrence and return the newest record's original user input."""
+    generations: list[tuple[Path, tuple[tuple[str, str, str], ...]]] = []
+    preserved_user_input: str | None = None
+    for path in (ACTIVE_JOURNAL, *BACKUP_JOURNALS):
+        records = _generation_records(path)
+        generations.append((path, records))
+        if preserved_user_input is None:
+            preserved_user_input = next(
+                (user_input for _timestamp, user_input, chain in reversed(records) if chain == grimchain),
+                None,
+            )
+    if preserved_user_input is None:
+        return None
+    for path, records in generations:
+        if any(chain == grimchain for _timestamp, _user_input, chain in records):
+            _write_generation_records(
+                path,
+                tuple(record for record in records if record[2] != grimchain),
+            )
+    return preserved_user_input
+
+
 def append_grimchain(user_input: str, grimchain: str) -> tuple[str, bool]:
-    """Append one validated user submission and its GrimChain, rotating at 32 MiB."""
+    """Add a new GrimChain once, or promote an existing exact chain to newest history position."""
     if not grimchain:
         raise ValueError("cannot journal an empty GrimChain")
     if "\n" in grimchain or "\r" in grimchain:
         raise ValueError("a journaled GrimChain must occupy exactly one line")
 
     ensure_grimchain_journal()
+    preserved_user_input = _remove_existing_chain(grimchain)
+    if preserved_user_input is not None:
+        user_input = preserved_user_input
     timestamp = datetime.now().astimezone().isoformat(timespec="seconds")
     entry = _record_bytes(user_input, grimchain, timestamp, first_record=ACTIVE_JOURNAL.stat().st_size == 0)
     rotated = bool(ACTIVE_JOURNAL.stat().st_size and ACTIVE_JOURNAL.stat().st_size + len(entry) > MAX_JOURNAL_BYTES)

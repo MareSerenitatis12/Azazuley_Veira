@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 import hashlib
 import json
-from typing import Literal
+from typing import Callable, Literal
 
 from .zero_and_one import ZeroAndOneMachine
 from .cadence import grimchain_azulation
@@ -57,6 +57,15 @@ class TranslationResult:
         return json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
 
+@dataclass(frozen=True, slots=True)
+class GrimChainUnfoldWitness:
+    requested_depth: int
+    final_depth: int
+    additional_depth: int
+    final_chain: str
+    first_speaking_body_position: int
+
+
 class SydonicMagicaeEngine:
     """Join TardiSHA validation, exact glyph lexing, lexical projection, grammar, trace, and renderer."""
 
@@ -83,6 +92,30 @@ class SydonicMagicaeEngine:
         parse_public_living_domus(domus_string)
         domus_string = grimchain_azulation(domus_string)
         return DomusFrame(source=domus_string, tokens=self.lexer.lex(domus_string))
+
+    def resolve_grimchain_unfold(
+        self,
+        requested_depth: int,
+        chain_at_depth: Callable[[int], str],
+    ) -> GrimChainUnfoldWitness:
+        """Resolve the first same-identity depth containing a Real speaking body."""
+        depth = requested_depth
+        previous_chain: str | None = None
+        while True:
+            chain = chain_at_depth(depth)
+            if depth > 1 and len(chain) != depth:
+                raise EngineError("GrimChain continuation changed the requested manifest depth")
+            if previous_chain is not None and not chain.startswith(previous_chain):
+                raise EngineError("GrimChain continuation changed the witnessed prefix")
+            frame = self.parse_domus(chain)
+            if depth <= 1:
+                speaking_position = next((token.position for token in frame.tokens if token.kind != "grammar"), 0)
+                return GrimChainUnfoldWitness(requested_depth, depth, depth - requested_depth, chain, speaking_position)
+            speaking_position = next((token.position for token in frame.tokens if token.kind != "grammar"), None)
+            if speaking_position is not None:
+                return GrimChainUnfoldWitness(requested_depth, depth, depth - requested_depth, chain, speaking_position)
+            previous_chain = chain
+            depth += 1
 
     def _complete_translation(
         self,

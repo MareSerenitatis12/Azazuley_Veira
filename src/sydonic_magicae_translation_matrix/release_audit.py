@@ -602,7 +602,7 @@ def _order_report(field: ReleaseAuditField) -> str:
         f"- Corpus-order attacks: {_attack_count(field.phase17, AttackKind.CORPUS_ORDER)}/156",
         f"- Serialization-order attacks: {_attack_count(field.phase17, AttackKind.SERIALIZATION_ORDER)}/156",
         f"- Label attacks: {_attack_count(field.phase17, AttackKind.LABEL)}/156",
-        f"- Candidate-order-dependent emissions: 0",
+        "- Candidate-order-dependent emissions: 0",
         "", "Manifest, reversed, deterministic permutations, file-shuffled source, and parallel chunk order yield identical survivor sets.",
     ]
     return "\n".join(lines) + "\n"

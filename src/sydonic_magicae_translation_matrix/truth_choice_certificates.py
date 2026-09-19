@@ -17,14 +17,12 @@ from typing import Final
 from .court_outward_return import (
     COURTS,
     CourtClosure,
-    CourtIdentity,
     CourtPathError,
     build_court_candidate,
     validate_prepared_court_bearing,
 )
 from .exhaustive_chooser import (
     CandidateKey,
-    CandidateTruthRecord,
     ExhaustiveBearingResult,
 )
 from .frequency_projection import CARRIERS, ProsodicWitness

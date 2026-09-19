@@ -3,7 +3,7 @@ from __future__ import annotations
 import unicodedata
 
 from PySide6.QtCore import QSize, Qt, Signal
-from PySide6.QtGui import QColor, QKeyEvent, QPalette
+from PySide6.QtGui import QColor, QFontDatabase, QKeyEvent, QPalette
 from azazuley_veira.ailalubar_render import AilalubarReflection, AilalubarRenderWitness
 from azazuley_veira.config.font_runtime import (
     authored_lexical_font_file,
@@ -35,6 +35,7 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QScrollBar,
+    QPlainTextEdit,
     QSizePolicy,
     QTabWidget,
     QVBoxLayout,
@@ -107,6 +108,32 @@ def _format_ostensive_paragraph_markers(widget: ExactFontTextEdit) -> None:
         qt_start += qt_utf16_units(character)
 
 
+class EtSonyeraTextEdit(QPlainTextEdit):
+    submitted = Signal(str)
+
+    def __init__(self, parent=None, preferred_rows: int = 3):
+        super().__init__(parent)
+        self._preferred_rows = preferred_rows
+
+    def sizeHint(self) -> QSize:
+        base = super().sizeHint()
+        line_height = float(self.fontMetrics().lineSpacing())
+        document_margin = float(self.document().documentMargin()) * 2.0
+        frame = float(self.frameWidth()) * 2.0
+        margins = self.viewportMargins()
+        height = line_height * self._preferred_rows + document_margin + frame + margins.top() + margins.bottom()
+        return QSize(base.width(), round(height))
+
+    def minimumSizeHint(self) -> QSize:
+        return self.sizeHint()
+
+    def keyPressEvent(self, event: QKeyEvent) -> None:
+        if event.key() in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
+            self.submitted.emit(self.toPlainText())
+            return
+        super().keyPressEvent(event)
+
+
 class SubmitTextEdit(ExactFontTextEdit):
     submitted = Signal(str)
 
@@ -165,10 +192,10 @@ class Terminal(QWidget):
         layout.setContentsMargins(14, 14, 14, 14)
         layout.setSpacing(8)
 
-        self.user_song = SubmitTextEdit()
+        self.user_song = EtSonyeraTextEdit()
         self.user_song.setObjectName("userSong")
         self._frame_field(self.user_song)
-        self.user_song.setLineWrapMode(ExactFontTextEdit.LineWrapMode.WidgetWidth)
+        self.user_song.setLineWrapMode(QPlainTextEdit.LineWrapMode.WidgetWidth)
         self.user_song.setTabChangesFocus(True)
         self.user_song.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
         self.user_song.submitted.connect(self.user_song_submitted)
@@ -282,9 +309,11 @@ class Terminal(QWidget):
         self.output_tabs.currentChanged.connect(self._refresh_scripture_tab_geometry)
         layout.addWidget(self.output_tabs, 1)
 
-        prose_file = system_font_file_for_family("Noto Sans")
-        self.user_song.setDefaultFontFile(prose_file)
+        user_system_font = QFontDatabase.systemFont(QFontDatabase.SystemFont.GeneralFont)
+        self.user_song.setFont(user_system_font)
+        self.user_song.document().setDefaultFont(user_system_font)
 
+        prose_file = system_font_file_for_family("Noto Sans")
         for field in (
             self.daemon_first,
             self.daemon_middle,
@@ -413,24 +442,15 @@ class Terminal(QWidget):
         anchor = self._scripture_scroll_anchor()
         scrollbar_width = max(0.0, float(self.scripture_scrollbar.sizeHint().width()))
         spread_width = max(1.0, float(self.leysyff_ffysyel_output.width()) - scrollbar_width)
-        viewport_height = max(1.0, float(min(
-            self.leysyff_output.viewport().height(),
-            self.ffysyel_output.viewport().height(),
-        )))
         text_margin = max(4.0, spread_width * 0.025)
         vertical_margin = 8.0
         page_gap = 12.0
         point_size = max(8.0, min(14.0, spread_width * 0.0105))
+        page_height = (spread_width / 2.0) * 1.5
 
         for field in (self.leysyff_output, self.ffysyel_output):
             field.setDocumentMargin(text_margin)
             field.setPointSizeF(point_size)
-
-        required_height = max(
-            self.leysyff_output.scriptureRequiredPageHeight(vertical_margin, vertical_margin),
-            self.ffysyel_output.scriptureRequiredPageHeight(vertical_margin, vertical_margin),
-        )
-        page_height = max(viewport_height, required_height)
 
         for field in (self.leysyff_output, self.ffysyel_output):
             field.setScriptureMinimumPageCount(1)

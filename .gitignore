@@ -45,17 +45,24 @@ dist/
 # Tests are local development material
 tests/
 
-# Installer directory: ignore everything except finished release installers
-installers/**
-!installers/linux_ubuntu/
-!installers/windows/
-!installers/mac/
-!installers/linux_ubuntu/azazuley-font-stacks_1.0.0_all.deb
-!installers/linux_ubuntu/azazuley-veira_23.0.0_amd64.deb
-!installers/windows/azazuley-font-stacks-1.0.0-windows.exe
-!installers/windows/azazuley-veira-23.0.0-windows-x64.exe
-!installers/mac/azazuley-font-stacks-1.0.0-macos.pkg
-!installers/mac/azazuley-veira-23.0.0-macos-arm64.pkg
+# Installer release/build surfaces
+installers/.build/
+installers/android/
+
+# Desktop release artifacts only
+installers/python_build/**
+!installers/python_build/linux_ubuntu/
+!installers/python_build/linux_ubuntu/azazuley-veira_23.0.1_amd64.deb
+!installers/python_build/linux_ubuntu/launchpad/
+!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.1.orig.tar.gz
+!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.1-1.debian.tar.xz
+!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.1-1.dsc
+!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.1-1_source.buildinfo
+!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.1-1_source.changes
+!installers/python_build/mac/
+!installers/python_build/mac/azazuley-veira-23.0.0-macos-arm64.pkg
+!installers/python_build/windows/
+!installers/python_build/windows/azazuley-veira-23.0.0-windows-x64.exe
 
 # Local runtime/state directories if created inside the checkout
 .grimchain/

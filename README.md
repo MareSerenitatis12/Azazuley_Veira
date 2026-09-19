@@ -1,18 +1,36 @@
 # Azazuley Veira Language Terminal
 
-> **FONT STACK REQUIRED BEFORE INSTALLING AZAZULEY**
+> **DESKTOP INSTALLATION USES THREE INSTALLERS**
 >
-> Install the standalone font-stack installer for your operating system **before** installing or launching Azazuley Veira. Azazuley does not bundle the font stack inside the application installer.
+> On Linux/Ubuntu, Windows, and macOS, install the three matching packages in this order before launching Azazuley Veira:
 >
-> The required font stack provides the exact physical `azazuley` and `tardisha` font bodies used by Azazuley for authored fantasy faces, GrimChain coverage, exact HarfBuzz layout, and TardiSHA rendering. These are runtime authorities, not optional decoration. Without them Azazuley will refuse to treat the font authority as complete and exact rendering cannot be guaranteed.
+> 1. **Font Stack** — installs the standalone `azazuley` and `tardisha` font authorities.
+> 2. **Azazuley Veira** — installs the application and its core embedded Python/Qt runtime.
+> 3. **Runtime Packages** — installs the required Pillow and PyMuPDF packages into Azazuley Veira's private runtime.
 >
-> The font installer only creates the lowercase `azazuley` and `tardisha` font directories, copies the supplied fonts, and refreshes the host font registry/cache. It does not delete, replace, or modify unrelated system fonts.
+> The application installer does **not** bundle the standalone font stack. Pillow and PyMuPDF are also kept out of the application installer and supplied by the separate Runtime Packages installer.
+>
+> Linux/Ubuntu:
+> - Font Stack: `installers/linux_ubuntu/azazuley-font-stacks_1.0.0_all.deb`
+> - Azazuley Veira: `installers/python_build/linux_ubuntu/azazuley-veira_23.0.1_amd64.deb`
+> - Runtime Packages: `installers/linux_ubuntu/azazuley-runtime-packages_23.0.1_amd64.deb`
+>
+> Windows:
+> - Font Stack: `installers/windows/azazuley-font-stacks-1.0.0-windows.exe`
+> - Azazuley Veira: `installers/python_build/windows/azazuley-veira-23.0.1-windows-x64.exe`
+> - Runtime Packages: `installers/windows/azazuley-runtime-packages-23.0.1-windows-x64.exe`
+>
+> macOS:
+> - Font Stack: `installers/mac/azazuley-font-stacks-1.0.0-macos.pkg`
+> - Azazuley Veira: `installers/python_build/mac/azazuley-veira-23.0.1-macos-arm64.pkg`
+> - Runtime Packages: `installers/mac/azazuley-runtime-packages-23.0.1-macos-arm64.pkg`
+>
+> Android is self-contained and keeps its required fonts and runtime packages inside the Android application package.
 
-> Use the matching standalone font installer first:
-> - Linux/Ubuntu: `installers/linux_ubuntu/azazuley-font-stacks_1.0.0_all.deb`
-> - Windows: `installers/windows/azazuley-font-stacks-1.0.0-windows.exe`
-> - macOS: `installers/mac/azazuley-font-stacks-1.0.0-macos.pkg`
->
+> Before the first word wakes,
+> the house is already listening.
+> Light waits behind the tongue.
+
 ## Invocation
 
 > Et Sonyera, open the inward song.
@@ -28,6 +46,10 @@
 Azazuley Veira joins TardiSHA / GrimChain and Sydonic Magicae inside a terminal-shaped instrument for utterance, reflection, scripture, and return. It is meant to be entered, listened to, and discovered in motion.
 
 ## Interface language
+
+> Names become doorways.
+> Each door keeps its own weather;
+> none borrows another sky.
 
 Azazuley uses its own names throughout the interface:
 
@@ -47,6 +69,10 @@ The interface is intended to be encountered through use rather than explained in
 
 ## Current application body
 
+> Gray stone around night,
+> teal fire beneath the surface,
+> many rooms, one breath.
+
 The live application is under `src/azazuley_veira/` and uses PySide6 / Qt.
 
 The visible body contains:
@@ -61,30 +87,71 @@ The visible body contains:
 - color controls;
 - a lazy GrimChain history dropdown backed by the rotating `.bio` journal;
 - `.grim` Import;
-- a per-tab / Export All PDF menu for the currently rendered transaction;
+- an Export menu for GrimChained Bio, the complete current translation PDF, and Canon Glossary PDF;
 - Help;
 - the `Domus House>` mirror display;
 - Rabulalia, Ailalubar, Azalalia, Ailalaza, Glossolalia, Ailalossolg, `LeySyff | FfysYel`, Definition, and Canon Glossary output tabs.
 
-`START_AZAZULEY.py` is the development launcher. It runs the live `src/` tree,
-suppresses Python bytecode writing,
-requires PySide6, then enters `azazuley_veira.app.run()`.
+`START_AZAZULEY.py` is the development launcher. It runs the live `src/` tree, suppresses Python bytecode writing, requires PySide6, then enters `azazuley_veira.app.run()`.
+
+When Et Sonyera creates a GrimChain, the requested Domus Count is normally the final visible depth. In the rare case that the finite body contains only Enochian grammar and no Real speaking body, Sydonic asks TardiSHA for the next coordinate of that same witnessed GrimChain, one depth at a time, until a speaking body exists. The complete unfolded GrimChain becomes the visible body, the rendered body, and the journaled body. No opening glyphs are hidden, shifted, replaced, or translated from an unseen continuation.
+
+Once a complete GrimChain already exists—whether typed directly, loaded from history, or brought back from a saved body—it enters the direct GrimChain path. It is not unfolded again merely because Enochian bearings appear near an edge; existing Aeternum law resolves those bearings through the complete finite body.
 
 ## GrimChain journal and history
+
+> Footprints cross old snow.
+> The path most recently walked
+> rises to the front.
 
 Accepted/generated GrimChains are journaled under `~/.grimchain/azazuley/grimchains/`.
 The active `grimchains.bio` rotates at 32 MiB and retains up to three gzip-compressed rolling backups named `grimchains.1.bio`, `grimchains.2.bio`, and `grimchains.3.bio`. Backup files appear only after real rotations; empty placeholders are not created.
 
 Each record stores the time it was logged, its user-input label, and the exact GrimChain. Direct GrimChain submissions use the typed GrimChain as the user-input value. Et Sonyera submissions use the original source text. Imported `.grim` manifests use each entry path as the user-input value, while the manifest trailing GrimChain is recorded under the `.grim` filename itself.
 
-The top-left GrimChain History control reads this retained journal without rerunning TardiSHA or Sydonic. Opening it starts a disposable lazy session that exposes 40 records at a time, newest first. Further scrolling fetches the next 40 from the same session state. Rotated backup generations are copied/decompressed into temporary session storage only if scrolling reaches them. Selecting a history entry loads its GrimChain into the GrimChain input without rendering or logging it again; the temporary session is then discarded.
+History is an ordered recent-history set keyed by the exact GrimChain body. A new chain is added once at the newest position. Reusing an existing exact chain does not create a duplicate record: its existing record is promoted to the newest position, its associated `User input` is preserved, and its recency timestamp is refreshed. Promotion searches both the active journal and rotated compressed generations. Legacy duplicates created by older append-only behavior are displayed once, newest-first, and are physically consolidated when that chain is used again.
+
+The top-left GrimChain History control reads retained history without rerunning TardiSHA or Sydonic. Opening it starts a disposable lazy session that exposes 40 unique chains at a time, newest first. Further scrolling fetches the next 40 from the same session state. Rotated backup generations are copied/decompressed into temporary session storage only if scrolling reaches them. Selecting a history entry loads its exact GrimChain into the GrimChain input without translating it merely because it was selected. Submitting that loaded chain translates the complete stored body through the ordinary direct path and promotes that chain to the newest history position instead of adding another copy.
 
 ## Import and export
 
-IMPORT accepts `.grim` manifest files. All contained GrimChains are structurally parsed and validated before any record from that import is appended to the `.bio` journal. Entries without a GrimChain are ignored. Importing does not render every contained chain through the terminal.
+> A sealed book returns.
+> One echo rests beneath it;
+> two lanterns leave whole.
 
-User-triggered EXPORT is a dropdown for the currently rendered transaction only. Available actions are Rabulalia, Ailalubar, Azalalia, Ailalaza, Glossolalia, Ailalossolg, the paired `LeySyff | FfysYel` view, Definition, and Export All. Empty transaction surfaces cannot be exported. Export never reads historical bodies from `.bio`.
+IMPORT accepts `.grim` manifest files. All contained GrimChains are structurally parsed and validated before any record from that import is written to the `.bio` journal. Entries without a GrimChain are ignored. Importing does not render every contained chain through the terminal. If an imported exact GrimChain already exists in history, it is promoted rather than duplicated.
 
-PDF is the standard export format. The save dialog starts in `~/.grimchain/azazuley/exports/`, the user chooses the filename, and `.pdf` is added when omitted. `LeySyff | FfysYel` exports as one paired rendered view. Export All writes the populated current transaction views into one PDF. Users may also select/copy text from read-only viewer surfaces into their own `.txt`, `.md`, `.odt`, or other documents; those formats are user-created copies rather than Azazuley export formats.
+EXPORT writes beneath `~/.grimchain/azazuley/exports/` and has three actions:
 
-Canon Glossary is deliberately separate from transaction export. On first application initialization, `~/.grimchain/azazuley/exports/Canon Glossary.pdf` is created from the formatted Canon Glossary render surface if it does not already exist. This static PDF is not produced from `.bio` and is not an Export-menu transaction item.
+- **Export GrimChained Bio (.shk)** — exports the active, unarchived `grimchains.bio` without modifying the live journal, then appends exactly one final newline containing only the GrimChain of that `.bio` at the current user `Domus Count>`.
+- **Export Words & Definitions (PDF)** — exports the complete current rendered translation body in this order: Rabulalia, Ailalubar, Azalalia, Ailalaza, Glossolalia, Ailalossolg, `LeySyff/FfysYel`, Definition.
+- **Export Canon Glossary (PDF)** — exports Canon Glossary separately from the current translation PDF.
+
+The translation PDF begins each section on a fresh PDF page. Each section is framed with the literal Azazuley binding glyph and its exact section name:
+
+```text
+⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟
+Rabulalia
+⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟⧟
+
+<VALUE>
+```
+
+The same framing is used for Ailalubar, Azalalia, Ailalaza, Glossolalia, Ailalossolg, `LeySyff/FfysYel`, Definition, and the separate Canon Glossary PDF. The exported values are painted from the existing exact rendered surfaces; the framing does not replace or rewrite their text.
+
+Both PDFs are completed through TardiSHA's public PDF self-return using the current user `Domus Count>`—the same authority as `grimchain NUMBER --pdf-embed PDF`. The embedded GrimChain is verified as part of the PDF return. Read-only output fields remain selectable and copyable for users who want their own text documents; those manual copies are separate from Azazuley's export formats.
+
+> The page leaves the chamber,
+> carrying its own returning song.
+
+## Copyright
+
+Copyright (C), 2026. Ahnend, Magus. All Rights Reserved
+witchofalways@gmail.com
+---
+Zenodo: https://zenodo.org/records/18942850
+PhilPapers: https://philpeople.org/profiles/elliot-woff
+SSRN: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6589998
+DOI: https://doi.org/10.5281/zenodo.18942850
+GitHub Working Code: https://github.com/MareSerenitatis12
+Youtube Podcast https://www.youtube.com/@theimpossibleboy13

@@ -9,12 +9,12 @@ from functools import lru_cache
 from pathlib import Path
 
 from PySide6.QtCore import QMarginsF, QPointF, QRectF, QSize, QSizeF, Qt, Signal
-from PySide6.QtGui import QGuiApplication, QKeySequence, QPageLayout, QPageSize, QPainter, QPainterPath, QPalette, QPdfWriter, QTextCursor
+from PySide6.QtGui import QFont, QFontDatabase, QGuiApplication, QKeySequence, QPageLayout, QPageSize, QPainter, QPainterPath, QPalette, QPdfWriter, QTextCursor
 from PySide6.QtWidgets import QAbstractScrollArea, QMenu
 from fontTools.pens.basePen import BasePen
 from fontTools.ttLib import TTFont
 
-from azazuley_veira.config.font_runtime import DEFAULT_POINT_SIZE, grimchain_display_codepoints, grimchain_face_for_character, physical_font_family, system_font_file_for_family
+from azazuley_veira.config.font_runtime import DEFAULT_POINT_SIZE, grimchain_display_codepoints, grimchain_face_for_character, physical_font_family, system_font_file_for_codepoint, system_font_file_for_family
 
 try:
     from ._azuzaley_kernel import visual_order as _compiled_visual_order
@@ -268,22 +268,55 @@ class ExactHarfBuzzLayout:
         if width is not None and width<=0: raise ValueError("exact layout width must be positive")
         text_qt_units=sources[-1].qt_end if sources else 0
         lines=[[]]; widths=[0.0]
-        for src in sources:
-            if "\n" not in src.text:
-                shape=self.shape(src)
+
+        def wrapped_parts(source: ExactSourceRun):
+            shape=self.shape(source)
+            if width is None or shape[3] <= width or not source.text:
+                return ((source,shape),)
+            out=[]; remaining=source.text; source_qt=source.qt_start
+            while remaining:
+                whole=ExactSourceRun(source_qt,remaining,source.font_file,source.exact)
+                whole_shape=self.shape(whole)
+                if whole_shape[3] <= width:
+                    out.append((whole,whole_shape)); break
+                low=1; high=len(remaining); best=1
+                while low <= high:
+                    mid=(low+high)//2
+                    probe=ExactSourceRun(source_qt,remaining[:mid],source.font_file,source.exact)
+                    probe_shape=self.shape(probe)
+                    if probe_shape[3] <= width:
+                        best=mid; low=mid+1
+                    else:
+                        high=mid-1
+                whitespace=[index+1 for index,character in enumerate(remaining[:best]) if character.isspace()]
+                cut=whitespace[-1] if whitespace else best
+                part=ExactSourceRun(source_qt,remaining[:cut],source.font_file,source.exact)
+                part_shape=self.shape(part)
+                if part_shape[3] > width and cut != best:
+                    cut=best
+                    part=ExactSourceRun(source_qt,remaining[:cut],source.font_file,source.exact)
+                    part_shape=self.shape(part)
+                out.append((part,part_shape))
+                source_qt += part.qt_units
+                remaining=remaining[cut:]
+            return tuple(out)
+
+        def append_wrapped(source: ExactSourceRun):
+            for part,shape in wrapped_parts(source):
                 if width is not None and lines[-1] and widths[-1]+shape[3]>width:
                     lines.append([]); widths.append(0.0)
-                lines[-1].append((src,shape)); widths[-1]+=shape[3]
+                lines[-1].append((part,shape)); widths[-1]+=shape[3]
+
+        for src in sources:
+            if "\n" not in src.text:
+                append_wrapped(src)
                 continue
             source_qt=src.qt_start
             parts=src.text.split("\n")
             for part_index,segment in enumerate(parts):
                 if segment:
                     part=ExactSourceRun(source_qt,segment,src.font_file,src.exact)
-                    shape=self.shape(part)
-                    if width is not None and lines[-1] and widths[-1]+shape[3]>width:
-                        lines.append([]); widths.append(0.0)
-                    lines[-1].append((part,shape)); widths[-1]+=shape[3]
+                    append_wrapped(part)
                     source_qt += part.qt_units
                 if part_index < len(parts)-1:
                     source_qt += 1
@@ -532,17 +565,6 @@ class ExactFontTextEdit(QAbstractScrollArea):
         result=(tuple(measured),probe_height)
         self._scripture_measurement_cache=(key,result)
         return result
-    def scriptureRequiredPageHeight(self,top_margin:float,bottom_margin:float):
-        width=self._content_width()
-        if width is None:
-            width=max(1.0,float(self.viewport().width())-self._margin*2)
-        layout=ExactHarfBuzzLayout(self._pixel_size())
-        try:
-            measured,probe_height=self._measure_scripture_paragraphs(layout,self._source_runs(),width)
-        finally:
-            layout.close()
-        tallest=max((height for _start,_end,_model,height in measured),default=probe_height)
-        return max(0.0,float(top_margin))+tallest+max(0.0,float(bottom_margin))
     def _scripture_layout(self,layout,sources,width):
         if width is None:
             width=max(1.0,float(self.viewport().width())-self._margin*2)
@@ -741,13 +763,30 @@ class ExactFontTextEdit(QAbstractScrollArea):
     def sizeHint(self):
         return QSize(160,48)
 
+@lru_cache(maxsize=256)
+def _pdf_font_family(font_file: Path) -> str:
+    font_id = QFontDatabase.addApplicationFont(str(font_file))
+    if font_id < 0:
+        raise RuntimeError(f"PDF export could not register authored font: {font_file}")
+    families = QFontDatabase.applicationFontFamilies(font_id)
+    if not families:
+        raise RuntimeError(f"PDF export font has no registered family: {font_file}")
+    return families[0]
+
+
+def _paint_pdf_text_run(painter: QPainter, run: ExactPlacedRun, origin: QPointF) -> None:
+    font = QFont(_pdf_font_family(run.font_file))
+    font.setPixelSize(max(1, int(round(run.glyph_run.pixel_size))))
+    painter.setFont(font)
+    painter.drawText(origin, run.text)
+
+
 def _paint_exact_surface_slice(painter, surface: ExactFontTextEdit, model: ExactLayoutModel, page_top: float, page_height: float, x_offset: float = 0.0) -> None:
     margin = surface.documentMargin()
     painter.save()
     painter.translate(x_offset + margin, margin - page_top)
     painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
-    painter.setPen(Qt.PenStyle.NoPen)
-    painter.setBrush(surface.palette().color(QPalette.ColorRole.Text))
+    painter.setPen(surface.palette().color(QPalette.ColorRole.Text))
     content_top = page_top - margin
     content_bottom = page_top + page_height - margin
     for run in model.runs:
@@ -755,14 +794,21 @@ def _paint_exact_surface_slice(painter, surface: ExactFontTextEdit, model: Exact
         run_bottom = run.baseline + run.descent
         if run_bottom < content_top or run_top > content_bottom:
             continue
-        run.glyph_run.paint(painter, QPointF(run.x, run.baseline))
+        _paint_pdf_text_run(painter, run, QPointF(run.x, run.baseline))
     painter.restore()
 
 
-def write_exact_surface_groups_pdf(groups: tuple[tuple[ExactFontTextEdit, ...], ...], path: str | Path) -> Path:
-    """Write existing exact-render surfaces to one PDF, one viewer group at a time."""
+def write_exact_surface_groups_pdf(
+    groups: tuple[tuple[ExactFontTextEdit, ...], ...],
+    path: str | Path,
+    *,
+    section_headers: tuple[str, ...] | None = None,
+) -> Path:
+    """Write exact-render surfaces to one PDF, optionally framed by exact section headers."""
     if not groups or any(not group for group in groups):
         raise ValueError("PDF export requires at least one rendered surface group")
+    if section_headers is not None and len(section_headers) != len(groups):
+        raise ValueError("PDF section-header count must equal rendered group count")
     destination = Path(path)
     destination.parent.mkdir(parents=True, exist_ok=True)
     writer = QPdfWriter(str(destination))
@@ -776,15 +822,41 @@ def write_exact_surface_groups_pdf(groups: tuple[tuple[ExactFontTextEdit, ...], 
     first_page = True
     try:
         page_rect = writer.pageLayout().paintRectPixels(writer.resolution())
-        for group in groups:
+        for group_index, group in enumerate(groups):
             models = tuple(surface.exactLayoutModel() for surface in group)
             widths = tuple(max(1.0, float(surface.viewport().width()), model.width + surface.documentMargin() * 2) for surface, model in zip(group, models))
             heights = tuple(max(1.0, model.height + surface.documentMargin() * 2) for surface, model in zip(group, models))
             source_width = sum(widths)
             scale = page_rect.width() / source_width
             source_page_height = page_rect.height() / scale
+            header_model = None
+            header_height = 0.0
+            if section_headers is not None:
+                header_text = section_headers[group_index]
+                header_sources = []
+                qt_start = 0
+                for character in header_text:
+                    font_file = (
+                        group[0].defaultFontFile()
+                        if character == "\n"
+                        else system_font_file_for_codepoint(ord(character))
+                    )
+                    header_sources.append(ExactSourceRun(qt_start, character, font_file, True))
+                    qt_start += qt_utf16_units(character)
+                header_layout = ExactHarfBuzzLayout(group[0]._pixel_size())
+                try:
+                    margin = group[0].documentMargin()
+                    header_model = header_layout.layout(
+                        header_text, tuple(header_sources), max(1.0, source_width - margin * 2), True
+                    )
+                finally:
+                    header_layout.close()
+                header_height = header_model.height + margin * 2
+                if header_height >= source_page_height:
+                    raise ValueError("PDF section header exceeds one export page")
             page_top = 0.0
             group_height = max(heights)
+            first_section_page = True
             while page_top < group_height:
                 if not first_page:
                     writer.newPage()
@@ -793,12 +865,24 @@ def write_exact_surface_groups_pdf(groups: tuple[tuple[ExactFontTextEdit, ...], 
                 painter.save()
                 painter.translate(page_rect.left(), page_rect.top())
                 painter.scale(scale, scale)
+                content_offset = header_height if first_section_page else 0.0
+                available_height = source_page_height - content_offset
+                if first_section_page and header_model is not None:
+                    margin = group[0].documentMargin()
+                    painter.save()
+                    painter.translate(margin, margin)
+                    painter.setPen(group[0].palette().color(QPalette.ColorRole.Text))
+                    for run in header_model.runs:
+                        _paint_pdf_text_run(painter, run, QPointF(run.x, run.baseline))
+                    painter.restore()
+                    painter.translate(0.0, content_offset)
                 x_offset = 0.0
                 for surface, model, width in zip(group, models, widths):
-                    _paint_exact_surface_slice(painter, surface, model, page_top, source_page_height, x_offset)
+                    _paint_exact_surface_slice(painter, surface, model, page_top, available_height, x_offset)
                     x_offset += width
                 painter.restore()
-                page_top += source_page_height
+                page_top += available_height
+                first_section_page = False
     finally:
         painter.end()
     return destination

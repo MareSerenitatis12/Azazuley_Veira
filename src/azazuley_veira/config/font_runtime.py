@@ -13,7 +13,6 @@ import sys
 
 from fontTools.ttLib import TTFont
 
-from .font_catalog import DEFAULT_FAMILY
 
 
 if sys.platform == "win32":
