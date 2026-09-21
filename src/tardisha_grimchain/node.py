@@ -539,7 +539,8 @@ def node_from_file(
     nonce: int = 0,
     archive_root: str | None = None,
 ) -> TardiSHANode:
-    emission = file_emission(path)
+    from .mirror_math import mirror_file_emission
+    emission = mirror_file_emission(path, nonce=nonce).emission
     witness = source_route_witness_from_emission(emission)
     origin, resolution = parents_t(witness)
     return TardiSHANode(

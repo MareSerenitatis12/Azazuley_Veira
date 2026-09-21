@@ -1,0 +1,32 @@
+Format: 1.8
+Date: Sun, 20 Sep 2026 22:51:00 -0400
+Source: azazuley-veira
+Built-For-Profiles: noudeb
+Architecture: source
+Version: 23.0.2-1
+Distribution: noble
+Urgency: medium
+Maintainer: Ahnend, Magus <witchofalways@gmail.com>
+Changed-By: Ahnend, Magus <witchofalways@gmail.com>
+Changes:
+ azazuley-veira (23.0.2-1) noble; urgency=medium
+ .
+   * Release Azazuley Veira 23.0.2 for Launchpad.
+   * Carry the current Azazuley source, Sydonic Magicae Translation Matrix,
+     bundled TardiSHA GrimChain runtime, embedded Python runtime, and native kernels.
+   * Remove the obsolete Pillow/PyMuPDF runtime-package requirement.
+Checksums-Sha1:
+ 5be19f6eae2476eb3ec30a0cff7c49f2e1fe9512 863 azazuley-veira_23.0.2-1.dsc
+ eb4a16d6f614f6beb84e98562a13db67ab9af778 69804782 azazuley-veira_23.0.2.orig.tar.gz
+ 34babf3b0dad313a2a18261a6a9f9e614370e5b8 1220 azazuley-veira_23.0.2-1.debian.tar.xz
+ 2fce596ac2a6ead39fa41c0d9ddef08961099374 6438 azazuley-veira_23.0.2-1_source.buildinfo
+Checksums-Sha256:
+ 187094099b83cd6a0067c0a873cc53dd5c45f06accfa0c944b500ca8c56563bf 863 azazuley-veira_23.0.2-1.dsc
+ f647603dfe42dac22625b0b214f6a6553ac6d807b4fc7f445b2683d2e56b27f7 69804782 azazuley-veira_23.0.2.orig.tar.gz
+ 7a49a9c5a8e57295c1cf01e56eef04b1050c1658021393290d7bcf3c3a1b3f16 1220 azazuley-veira_23.0.2-1.debian.tar.xz
+ a7cbffa2a1e24a7ceb4c732f3a4be32b2adb3102ff5be43a7cf369cee6d17fd6 6438 azazuley-veira_23.0.2-1_source.buildinfo
+Files:
+ c3027498c5e74dc8169ce910f981f45a 863 utils optional azazuley-veira_23.0.2-1.dsc
+ ea99246158338fe8770b163910189ff8 69804782 utils optional azazuley-veira_23.0.2.orig.tar.gz
+ 6c9b88e46c9df2b7e7781079ff812c42 1220 utils optional azazuley-veira_23.0.2-1.debian.tar.xz
+ db5865e9a1039d3a7c6566b835b685c4 6438 utils optional azazuley-veira_23.0.2-1_source.buildinfo

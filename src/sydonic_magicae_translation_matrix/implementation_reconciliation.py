@@ -20,6 +20,7 @@ AKSH_AUTHORITY_FILES = (
     "☍…Spatial…Absolute.aksh",
     "ཪ…Phantasmagoria.aksh",
     "Living_Cadences.aksh",
+    "the_4_cadences.aksh",
     "Enochian…Understandings.aksh",
 )
 STATIC_AKSH_REFERENCE_FILES = ("Dictionary.aksh",)

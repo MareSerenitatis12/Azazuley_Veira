@@ -60,7 +60,7 @@ def _font_identity(path: Path) -> tuple[str, str]:
 def grimchain_display_codepoints() -> frozenset[int]:
     """Return the TardiSHA-visible GrimChain code points accepted by Azuzaley surfaces."""
     from tardisha_grimchain.living_alphabet import DAEMONIC_TONGUE
-    return frozenset(ord(glyph) for glyph in (*DAEMONIC_TONGUE, "᳀", "⛎"))
+    return frozenset(ord(glyph) for glyph in (*DAEMONIC_TONGUE, "᳀", "⛎", "𑁦", "࿂", "⟠"))
 
 
 class _FcFontSet(ctypes.Structure):

@@ -45,24 +45,53 @@ dist/
 # Tests are local development material
 tests/
 
-# Installer release/build surfaces
+# Private/local installer build machinery
 installers/.build/
-installers/android/
 
-# Desktop release artifacts only
+# Android local toolchains, caches, and signing material
+installers/android/android-sdk/
+installers/android/android-ndk/
+installers/android/host-venv/
+installers/android/python-host/
+installers/android/p4a-source/
+installers/android/toolchain/
+installers/android/app/.buildozer/
+installers/android/**/*.log
+installers/android/**/*.keystore
+installers/android/**/*.jks
+installers/android/**/*.p12
+installers/android/**/*.pem
+installers/android/**/*.key
+
+# Keep the public Android app source/build recipe and release artifacts
+!installers/android/
+!installers/android/app/
+!installers/android/app/**
+installers/android/app/.buildozer/
+installers/android/app/**/*.log
+installers/android/app/**/*.keystore
+installers/android/app/**/*.jks
+installers/android/app/**/*.p12
+installers/android/app/**/*.pem
+installers/android/app/**/*.key
+
+# Desktop installer outputs: publish only current release artifacts
 installers/python_build/**
 !installers/python_build/linux_ubuntu/
-!installers/python_build/linux_ubuntu/azazuley-veira_23.0.1_amd64.deb
+!installers/python_build/linux_ubuntu/dist/
+!installers/python_build/linux_ubuntu/dist/azazuley-veira_23.0.2_amd64.deb
 !installers/python_build/linux_ubuntu/launchpad/
-!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.1.orig.tar.gz
-!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.1-1.debian.tar.xz
-!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.1-1.dsc
-!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.1-1_source.buildinfo
-!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.1-1_source.changes
+!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.2.orig.tar.gz
+!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.2-1.debian.tar.xz
+!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.2-1.dsc
+!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.2-1_source.buildinfo
+!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.2-1_source.changes
 !installers/python_build/mac/
-!installers/python_build/mac/azazuley-veira-23.0.0-macos-arm64.pkg
+!installers/python_build/mac/23.0.2/
+!installers/python_build/mac/23.0.2/azazuley-veira-23.0.2-macos-arm64.pkg
 !installers/python_build/windows/
-!installers/python_build/windows/azazuley-veira-23.0.0-windows-x64.exe
+!installers/python_build/windows/23.0.2/
+!installers/python_build/windows/23.0.2/azazuley-veira-23.0.2-windows-x64.exe
 
 # Local runtime/state directories if created inside the checkout
 .grimchain/

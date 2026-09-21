@@ -14,6 +14,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Final
+import secrets
 
 from .canon import law, TOTAL_CAPACITY
 from .court_registry import CourtRecord, court_from_goetics, full_name
@@ -68,6 +69,13 @@ BREATH: Final[str] = "𑁦"
 SUPERVENIENCE: Final[str] = "\u27E0"
 ZERO_MIDDLE_GLYPH: Final[str] = SHADOW_LOCUS_GLYPH * 3
 TRIPARTITE_AXIOMYR: Final[str] = "☽" + AXIOMYR_GLYPH + "☾"
+LIVING_MIRROR_MEMBERS: Final[tuple[str, ...]] = ("⟠", "࿂", "☽☉☾", "𑁦")
+
+def living_mirror_chain() -> str:
+    """Return the four Living Mirror members in a fresh random order; Regia remains whole."""
+    members = list(LIVING_MIRROR_MEMBERS)
+    secrets.SystemRandom().shuffle(members)
+    return "".join(members)
 SYNODIC_CENTER_GLYPHS: Final[frozenset[str]] = frozenset(ALPHABET)
 @dataclass(frozen=True, slots=True)
 class FoldLineageWitness:

@@ -332,10 +332,13 @@ def write_grimchain_manifest(
         handle.flush()
         os.fsync(handle.fileno())
 
-    return living_domus_for_source(
+    second_grimchain = living_domus_for_source(
         destination,
         width,
         kind="file",
         nonce=salt,
     )
+    if second_grimchain != first_grimchain:
+        raise TardiSHAError("manifest GrimChain return did not close")
+    return second_grimchain
 

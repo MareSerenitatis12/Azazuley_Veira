@@ -480,7 +480,7 @@ class MainWindow(QMainWindow):
             self.terminal.show_error(message)
             return
 
-        self._render_selected(chain, chain)
+        self._render_selected(chain, chain, cadence_translation=False)
 
     def _submit_domus_count(self) -> None:
         source = self.terminal.user_song.toPlainText()
@@ -495,7 +495,15 @@ class MainWindow(QMainWindow):
         self.statusBar().clearMessage()
         try:
             middle_text = self.domus_count.text().strip()
-            requested_depth = int(middle_text) if middle_text else 0
+            if not middle_text:
+                code, chain = grimchain.string_cli(source, "")
+                if code != 0:
+                    self.terminal.show_error(chain)
+                    return
+                self.grimchain_input.setPlainText(chain)
+                self._render_selected(chain, source, cadence_translation=True)
+                return
+            requested_depth = int(middle_text)
             if requested_depth < 0:
                 requested_depth = 0
             session = grimchain.GrimChainContinuationSession(source, requested_depth)
@@ -522,14 +530,14 @@ class MainWindow(QMainWindow):
             return
 
         self.grimchain_input.setPlainText(chain)
-        self._render_selected(chain, source)
+        self._render_selected(chain, source, cadence_translation=False)
         if unfold.additional_depth > 0:
             self.statusBar().showMessage(
                 f"Sydonic unfolded +{unfold.additional_depth}: requested {unfold.requested_depth} → "
                 f"final {unfold.final_depth}. Full same GrimChain saved to .bio."
             )
 
-    def _render_selected(self, chain: str, user_input: str) -> None:
+    def _render_selected(self, chain: str, user_input: str, *, cadence_translation: bool) -> None:
         append_grimchain(user_input, chain)
         chain = emanation.grimchain_emanate(chain)
         self.terminal.set_mirror_utterance(chain)
@@ -540,7 +548,7 @@ class MainWindow(QMainWindow):
         mirror_witness = self.terminal.ailalubar_render_witness(reflection)
 
         try:
-            transaction = sydonic.render_transaction(mirror_witness)
+            transaction = sydonic.render_transaction(mirror_witness, cadence_translation=cadence_translation)
         except Exception as exc:
             self.terminal.show_error(f"{exc.__class__.__name__}: {exc}")
             return

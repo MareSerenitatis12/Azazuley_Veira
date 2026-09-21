@@ -159,7 +159,7 @@ def project_ostensive_presentations(
 class SydonicRenderTransaction:
     chain: str
     mirror_witness: AilalubarRenderWitness
-    result: TranslationResult
+    result: TranslationResult | None
     resolved_words: tuple[ResolvedRenderWord, ...]
     azalalia_runs: tuple[PresentationSpan, ...]
     ailalaza_runs: tuple[PresentationSpan, ...]
@@ -210,6 +210,8 @@ class SydonicRenderTransaction:
 
     @property
     def trace_sha256(self) -> str:
+        if self.result is None:
+            raise EngineError("Living Mirror translation has no ordinary Domus semantic trace")
         trace = self.result.semantic_trace
         if trace is None:
             raise EngineError("Azazuley render transaction requires a semantic trace")
@@ -340,26 +342,56 @@ def _written_projection_runs(words: tuple[ResolvedRenderWord, ...]) -> tuple[Pre
 
 
 @lru_cache(maxsize=32)
-def render_transaction(witness: AilalubarRenderWitness) -> SydonicRenderTransaction:
+def render_transaction(
+    witness: AilalubarRenderWitness, *, cadence_translation: bool = False,
+) -> SydonicRenderTransaction:
     """Translate the completed Azuzaley Ailalubar presentation through Sydonic's generic matrix API."""
     engine = _SYDONIC_ENGINE
-    frame = DomusFrame(
-        source=witness.visual_text,
-        tokens=engine.lexer.lex(witness.visual_text),
-        prosody_source=witness.source,
+    living_mirror = (
+        engine.lexical_resolver.living_mirror_entries(witness.source)
+        if cadence_translation else ()
     )
-    adapter = _AilalubarSydonicAdapter(witness, frame)
-    result = engine.translate_domus_with_execution(
-        domus_string=witness.visual_text,
-        target_language="en",
-        output_style="telegraphic",
-        include_trace=True,
-        aeternum_token=adapter.token,
-        aeternum_pair_reorder=adapter.reorder_pair,
-        aeternum_corridor_reorder=adapter.reorder_corridor,
-        parsed_frame=frame,
-    )
-    resolved = _resolved_words(engine, result, witness.visual_source_positions)
+    if living_mirror:
+        ordered: list[tuple[int, ResolvedRenderWord]] = []
+        for source_position, entry in living_mirror:
+            source_extent = range(source_position, source_position + len(entry.glyph))
+            visual_positions = tuple(
+                visual_position
+                for visual_position, prosody_position in enumerate(witness.visual_source_positions)
+                if prosody_position in source_extent
+            )
+            if len(visual_positions) != len(entry.glyph):
+                raise EngineError("Living Mirror cadence lost Ailalubar source identity")
+            identity = SourceBodyIdentity(entry.source_authority, entry.glyph)
+            word = ResolvedRenderWord(
+                text=entry.authored_lemma,
+                source_position=source_position,
+                source_glyph=entry.glyph,
+                source_body_id=f"{entry.source_authority}:{entry.glyph}",
+                identity=identity,
+                entry=entry,
+            )
+            ordered.append((min(visual_positions), word))
+        resolved = tuple(word for _position, word in sorted(ordered, key=lambda item: item[0]))
+        result = None
+    else:
+        frame = DomusFrame(
+            source=witness.visual_text,
+            tokens=engine.lexer.lex(witness.visual_text),
+            prosody_source=witness.source,
+        )
+        adapter = _AilalubarSydonicAdapter(witness, frame)
+        result = engine.translate_domus_with_execution(
+            domus_string=witness.visual_text,
+            target_language="en",
+            output_style="telegraphic",
+            include_trace=True,
+            aeternum_token=adapter.token,
+            aeternum_pair_reorder=adapter.reorder_pair,
+            aeternum_corridor_reorder=adapter.reorder_corridor,
+            parsed_frame=frame,
+        )
+        resolved = _resolved_words(engine, result, witness.visual_source_positions)
 
     azalalia_runs = _written_projection_runs(resolved)
     ailalaza_runs = _written_projection_runs(tuple(reversed(resolved)))

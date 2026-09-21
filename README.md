@@ -1,32 +1,29 @@
 # Azazuley Veira Language Terminal
 
-> **DESKTOP INSTALLATION USES THREE INSTALLERS**
+> **CURRENT RELEASE: 23.0.2**
 >
-> On Linux/Ubuntu, Windows, and macOS, install the three matching packages in this order before launching Azazuley Veira:
+> Desktop installation uses two packages, in this order:
 >
 > 1. **Font Stack** — installs the standalone `azazuley` and `tardisha` font authorities.
-> 2. **Azazuley Veira** — installs the application and its core embedded Python/Qt runtime.
-> 3. **Runtime Packages** — installs the required Pillow and PyMuPDF packages into Azazuley Veira's private runtime.
+> 2. **Azazuley Veira 23.0.2** — installs the application with the private runtime and the bundled TardiSHA / GrimChain and Sydonic bodies used by Azazuley.
 >
-> The application installer does **not** bundle the standalone font stack. Pillow and PyMuPDF are also kept out of the application installer and supplied by the separate Runtime Packages installer.
+> No separate runtime-package installer is required for 23.0.2. A separate standalone TardiSHA installation is also not required by Azazuley.
 >
-> Linux/Ubuntu:
-> - Font Stack: `installers/linux_ubuntu/azazuley-font-stacks_1.0.0_all.deb`
-> - Azazuley Veira: `installers/python_build/linux_ubuntu/azazuley-veira_23.0.1_amd64.deb`
-> - Runtime Packages: `installers/linux_ubuntu/azazuley-runtime-packages_23.0.1_amd64.deb`
+> Linux / Ubuntu x86-64:
+> - Font Stack: `installers/python_build/linux_ubuntu/install_fonts_standalone/azazuley-font-stacks_1.0.0_all.deb`
+> - Azazuley Veira: `installers/python_build/linux_ubuntu/dist/azazuley-veira_23.0.2_amd64.deb`
+> - Launch after installation from the application menu or with `azazuley-veira`.
 >
-> Windows:
-> - Font Stack: `installers/windows/azazuley-font-stacks-1.0.0-windows.exe`
-> - Azazuley Veira: `installers/python_build/windows/azazuley-veira-23.0.1-windows-x64.exe`
-> - Runtime Packages: `installers/windows/azazuley-runtime-packages-23.0.1-windows-x64.exe`
+> Windows x64:
+> - Font Stack: `installers/python_build/windows/install_fonts_standalone_windows/azazuley-font-stacks-1.0.0-windows.exe`
+> - Azazuley Veira: `installers/python_build/windows/23.0.2/azazuley-veira-23.0.2-windows-x64.exe`
 >
-> macOS:
-> - Font Stack: `installers/mac/azazuley-font-stacks-1.0.0-macos.pkg`
-> - Azazuley Veira: `installers/python_build/mac/azazuley-veira-23.0.1-macos-arm64.pkg`
-> - Runtime Packages: `installers/mac/azazuley-runtime-packages-23.0.1-macos-arm64.pkg`
+> macOS Apple Silicon:
+> - Font Stack: `installers/python_build/mac/install_fonts_standalone_mac/azazuley-font-stacks-1.0.0-macos.pkg`
+> - Azazuley Veira: `installers/python_build/mac/23.0.2/azazuley-veira-23.0.2-macos-arm64.pkg`
 >
-> Android is self-contained and keeps its required fonts and runtime packages inside the Android application package.
-
+> Android arm64-v8a is packaged separately and carries the Android application body and required fonts inside the app package. The 23.0.2 release is built against Android API 36 with minimum API 28. The public release surface includes an APK for direct installation and an AAB for Google Play distribution. The Android build uses only the Qt modules Azazuley actually needs: QtCore, QtGui, and QtWidgets.
+>
 > Before the first word wakes,
 > the house is already listening.
 > Light waits behind the tongue.
@@ -98,6 +95,20 @@ When Et Sonyera creates a GrimChain, the requested Domus Count is normally the f
 
 Once a complete GrimChain already exists—whether typed directly, loaded from history, or brought back from a saved body—it enters the direct GrimChain path. It is not unfolded again merely because Enochian bearings appear near an edge; existing Aeternum law resolves those bearings through the complete finite body.
 
+## 23.0.2 generation and rendering path
+
+Azazuley does not invent or reinterpret GrimChain semantics. TardiSHA / GrimChain owns GrimChain generation, Sydonic owns translation, Ailalubar supplies the witnessed visual body, and Azazuley renders the resulting language surfaces.
+
+`Domus Count>` now has three distinct generation cases:
+
+- Leaving it blank asks TardiSHA for the randomized four-cadence Living Mirror. Its four logical members are Prosody `⟠`, Cantillation `࿂`, Regia `☽☉☾`, and Breath `𑁦`. Regia remains one logical cadence member while the four members are shuffled.
+- Entering `0`, or a negative integer, selects Shadow Locus at the chosen middle.
+- Entering `1` selects Axiomyr. Other explicit numeric depths use the ordinary GrimChain path.
+
+These special meanings come from the generation/depth context, not from raw glyph matching. Typing the same glyph body manually into `GrimChain>` does not grant it the special generated definition. Likewise, the three codepoints of Regia may occur as ordinary GrimChain glyphs at explicit numeric depth; they are treated as the Regia cadence only when generated as the blank-middle four-cadence member.
+
+The manual `GrimChain>` field always takes the direct translation path. A blank `Domus Count>` generated from Et Sonyera is translated through the cadence authority. Explicit numeric generation, including `0`, negative depth, `1`, and ordinary positive depths, follows the normal translation path after TardiSHA produces the chain.
+
 ## GrimChain journal and history
 
 > Footprints cross old snow.
@@ -139,7 +150,7 @@ Rabulalia
 
 The same framing is used for Ailalubar, Azalalia, Ailalaza, Glossolalia, Ailalossolg, `LeySyff/FfysYel`, Definition, and the separate Canon Glossary PDF. The exported values are painted from the existing exact rendered surfaces; the framing does not replace or rewrite their text.
 
-Both PDFs are completed through TardiSHA's public PDF self-return using the current user `Domus Count>`—the same authority as `grimchain NUMBER --pdf-embed PDF`. The embedded GrimChain is verified as part of the PDF return. Read-only output fields remain selectable and copyable for users who want their own text documents; those manual copies are separate from Azazuley's export formats.
+Both PDFs are completed through TardiSHA's public PDF self-return using the current user `Domus Count>`—the same authority as `grimchain NUMBER --pdf-embed PDF`. Azazuley first writes the native Qt PDF from the current text surfaces, then hands that PDF to the bundled TardiSHA path for the GrimChain self-return. Azazuley does not perform the embedding itself. The exported PDF contains native selectable/searchable text rather than screenshots, and the embedded GrimChain is verified as part of the PDF return. Read-only output fields remain selectable and copyable for users who want their own text documents; those manual copies are separate from Azazuley's export formats.
 
 > The page leaves the chamber,
 > carrying its own returning song.

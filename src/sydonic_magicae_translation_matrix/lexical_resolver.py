@@ -21,6 +21,8 @@ OFFICE_FILES: dict[str, tuple[str, str]] = {
 }
 SEED_FILE = "SeeD…Body.aksh"
 SPECIAL_FILE = "Axiomyr…Shadow…Locus.aksh"
+CADENCE_FILE = "the_4_cadences.aksh"
+CADENCE_GLYPHS = ("☽☉☾", "𑁦", "࿂", "⟠")
 SPECIAL_GLYPHS = frozenset({"᳀", "⛎"})
 
 # These are the ten peer-aligned 179-glyph lexical/office authorities.
@@ -84,16 +86,18 @@ class LexicalResolver:
             raise LexicalResolverError(f"authored .aksh root is not a directory: {self.authority_dir}")
         self.seed_path = self.authority_dir / SEED_FILE
         self.special_path = self.authority_dir / SPECIAL_FILE
+        self.cadence_path = self.authority_dir / CADENCE_FILE
         self.office_paths = {
             office: self.authority_dir / filename
             for office, (filename, _) in OFFICE_FILES.items()
         }
-        missing = tuple(str(path) for path in (self.seed_path, self.special_path, *self.office_paths.values()) if not path.is_file())
+        missing = tuple(str(path) for path in (self.seed_path, self.special_path, self.cadence_path, *self.office_paths.values()) if not path.is_file())
         if missing:
             raise LexicalResolverError(f"authored lexical authority set incomplete: {missing}")
         self._authority_versions: dict[str, str] = {}
         self._seed_entries = self._load_seed_inventory(self.seed_path)
         self._special_entries = self._load_special_inventory(self.special_path)
+        self._cadence_entries = self._load_cadence_inventory(self.cadence_path)
         self._office_entries = {
             office: self._load_inventory(
                 path,
@@ -182,6 +186,20 @@ class LexicalResolver:
             )
         return entries
 
+    def _load_cadence_inventory(self, path: Path) -> dict[str, ApprovedLexicalEntry]:
+        body = read_lexicon(path)
+        self._record_authority_version(path, body.header.get("version", ""))
+        entries: dict[str, ApprovedLexicalEntry] = {}
+        for item in body.glyphs:
+            if item.symbol not in CADENCE_GLYPHS or item.symbol in entries:
+                raise LexicalResolverError(f"{path.name}: invalid or duplicate Living Cadence key {item.symbol!r}")
+            entries[item.symbol] = self._entry_from_aksh(
+                item, office="living_cadence", source_name=path.name, allow_unfilled=False
+            )
+        if tuple(entries) != CADENCE_GLYPHS:
+            raise LexicalResolverError(f"{path.name}: expected exact Living Cadence order {CADENCE_GLYPHS!r}")
+        return entries
+
     def _load_inventory(self, path: Path, *, office: str, expected_enoch: str, allow_unfilled: bool) -> dict[str, ApprovedLexicalEntry]:
         body = read_lexicon(path)
         self._record_authority_version(path, body.header.get("version", ""))
@@ -267,6 +285,30 @@ class LexicalResolver:
             raise UnknownGlyphError(f"unknown Axiomyr/Shadow special glyph: {glyph!r}") from exc
         return self._resolution(entry, glyph)
 
+    def living_mirror_entries(self, source: str) -> tuple[tuple[int, ApprovedLexicalEntry], ...]:
+        found: list[tuple[int, ApprovedLexicalEntry]] = []
+        position = 0
+        while position < len(source):
+            member = next((item for item in CADENCE_GLYPHS if source.startswith(item, position)), None)
+            if member is None:
+                return ()
+            found.append((position, self._cadence_entries[member]))
+            position += len(member)
+        if len(found) == 1 and found[0][1].glyph == source:
+            return tuple(found)
+        if len(found) != 4 or {entry.glyph for _, entry in found} != set(CADENCE_GLYPHS):
+            return ()
+        return tuple(found)
+
+    def resolve_cadence(self, glyph: str) -> LexicalResolution:
+        entry = self._cadence_entries.get(glyph)
+        if entry is None:
+            raise UnknownGlyphError("unknown Living Cadence body")
+        return self._resolution(entry, glyph)
+
+    def cadence_entries(self) -> tuple[ApprovedLexicalEntry, ...]:
+        return tuple(self._cadence_entries.values())
+
     def resolve_office(self, glyph: str, office: str) -> LexicalResolution:
         entry = self.office_entry(glyph, office)
         if office == "phantasmagoria":
@@ -299,7 +341,7 @@ class LexicalResolver:
         return ((self.special_path.name, tuple(self._special_entries.values())),)
 
     def all_authority_entries(self) -> tuple[tuple[str, tuple[ApprovedLexicalEntry, ...]], ...]:
-        return (*self.authority_entries(), *self.special_authority_entries())
+        return (*self.authority_entries(), *self.special_authority_entries(), (self.cadence_path.name, tuple(self._cadence_entries.values())))
 
     def authority_version_items(self) -> tuple[tuple[str, str], ...]:
         return tuple(
@@ -313,6 +355,11 @@ class LexicalResolver:
                 return self._special_entries[glyph]
             except KeyError as exc:
                 raise UnknownGlyphError(f"unknown Axiomyr/Shadow special glyph: {glyph!r}") from exc
+        if source_authority == self.cadence_path.name:
+            entry = self._cadence_entries.get(glyph)
+            if entry is None:
+                raise UnknownGlyphError("unknown Living Cadence body")
+            return entry
         if source_authority == self.seed_path.name:
             try:
                 return self._seed_entries[glyph]

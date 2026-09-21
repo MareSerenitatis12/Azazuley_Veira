@@ -9,7 +9,7 @@ import tempfile
 from pathlib import Path
 
 from tardisha_grimchain import grimchain as _grimchain
-from tardisha_grimchain.domus import parse_public_living_domus
+from tardisha_grimchain.domus import LIVING_MIRROR_MEMBERS, parse_public_living_domus
 from tardisha_grimchain.domus_stream import file_domus_record, living_domus_from_emission
 
 
@@ -125,4 +125,6 @@ def pdf_embed(source: str | Path, middle: str) -> tuple[int, str]:
 
 def validate(chain: str) -> None:
     """Require the current public TardiSHA GrimChain structure."""
+    if chain in LIVING_MIRROR_MEMBERS:
+        return
     parse_public_living_domus(chain)

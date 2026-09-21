@@ -10,6 +10,7 @@ from pathlib import Path
 
 from .alqc_digest import alqc_hexdigest
 from .hashing import SOURCE_CHUNK_BYTES, TardiSHAError, file_emission
+from .mirror_math import mirror_file_emission
 from .node import TardiSHANode
 from .route import (
     SourceRouteWitness,
@@ -197,7 +198,8 @@ def create_archive(
     chunks_dir = target / "chunks"
     chunks_dir.mkdir(parents=True, exist_ok=True)
 
-    source_emission = file_emission(source)
+    source_before = mirror_file_emission(source)
+    source_emission = source_before.emission
     route_witness = source_route_witness_from_emission(source_emission)
     source_name = source.name
 
@@ -235,12 +237,16 @@ def create_archive(
             index += 1
 
 
+    source_after = mirror_file_emission(source)
+    if source_after != source_before:
+        raise TardiSHAError("source changed during archive creation")
+
     source_digest = source_emission.source_digest
     source_size = source_emission.source_size
     physical_size = offset
 
-    if source_emission.source_size != physical_size:
-        raise TardiSHAError("archive physical extent contradicts source emission")
+    if source_before.witness.physical_size != physical_size:
+        raise TardiSHAError("archive physical extent contradicts Mirror witness")
 
     chunk_tuple = tuple(chunks)
     origin_glyph, resolution_glyph = parents_t(route_witness)
@@ -362,7 +368,7 @@ def read_archive_manifest(manifest_path: str | Path) -> TardiSHAArchiveManifest:
             out.flush()
             os.fsync(out.fileno())
 
-        emission = file_emission(reconstruction, identity_name=source_name)
+        emission = mirror_file_emission(reconstruction, identity_name=source_name).emission
         route_witness = source_route_witness_from_emission(emission)
         origin, resolution = parents_t(route_witness)
         node = TardiSHANode(
@@ -429,10 +435,10 @@ def _verify_source_from_chunks(
             out.flush()
             os.fsync(out.fileno())
 
-        emission = file_emission(
+        emission = mirror_file_emission(
             reconstruction,
             identity_name=source_name,
-        )
+        ).emission
 
         if not verify_source(emission, route_witness):
             raise TardiSHAError(
@@ -479,10 +485,10 @@ def restore_archive(
                 "restored archive physical extent does not match archive witness"
             )
 
-        restored_emission = file_emission(
+        restored_emission = mirror_file_emission(
             temp,
             identity_name=manifest.source_name,
-        )
+        ).emission
 
         if (
             restored_emission.source_digest != manifest.source_digest

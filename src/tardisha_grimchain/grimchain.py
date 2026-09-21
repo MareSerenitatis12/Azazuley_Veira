@@ -66,15 +66,12 @@ BASIC_HELP = """usage:
   grimchain NUMBER --manifest PATH
   grimchain NUMBER -R --manifest DIRECTORY
   grimchain NUMBER --manifest --string "TEXT"
-  grimchain NUMBER --pdf-embed PDF
-  grimchain NUMBER --pdf-embed PDF --manifest
-  grimchain --pdf-rm-embed PDF
   grimchain --help -a
 
 NUMBER is the declared middle depth you choose. Every non-positive NUMBER returns to
 the zero body ⛎⛎⛎. Depth 1 is the Triple Horned God ☽᳀☾. Every depth greater
 than 1 is exactly that many generated Synodic Magicae coordinates.
-Leave NUMBER out to use the zero body ⛎⛎⛎.
+Leave NUMBER out to use the randomized Living Mirror Chain: Prosody ⟠, Cantillation ࿂, Regia ☽☉☾, and Breath 𑁦; Regia remains one member.
 
 basic use:
   grimchain PATH
@@ -100,28 +97,21 @@ basic use:
       Create manifest-recurse-DIRECTORYNAME.grim for all subdirectories, append
       its Grimchain, then Grimchain the completed manifest again.
 
-  grimchain NUMBER --pdf-embed PDF
-      Append the current GrimChain of the exact base PDF as the single PDF self-return, 
-      then verify that the complete PDF revision closes exactly to the same source witness.
-
-  grimchain --pdf-rm-embed PDF
-      Verify and remove that one explicit PDF return, restoring the exact base bytes.
 """
 
 ADVANCED_HELP = """usage:
   grimchain [NUMBER] PATH [OPTIONS]
   grimchain [NUMBER] --string "TEXT" [OPTIONS]
-  grimchain NUMBER --pdf-embed PDF [--nonce INTEGER]
-  grimchain --pdf-rm-embed PDF
 
 NUMBER is any whole-number middle depth you choose. Every non-positive NUMBER returns
 to the zero body ⛎⛎⛎. Depth 1 is the Triple Horned God ☽᳀☾. Every depth greater
 than 1 is exactly that many generated Synodic Magicae coordinates.
-Leave NUMBER out to use the zero body ⛎⛎⛎.
+Leave NUMBER out to use the randomized Living Mirror Chain: Prosody ⟠, Cantillation ࿂, Regia ☽☉☾, and Breath 𑁦; Regia remains one member.
 
 ordinary use:
   grimchain PATH
-      Grimchain one file or directory with the zero body ⛎⛎⛎.
+      Grimchain one file or directory with the randomized Living Mirror Chain.
+      Its four members are Prosody ⟠, Cantillation ࿂, Regia ☽☉☾, and Breath 𑁦.
 
   grimchain NUMBER PATH
   grimchain --middle NUMBER PATH
@@ -156,16 +146,17 @@ manifests:
       Create a manifest whose source name and source identity are the exact shell
       argument supplied to --string, append its Grimchain, and return it again.
 
-  grimchain [NUMBER] --pdf-embed PDF --manifest
-      Perform the normal PDF embed and print its Grimchain, then create the
-      manifest, append its Grimchain, and return that completed manifest again.
+PDF high-level return:
+  grimchain NUMBER --pdf-embed DOCUMENT.pdf
+      Embed the exact GrimChain invisibly in the PDF return data, then re-Grimchain it.
 
-PDF return:
-      Append the current GrimChain of the exact base PDF as the single PDF self-return, 
-      then verify that the complete PDF revision closes exactly to the same source witness.
+  grimchain --pdf-dive DOCUMENT.pdf
+      Find the embedded GrimChain without a user middle, derive its extent, and test
+      it through the existing Mirror return. Prints MONOZYGOTIC, HETEROZYGOTIC, or
+      ZYGOTIC. It does not remove the embedded chain.
 
-  grimchain --pdf-rm-embed PDF
-      Verify that single return and restore the exact base PDF bytes.
+  grimchain --pdf-abort DOCUMENT.pdf
+      Remove the embedded PDF GrimChain. No user middle is accepted.
 
 inspection and lists:
   grimchain SEAL --inspect
@@ -220,17 +211,18 @@ def main() -> None:
 
     p = ArgumentParser(prog="grimchain", description="content in, ALQC seal out", add_help=False)
     p.add_argument("args", nargs="*",
-                   help="[MIDDLE] [PATH] — omit MIDDLE for the zero body ⛎⛎⛎; PATH omitted reads stdin")
+                   help="[MIDDLE] [PATH] — omit MIDDLE for the Living Mirror Chain; PATH omitted reads stdin")
     p.add_argument("-h", "--help", action="store_true", help=SUPPRESS)
     p.add_argument("-a", "--advanced", action="store_true", help=SUPPRESS)
     p.add_argument("--version", action="store_true", help=SUPPRESS)
     p.add_argument("--middle", type=int, default=SUPPRESS, help="explicit middle length")
     p.add_argument("--string", metavar="TEXT", help="Grimchain the exact UTF-8 bytes of one shell argument")
     p.add_argument("-b", "--binary", action="store_true", help="read exact bytes; this is the only file-body law")
-    p.add_argument("--pdf-embed", type=Path, metavar="PDF", help="write or replace the single PDF GrimChain self-return")
-    p.add_argument("--pdf-rm-embed", type=Path, metavar="PDF", help="remove the verified terminal PDF GrimChain self-return")
     p.add_argument("--output", type=Path, help="write the seal or manifest to a file")
     p.add_argument("--manifest", action="store_true", help="write a Grimchain source manifest")
+    p.add_argument("--pdf-embed", action="store_true", help="embed the PDF GrimChain in metadata")
+    p.add_argument("--pdf-dive", action="store_true", help="inspect and verify the embedded PDF GrimChain")
+    p.add_argument("--pdf-abort", action="store_true", help="remove the embedded PDF GrimChain")
     p.add_argument("-R", "--recursive", action="store_true", help="include nested files in a directory manifest")
     p.add_argument("--fold", action="store_true", help="emit the born-glyph fold ladder")
     p.add_argument("--span", type=int, default=SUPPRESS, help="explicit fold span length")
@@ -244,7 +236,7 @@ def main() -> None:
         unprotected_args = raw_args
 
         option_conflicts = any((
-            a.version, a.string is not None, a.binary, a.pdf_embed is not None, a.pdf_rm_embed is not None, a.output is not None,
+            a.version, a.string is not None, a.binary, a.output is not None,
             a.manifest, a.recursive, a.fold, a.inspect,
             hasattr(a, "middle"), hasattr(a, "span"), hasattr(a, "levels"), bool(raw_args),
         ))
@@ -256,7 +248,7 @@ def main() -> None:
         if a.advanced:
             p.error("-a/--advanced is used only with --help")
         if a.version:
-            if any((a.string is not None, a.binary, a.pdf_embed is not None, a.pdf_rm_embed is not None, a.output is not None,
+            if any((a.string is not None, a.binary, a.output is not None,
                     a.manifest, a.recursive, a.fold, a.inspect, hasattr(a, "middle"),
                     hasattr(a, "span"), hasattr(a, "levels"), bool(raw_args))):
                 p.error("--version cannot be combined with another mode or source")
@@ -275,57 +267,45 @@ def main() -> None:
             middle_value = 0
         paths = unprotected_args + protected_args
 
-        if a.pdf_rm_embed is not None:
-            if any((
-                middle_was_supplied,
-                paths,
-                a.string is not None,
-                a.binary,
-                a.pdf_embed is not None,
-                a.output is not None,
-                a.manifest,
-                a.recursive,
-                a.fold,
-                a.inspect,
-                hasattr(a, "span"),
-                hasattr(a, "levels"),
-            )):
-                p.error("--pdf-rm-embed cannot be combined with another source or mode")
-
-            target = a.pdf_rm_embed.expanduser().resolve()
-            if not target.is_file():
-                raise FileNotFoundError(f"does not exist: {a.pdf_rm_embed}")
+        pdf_modes = int(a.pdf_embed) + int(a.pdf_dive) + int(a.pdf_abort)
+        if pdf_modes:
+            if pdf_modes != 1:
+                p.error("choose exactly one of --pdf-embed, --pdf-dive, or --pdf-abort")
+            if a.string is not None or a.manifest or a.recursive or a.fold or a.inspect or a.binary or a.output is not None:
+                p.error("PDF metadata modes cannot be combined with another mode or output")
+            if len(paths) != 1:
+                p.error("PDF metadata mode requires exactly one PDF path")
+            target = Path(paths[0]).expanduser().resolve()
+            if not target.exists():
+                raise FileNotFoundError(f"does not exist: {paths[0]}")
             if target.suffix.lower() != ".pdf":
-                raise TardiSHAError("--pdf-rm-embed requires a PDF file")
-
-            from .pdf_return import remove_embed
-
-            result = remove_embed(target)
-            print(result["seal"])
-            return
-
-        if a.pdf_embed is not None:
-            if any((paths, a.string is not None, a.binary,
-                    a.output is not None and not a.manifest, a.recursive,
-                    a.fold, a.inspect, hasattr(a, "span"), hasattr(a, "levels"))):
-                p.error("--pdf-embed cannot be combined with another source or mode")
-            target = a.pdf_embed.expanduser().resolve()
-            if not target.is_file():
-                raise FileNotFoundError(f"does not exist: {a.pdf_embed}")
-            if target.suffix.lower() != ".pdf":
-                raise TardiSHAError("--pdf-embed requires a PDF file")
-            from .pdf_return import embed
-            manifest_middle = middle_value if middle_was_supplied else 0
-            assert isinstance(manifest_middle, int)
-            result = embed(target, manifest_middle, nonce=a.nonce)
-            print(result["seal"])
-            if a.manifest:
-                from .manifest import manifest_output_path, write_grimchain_manifest
-                destination = manifest_output_path(target, a.output, False).resolve()
-                manifest_parity = write_grimchain_manifest(
-                    target, destination, middle=manifest_middle, recursive=False, nonce=a.nonce
-                )
-                print(manifest_parity)
+                p.error("PDF metadata mode requires a .pdf file")
+            from .pdf_return import pdf_abort, pdf_dive, pdf_embed
+            if a.pdf_embed:
+                if not middle_was_supplied:
+                    p.error("--pdf-embed requires a middle")
+                assert isinstance(middle_value, int)
+                print(pdf_embed(target, middle_value, nonce=a.nonce))
+                return
+            if middle_was_supplied:
+                p.error("--pdf-dive and --pdf-abort do not take a middle")
+            if a.pdf_dive:
+                correct, embedded, state = pdf_dive(target, nonce=a.nonce)
+                if state == "ZYGOTIC":
+                    print("ZYGOTIC there is no chain embeded in the pdf")
+                elif state == "MONOZYGOTIC":
+                    print(correct)
+                    print()
+                    print("MONOZYGOTIC this is the Truth.")
+                else:
+                    if correct is not None:
+                        print(correct)
+                        print()
+                    print("HETEROZYGOTIC it's not the true chain to that pdf. the chain or the pdf was tampered with.")
+                    print()
+                    print(embedded)
+                return
+            pdf_abort(target)
             return
 
         if a.recursive and not a.manifest:
@@ -456,62 +436,23 @@ def main() -> None:
 
 
 def _do_file_shadow_locus(target: Path, a, *, source_label: str | None = None) -> str:
-    """Dispatch an omitted middle argument through the Shadow Locus zero path."""
-    from .domus_stream import living_domus_for_source, write_public_domus
-    include_filename = source_label not in {"--string", "<stdin>"}
-    if a.fold:
-        from .folding import public_ladder_avirbhava, self_compress_ladder
-        from .node import node_from_file
-        node = node_from_file(target, nonce=a.nonce)
-        return json.dumps(
-            public_ladder_avirbhava(self_compress_ladder(node, span_length=a.span, levels=a.levels)),
-            ensure_ascii=False,
-            indent=2,
-        )
+    """Dispatch an omitted middle argument through the Living Mirror Chain."""
+    from .domus import living_mirror_chain
     if a.output:
-        r = write_public_domus(
-            target,
-            a.output,
-            kind="file",
-            middle_length=0,
-            nonce=a.nonce,
-            include_filename=include_filename,
-        )
-        return json.dumps(r, ensure_ascii=False, indent=2)
-    if include_filename and target.suffix.lower() == ".pdf":
-        from .pdf_return import grimchain_for_pdf
-        return grimchain_for_pdf(target, 0, nonce=a.nonce)
-    return living_domus_for_source(
-        target,
-        0,
-        kind="file",
-        nonce=a.nonce,
-        include_filename=include_filename,
-    )
+        chain = living_mirror_chain()
+        Path(a.output).write_text(chain, encoding="utf-8")
+        return json.dumps({"output": str(a.output), "middle_length": 4, "grim_length": len(chain)}, ensure_ascii=False, indent=2)
+    return living_mirror_chain()
 
 
 def _do_dir_shadow_locus(target: Path, a) -> str:
-    """Dispatch an omitted middle argument through the Shadow Locus zero path."""
-    from .domus_stream import living_domus_for_source, write_public_domus
-    if a.fold:
-        from .folding import public_ladder_avirbhava, self_compress_ladder
-        from .node import node_from_directory
-        node = node_from_directory(target, nonce=a.nonce)
-        return json.dumps(
-            public_ladder_avirbhava(self_compress_ladder(node, span_length=a.span, levels=a.levels)),
-            ensure_ascii=False,
-            indent=2,
-        )
+    """Dispatch an omitted middle argument through the Living Mirror Chain."""
+    from .domus import living_mirror_chain
     if a.output:
-        r = write_public_domus(
-            target,
-            a.output,
-            kind="directory",
-            middle_length=0,
-            nonce=a.nonce,
-        )
-        return json.dumps(r, ensure_ascii=False, indent=2)
-    return living_domus_for_source(target, 0, kind="directory", nonce=a.nonce)
+        chain = living_mirror_chain()
+        Path(a.output).write_text(chain, encoding="utf-8")
+        return json.dumps({"output": str(a.output), "middle_length": 4, "grim_length": len(chain)}, ensure_ascii=False, indent=2)
+    return living_mirror_chain()
 
 
 def _do_file(target: Path, middle: int, a, *, source_label: str | None = None) -> str:
@@ -530,9 +471,6 @@ def _do_file(target: Path, middle: int, a, *, source_label: str | None = None) -
         )
         return json.dumps(r, ensure_ascii=False, indent=2)
 # Default content-in / GrimChain-out uses the canonical public GrimChain.
-    if include_filename and target.suffix.lower() == ".pdf":
-        from .pdf_return import grimchain_for_pdf
-        return grimchain_for_pdf(target, middle, nonce=a.nonce)
     return living_domus_for_source(
         target, middle, kind="file", nonce=a.nonce, include_filename=include_filename
     )

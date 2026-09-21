@@ -303,7 +303,8 @@ def _directory_snapshot(
             records.append(_tree_record_bytes({"type": "directory", "path": rel}))
             witnesses.append((rel, "directory", before_witness))
         elif stat.S_ISREG(before.st_mode):
-            child_emission = file_emission(child)
+            from .mirror_math import mirror_file_emission
+            child_emission = mirror_file_emission(child).emission
 
             after = child.lstat()
             if _stat_witness(after) != before_witness:

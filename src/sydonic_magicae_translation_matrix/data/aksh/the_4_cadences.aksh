@@ -1,0 +1,59 @@
+⁖sydonic…magicae…lexicon version⧟𝇍20𝇎 status⧟𝇍ostensive⊹silence⊹authority𝇎 language⧟𝇍Sydonic Magicae𝇎 body⊹count⧟𝇍4𝇎 ordinary⊹lexical⊹count⧟𝇍0𝇎 key⧟𝇍exact⊹glyph𝇎 grimchain…legend⧟𝇍[glyph]𝇎჻
+⁖meta∵
+⁖title჻The 4 Cadences⁖⋰title჻
+⁖architecture჻Four exact⊹glyph Living Cadence bodies∷Regia मुकुट∷Breath शिक्षा∷Cantillation∷and Prosody छन्दस्⁖⋰architecture჻
+⁖unicode…rule჻Do not normalize∷transliterate∷case⊹fold∷strip variation selectors∷or substitute look⊹alikes⁖⋰unicode…rule჻
+⁖ambient…triad჻Regia मुकुट ☽☉☾ is ambient as the Crown Above⁛ Prosody छन्दस् ⟠ is ambient as the Wellspring Below⁛ Breath शिक्षा 𑁦 is ambient Throughout all⁖⋰ambient…triad჻
+⁖grimchain…source…law჻Each body is GrimChained from its exact glyph at depth 13⁖⋰grimchain…source…law჻
+⁖definition…schema჻Each entry carries word∷origin…language∷font∷pronunciation∷cadence∷non…ostensive∷ostensive∷and grimchain fields⁖⋰definition…schema჻
+⁖⋰meta∵
+⁖glyphs count⧟𝇍4𝇎 ordinary⊹lexical⊹count⧟𝇍0𝇎჻
+⁖glyph symbol⧟𝇍☽☉☾𝇎 category⧟𝇍living⊹cadence𝇎჻
+⁖lookup჻
+⁖word჻☽☉☾⁖⋰word჻
+⁖origin…language჻Llumena Milenii⁖⋰origin…language჻
+⁖font჻DejaVu Sans⁖⋰font჻
+⁖pronunciation჻REE⊹jee⊹uh⁖⋰pronunciation჻
+⁖cadence჻Regia मुकुट⁖⋰cadence჻
+⁖non…ostensive჻Regia मुकुट ☽☉☾ is the Cosmos Above∷It is ambient throughout the whole utterance∷not a runtime function∷parser stage∷correction pass∷or glyph⊹rewriting operation∷Its three authored emission identities remain lexical when written⁖⋰non…ostensive჻
+⁖ostensive჻Crown rests above the living form∷Hidden thought carries through distant voice∷Heart holds depth beside truth and desire∷Ashen fire rises beneath wolf breath☽☉☾⁖⋰ostensive჻
+⁖grimchain჻ᚨ𐔊𐤠ᚱⵇ🜇ⵃᛄ♉𒂊𐔈𝀵𒀀⁖⋰grimchain჻
+⁖⋰lookup∵
+⁖⋰glyphs∵
+⁖glyph symbol⧟𝇍𑁦𝇎 category⧟𝇍living⊹cadence𝇎჻
+⁖lookup჻
+⁖word჻𑁦⁖⋰word჻
+⁖origin…language჻Llumena Milenii⁖⋰origin…language჻
+⁖font჻Noto Sans Brahmi⁖⋰font჻
+⁖pronunciation჻BRETH⁖⋰pronunciation჻
+⁖cadence჻Breath शिक्षा⁖⋰cadence჻
+⁖non…ostensive჻Breath शिक्षा 𑁦 is the breath that moves through all things∷It is ambient Throughout and does not appear in the written GrimChain∷It is not a word∷not a parser token∷and not a rendered separator⁖⋰non…ostensive჻
+⁖ostensive჻Black mirror holds a shadowed vein∷Still reflection remains in hidden glass∷Distant fire burns without crossing the space between∷Time turns its face toward the waiting void𑁦⁖⋰ostensive჻
+⁖grimchain჻ꠍⵀⴰ🜃ⴽ𐠁ꠏ🜗މⶇ❂♄☿⁖⋰grimchain჻
+⁖⋰lookup∵
+⁖⋰glyphs∵
+⁖glyph symbol⧟𝇍࿂𝇎 category⧟𝇍living⊹cadence𝇎჻
+⁖lookup჻
+⁖word჻࿂⁖⋰word჻
+⁖origin…language჻Llumena Milenii⁖⋰origin…language჻
+⁖font჻Noto Serif Tibetan⁖⋰font჻
+⁖pronunciation჻kan⊹tuh⊹LAY⊹shuhn⁖⋰pronunciation჻
+⁖cadence჻Cantillation⁖⋰cadence჻
+⁖non…ostensive჻Cantillation ࿂ is the Chant active communication makes when God and Goddess Listen∷It is an unspoken Living Cadence⁖⋰non…ostensive჻
+⁖ostensive჻Distant chant enters open hearing∷Earth trembles beneath the listening body∷Above answers below∷Below answers above∷Creation sounds through the inward flow࿂⁖⋰ostensive჻
+⁖grimchain჻ꠎ⚝᭢⧗🜅᭢⬡𒀀ᚷꠐⴱᚢ⌬⁖⋰grimchain჻
+⁖⋰lookup∵
+⁖⋰glyphs∵
+⁖glyph symbol⧟𝇍⟠𝇎 category⧟𝇍living⊹cadence𝇎჻
+⁖lookup჻
+⁖word჻⟠⁖⋰word჻
+⁖origin…language჻Llumena Milenii⁖⋰origin…language჻
+⁖font჻DejaVu Sans⁖⋰font჻
+⁖pronunciation჻PROS⊹uh⊹dee⁖⋰pronunciation჻
+⁖cadence჻Prosody छन्दस्⁖⋰cadence჻
+⁖non…ostensive჻Prosody छन्दस् is the Song of Creation∷ambient throughout the whole utterance∷It is not a written glyph∷spoken word∷visible operator∷or utterance token⁖⋰non…ostensive჻
+⁖ostensive჻Presence fills the open field∷Form gathers within living presence∷Silent whisper moves through the living current∷Wellspring remains beneath the forming song⟠⁖⋰ostensive჻
+⁖grimchain჻𝀖♀𒊕ꠐ𐤪ꠒނ𐔁ꠇꠎ🜇𐤢♄⁖⋰grimchain჻
+⁖⋰lookup∵
+⁖⋰glyphs∵
+჻⁖

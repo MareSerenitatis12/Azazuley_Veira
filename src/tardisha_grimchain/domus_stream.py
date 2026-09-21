@@ -28,7 +28,7 @@ from .hashing import (
 )
 from .route import SourceRouteWitness, source_route_witness_from_emission
 from .source_emission import SourceEmission
-from .mirror_math import _render_self
+from .mirror_math import _render_self, mirror_file_emission
 from .domus import (
     resolve_domus,
     domus_center_seed,
@@ -47,12 +47,12 @@ def _validate_kind(kind: Kind) -> Kind:
 
 
 def _fingerprint(
-    source: Path, kind: Kind, *, identity_name: str | bytes | None = None,
+    source: Path, kind: Kind, *, nonce: int = 0, identity_name: str | bytes | None = None,
     include_filename: bool = True,
 ) -> tuple[SourceEmission, bytes, SourceRouteWitness]:
     source_kind = _validate_kind(kind)
     if source_kind == "file":
-        emission = file_emission(source, identity_name=identity_name, include_filename=include_filename)
+        emission = mirror_file_emission(source, nonce=nonce, identity_name=identity_name, include_filename=include_filename).emission
         return emission, RAW_FILE_SOURCE_DOMAIN, source_route_witness_from_emission(emission)
     emission, _entries = directory_emission(source)
     return emission, DIRECTORY_SOURCE_DOMAIN, source_route_witness_from_emission(emission)
@@ -84,7 +84,7 @@ def file_domus_record(
     """Read one file, return its canonical GrimChain plus complete witnesses."""
     salt = validate_nonce(nonce)
     emission, _domain, witness = _fingerprint(
-        Path(source), "file", identity_name=identity_name,
+        Path(source), "file", nonce=salt, identity_name=identity_name,
         include_filename=include_filename,
     )
     seal = living_domus_from_emission(
@@ -107,7 +107,7 @@ def living_domus_for_source(
         )
         return seal
     emission, _, witness = _fingerprint(
-        source, source_kind, identity_name=identity_name,
+        source, source_kind, nonce=salt, identity_name=identity_name,
         include_filename=include_filename,
     )
     return _render_self(
@@ -135,7 +135,7 @@ def write_public_domus(
         raise TardiSHAError("source_path and output_path must be different paths")
 
     emission, domain, witness = _fingerprint(
-        source, source_kind, identity_name=identity_name,
+        source, source_kind, nonce=salt, identity_name=identity_name,
         include_filename=include_filename,
     )
     digest, size = emission.source_digest, emission.source_size
