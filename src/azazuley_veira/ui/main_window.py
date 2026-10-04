@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from PySide6.QtCore import QAbstractListModel, QModelIndex, QRegularExpression, Qt
-from PySide6.QtGui import QAction, QColor, QFont, QFontDatabase, QPalette, QRegularExpressionValidator, QResizeEvent, QTextCharFormat
+from PySide6.QtGui import QAction, QColor, QPalette, QRegularExpressionValidator, QResizeEvent
 from PySide6.QtWidgets import (
     QBoxLayout,
     QColorDialog,
@@ -22,13 +22,17 @@ from PySide6.QtWidgets import (
 
 from azazuley_veira.ailalubar_render import render_ailalubar
 from azazuley_veira.config import font_catalog, visual
-from azazuley_veira.config.font_runtime import DEFAULT_POINT_SIZE
+from azazuley_veira.config.font_runtime import (
+    et_sonyera_font_file,
+    grimchain_display_codepoints,
+    installed_font_families,
+)
 from azazuley_veira.engines import emanation, grimchain, sydonic
 from azazuley_veira import grimchain_journal
 from azazuley_veira.grimchain_journal import GrimchainHistorySession, append_grimchain, read_grim_import
 from azazuley_veira.ui.help_viewer import HelpViewer
-from azazuley_veira.ui.terminal import SubmitTextEdit, Terminal
-from azazuley_veira.ui.exact_text import format_exact_grimchain, write_exact_surface_groups_pdf
+from azazuley_veira.ui.terminal import SubmitTextEdit, Terminal, _format_exact_prose_uncovered
+from azazuley_veira.ui.exact_text import write_exact_surface_groups_pdf
 
 
 class _GrimchainHistoryModel(QAbstractListModel):
@@ -101,6 +105,17 @@ class _GrimchainHistoryComboBox(QComboBox):
         super().showPopup()
 
 
+class GrimChainInput(SubmitTextEdit):
+    def __init__(self, parent=None, preferred_rows: int = 2):
+        super().__init__(parent, preferred_rows)
+        self.setAttribute(Qt.WidgetAttribute.WA_InputMethodEnabled, True)
+
+    def inputMethodEvent(self, event) -> None:
+        if event.commitString():
+            self.insertPlainText(event.commitString())
+        event.accept()
+
+
 class MainWindow(QMainWindow):
     """Responsive visible body of the Azazuley Veira terminal."""
 
@@ -130,7 +145,7 @@ class MainWindow(QMainWindow):
         self.grimchain_label = QLabel("GrimChain>")
         self.grimchain_label.setObjectName("grimchainHeaderLabel")
         self.grimchain_group.addWidget(self.grimchain_label)
-        self.grimchain_input = SubmitTextEdit(preferred_rows=2)
+        self.grimchain_input = GrimChainInput(preferred_rows=2)
         self.grimchain_input.setObjectName("grimchainInput")
         self.grimchain_input.setLineWrapMode(SubmitTextEdit.LineWrapMode.WidgetWidth)
         self.grimchain_input.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
@@ -246,7 +261,7 @@ class MainWindow(QMainWindow):
         self.layout.addLayout(self.header)
 
         self.terminal = Terminal()
-        self.grimchain_input.textChanged.connect(lambda: format_exact_grimchain(self.grimchain_input))
+        self.grimchain_input.textChanged.connect(lambda: _format_exact_prose_uncovered(self.grimchain_input))
         self.terminal.setObjectName("terminal")
         self.terminal.set_user_font_selector(self.font_box)
         self.terminal.user_song_submitted.connect(self._submit_user_song)
@@ -435,7 +450,7 @@ class MainWindow(QMainWindow):
 
     def _populate_font_box(self) -> None:
         self.font_box.addItem(font_catalog.SYSTEM_DEFAULT)
-        for family in sorted(QFontDatabase.families(), key=str.casefold):
+        for family in installed_font_families():
             self.font_box.addItem(family)
 
     def _choose_initial_font(self) -> None:
@@ -446,42 +461,34 @@ class MainWindow(QMainWindow):
         self._set_terminal_font(font_catalog.SYSTEM_DEFAULT)
 
     def _set_terminal_font(self, family: str) -> None:
-        if family == font_catalog.SYSTEM_DEFAULT:
-            resolved_family = font_catalog.DEFAULT_FAMILY
-            selected = QFont(resolved_family, DEFAULT_POINT_SIZE)
-        else:
-            if family not in QFontDatabase.families():
-                raise RuntimeError(f"user-selected font is not available: {family}")
-            selected = QFont(family, DEFAULT_POINT_SIZE)
-            resolved_family = family
-
+        resolved_family = font_catalog.DEFAULT_FAMILY if family == font_catalog.SYSTEM_DEFAULT else family
+        if resolved_family not in installed_font_families():
+            raise RuntimeError(f"user-selected font is not installed: {resolved_family}")
+        font_file = et_sonyera_font_file(resolved_family)
         user_song = self.terminal.user_song
         cursor = user_song.textCursor()
         if cursor.hasSelection():
-            character_format = QTextCharFormat()
-            character_format.setFont(selected)
-            cursor.mergeCharFormat(character_format)
-            user_song.setTextCursor(cursor)
+            qt_start, qt_end = sorted((cursor.position(), cursor.anchor()))
+            selected_text = user_song.textForUtf16Range(qt_start, qt_end)
+            user_song.add_exact_font_span(qt_start, selected_text, resolved_family, font_file)
             return
-        user_song.setFont(selected)
-        user_song.document().setDefaultFont(selected)
+        user_song.setDefaultFontFile(font_file)
 
     def _submit_grimchain_bar(self, chain: str | None = None) -> None:
         if chain is None:
             chain = self.grimchain_input.toPlainText()
         if not chain:
             return
-
+        user_input = chain
+        valid = grimchain_display_codepoints()
+        chain = "".join(ch for ch in user_input if ord(ch) in valid and ch != "𑁦")
         self.statusBar().clearMessage()
-        try:
-            grimchain.validate(chain)
-        except ValueError:
+        if not chain:
             message = "The GrimChain was malformed, check you GrimSpelling and Grim again"
             self.terminal.show_error(message)
             return
 
-        self._render_selected(chain, chain, cadence_translation=False)
-
+        self._render_selected(chain, user_input, cadence_translation=False)
     def _submit_domus_count(self) -> None:
         source = self.terminal.user_song.toPlainText()
         if source == "":

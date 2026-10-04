@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import os
 import tempfile
+from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from typing import Any
 
@@ -116,6 +117,22 @@ def _manifest_file_entry(
         "grimchain": seal,
     }
 
+def _manifest_entry_worker(payload: tuple[str, str, int, int, str | bytes | None, bool]) -> dict[str, Any]:
+    source, relative_path, middle, nonce, identity_name, include_filename = payload
+    return _manifest_file_entry(
+        Path(source), relative_path, middle, nonce,
+        identity_name=identity_name, include_filename=include_filename,
+    )
+
+def _worker_count(file_count: int) -> int:
+    cpu_count = os.cpu_count()
+    if cpu_count is None:
+        raise TardiSHAError("CPU count is required for parallel manifest construction")
+    if isinstance(cpu_count, bool) or not isinstance(cpu_count, int) or cpu_count < 1:
+        raise TardiSHAError("CPU count must be a positive integer")
+    worker_budget = max(1, (cpu_count * 35) // 100)
+    return min(file_count, worker_budget)
+
 def _nonfile_entry(kind: str, path: Path, relative: str) -> dict[str, Any]:
     if kind == "directory":
         return {"type": "directory", "path": relative}
@@ -138,23 +155,26 @@ def _build_manifest_entries(
     selected = _selected_entries(
         root, recursive, exclusions, root_file_name=root_file_name
     )
+    file_items = [(path, relative) for kind, path, relative in selected if kind == "file"]
+    payloads = [
+        (
+            str(path), relative, middle, nonce,
+            root_identity_name if root.is_file() and path == root else None,
+            root_include_filename if root.is_file() and path == root else True,
+        )
+        for path, relative in file_items
+    ]
+    if len(payloads) > 1:
+        with ProcessPoolExecutor(max_workers=_worker_count(len(payloads))) as pool:
+            file_records = list(pool.map(_manifest_entry_worker, payloads))
+    else:
+        file_records = [_manifest_entry_worker(payload) for payload in payloads]
+    files_by_path = {record["path"]: record for record in file_records}
+
     entries: list[dict[str, Any]] = []
     for kind, path, relative in selected:
         if kind == "file":
-            entries.append(
-                _manifest_file_entry(
-                    path,
-                    relative,
-                    middle,
-                    nonce,
-                    identity_name=(
-                        root_identity_name if root.is_file() and path == root else None
-                    ),
-                    include_filename=(
-                        root_include_filename if root.is_file() and path == root else True
-                    ),
-                )
-            )
+            entries.append(files_by_path[relative])
         else:
             entries.append(_nonfile_entry(kind, path, relative))
     return entries

@@ -159,7 +159,8 @@ def _shape_exact_font(font_file: Path, text: str, pixel_size: float, resource: _
     r=_open_exact_font_resource(font_file) if owned_resource else resource
     try:
         buffer=hb.Buffer()
-        buffer.add_str(text)
+        shape_text = "".join(ch + ("\ufe0e" if ch in "♈♉♊♋♌♍♎♏♐♑♒♓⛎" and (i + 1 == len(text) or text[i + 1] != "\ufe0e") else "") for i, ch in enumerate(text))
+        buffer.add_str(shape_text)
         buffer.guess_segment_properties()
         hb.shape(r.font,buffer)
         infos=buffer.glyph_infos
@@ -913,11 +914,17 @@ def format_exact_grimchain(widget,text=None):
         text=s.toPlainText() if text is None else text
         if text!=s.toPlainText():raise ValueError('GrimChain formatter text must match the widget text')
         s.clear_exact_spans();q=0
-        for ch in text:
-            units=2 if ord(ch)>0xFFFF else 1
+        i=0
+        while i<len(text):
+            ch=text[i]
             f=grimchain_face_for_character(ch)
-            s.add_exact_font_span(q,ch,f.family,f.file)
-            q+=units
+            body=ch
+            i+=1
+            while i<len(text) and ord(text[i]) == 0xFE0E:
+                body+=text[i]
+                i+=1
+            s.add_exact_font_span(q,body,f.family,f.file)
+            q+=qt_utf16_units(body)
     finally:s.setProperty('_exact_font_formatting',False)
 
 def format_exact_grimchain_span(widget,qt_start,text):
