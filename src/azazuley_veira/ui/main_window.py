@@ -24,10 +24,10 @@ from azazuley_veira.ailalubar_render import render_ailalubar
 from azazuley_veira.config import font_catalog, visual
 from azazuley_veira.config.font_runtime import (
     et_sonyera_font_file,
-    grimchain_display_codepoints,
     installed_font_families,
 )
 from azazuley_veira.engines import emanation, grimchain, sydonic
+from tardisha_grimchain.domus import SYNODIC_CENTER_GLYPHS
 from azazuley_veira import grimchain_journal
 from azazuley_veira.grimchain_journal import GrimchainHistorySession, append_grimchain, read_grim_import
 from azazuley_veira.ui.help_viewer import HelpViewer
@@ -480,15 +480,14 @@ class MainWindow(QMainWindow):
         if not chain:
             return
         user_input = chain
-        valid = grimchain_display_codepoints()
-        chain = "".join(ch for ch in user_input if ord(ch) in valid and ch != "𑁦")
+        chain = "".join(ch for ch in user_input if ch in SYNODIC_CENTER_GLYPHS)
         self.statusBar().clearMessage()
         if not chain:
             message = "The GrimChain was malformed, check you GrimSpelling and Grim again"
             self.terminal.show_error(message)
             return
 
-        self._render_selected(chain, user_input, cadence_translation=False)
+        self._render_selected(chain, chain, cadence_translation=False)
     def _submit_domus_count(self) -> None:
         source = self.terminal.user_song.toPlainText()
         if source == "":

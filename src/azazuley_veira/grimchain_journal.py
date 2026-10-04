@@ -282,7 +282,7 @@ def append_grimchain(user_input: str, grimchain: str) -> tuple[str, bool]:
 
     ensure_grimchain_journal()
     preserved_user_input = _remove_existing_chain(grimchain)
-    if preserved_user_input is not None:
+    if preserved_user_input is not None and user_input != grimchain:
         user_input = preserved_user_input
     timestamp = datetime.now().astimezone().isoformat(timespec="seconds")
     entry = _record_bytes(user_input, grimchain, timestamp, first_record=ACTIVE_JOURNAL.stat().st_size == 0)
