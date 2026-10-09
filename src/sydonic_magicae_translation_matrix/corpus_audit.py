@@ -50,5 +50,5 @@ class CorpusAuditor:
                     local_definitions.setdefault((e.non_ostensive,e.ostensive,e.leysyff),[]).append(e.glyph)
             duplicate_words.extend(f"{filename}:{w}:{''.join(gs)}" for w,gs in local_words.items() if len(gs)>1)
             duplicate_definitions.extend(f"{filename}:{d}:{''.join(gs)}" for d,gs in local_definitions.items() if len(gs)>1)
-        ok=len(authorities)==len(LEXICAL_AUTHORITY_FILES) and all(len(body)==179 for _,body in authorities) and not duplicate_words and not duplicate_definitions and not missing
+        ok=len(authorities)==len(LEXICAL_AUTHORITY_FILES) and all(frozenset(e.glyph for e in body)==self.resolver.lexical_glyphs for _,body in authorities) and not duplicate_words and not duplicate_definitions and not missing
         return CorpusAuditReport(AUDIT_VERSION,len(authorities),len(entries),len(words),len(definitions),tuple(duplicate_words),tuple(duplicate_definitions),tuple(missing),True,"PASS" if ok else "FAIL")

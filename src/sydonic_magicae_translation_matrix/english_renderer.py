@@ -10,7 +10,7 @@ from dataclasses import asdict, dataclass
 import json
 from typing import Literal, Protocol
 
-from .trace import DomusTrace, LexicalUtteranceTrace, RenderingToken
+from .trace import DomusTrace, LexicalUtteranceTrace, RenderingToken, validate_tail_trace
 
 RENDERER_VERSION = "sydonic-office-resolution-v2"
 
@@ -104,6 +104,7 @@ class EnglishRealizer:
         return result
 
     def _telegraphic(self, trace: DomusTrace) -> tuple[EnglishWord, ...]:
+        validate_tail_trace(trace)
         out: list[EnglishWord] = []
         tokens = tuple(trace.rendering_input.tokens)
 

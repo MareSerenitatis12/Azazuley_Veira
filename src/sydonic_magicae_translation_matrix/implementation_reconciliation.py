@@ -19,7 +19,6 @@ AKSH_AUTHORITY_FILES = (
     "߷…Substrate.aksh",
     "☍…Spatial…Absolute.aksh",
     "ཪ…Phantasmagoria.aksh",
-    "Living_Cadences.aksh",
     "the_4_cadences.aksh",
     "Enochian…Understandings.aksh",
 )
@@ -28,7 +27,7 @@ PACKAGE_AKSH_ROOT = Path(__file__).resolve().parent / "data" / "aksh"
 
 
 def _authority_version(path: Path) -> str:
-    if path.name in {"Living_Cadences.aksh", "Enochian…Understandings.aksh"}:
+    if path.name == "Enochian…Understandings.aksh":
         lines = path.read_text(encoding="utf-8").splitlines()
         version = attributes(lines[0]).get("version", "") if lines else ""
     else:
@@ -96,7 +95,7 @@ def build_reconciliation() -> ReconciliationReport:
         ),
         ComponentWitness(
             "living-cadences",
-            ("data/aksh/Living_Cadences.aksh",),
+            ("data/aksh/the_4_cadences.aksh",),
             "active",
             "four authored Living Cadences present regardless of communication style",
         ),

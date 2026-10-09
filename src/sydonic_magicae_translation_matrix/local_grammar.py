@@ -8,6 +8,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 import json
 from typing import Literal
+from .temporal_operator import TailResolution
 
 
 
@@ -186,6 +187,8 @@ class LocalGrammarTrace:
     ouroboric_states: tuple[OuroboricState, ...]
     transmutations: tuple[PhantasmagoriaTransmutation, ...]
     aeternum_bearing_paths: tuple[AeternumBearingPath, ...] = ()
+    tail_resolution: TailResolution | None = None
+    execution_positions: tuple[int, ...] = ()
 
     def to_json(self) -> str:
         return json.dumps(asdict(self), ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)

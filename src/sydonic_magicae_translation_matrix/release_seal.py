@@ -14,10 +14,8 @@ from .aksh_reader import read_lexicon, attributes
 
 SEAL_VERSION = "absolute-fidelity-phase2-v1"
 
-
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
-
 
 @dataclass(frozen=True, slots=True)
 class FrozenAsset:
@@ -25,13 +23,11 @@ class FrozenAsset:
     version: str
     sha256: str
 
-
 @dataclass(frozen=True, slots=True)
 class ReleaseRequirement:
     name: str
     passed: bool
     evidence: str
-
 
 @dataclass(frozen=True, slots=True)
 class ReleaseSeal:
@@ -52,14 +48,13 @@ class ReleaseSeal:
     def sha256(self) -> str:
         return hashlib.sha256(self.to_json().encode()).hexdigest()
 
-
 class ReleaseSealer:
     def __init__(self) -> None:
         self.authority = PACKAGE_AKSH_ROOT
 
     @staticmethod
     def _authority_version(path: Path) -> str:
-        if path.name in {"Living_Cadences.aksh", "Enochian…Understandings.aksh"}:
+        if path.name == "Enochian…Understandings.aksh":
             lines = path.read_text(encoding="utf-8").splitlines()
             version = attributes(lines[0]).get("version", "") if lines else ""
         else:
@@ -79,7 +74,18 @@ class ReleaseSealer:
             )
             for name in AKSH_AUTHORITY_FILES
         )
-        lexical_authority_counts = tuple((filename, len(entries)) for filename, entries in resolver.authority_entries())
+        lexical_authorities = resolver.authority_entries()
+        lexical_authority_counts = tuple(
+            (filename, len(entries))
+            for filename, entries in lexical_authorities
+        )
+        lexical_shape_ok = (
+            tuple(filename for filename, _ in lexical_authorities) == LEXICAL_AUTHORITY_FILES
+            and all(
+                frozenset(entry.glyph for entry in entries) == resolver.lexical_glyphs
+                for _, entries in lexical_authorities
+            )
+        )
         req = (
             ReleaseRequirement(
                 "Current authored .aksh names reconciled",
@@ -87,8 +93,8 @@ class ReleaseSealer:
                 f"{len(AKSH_AUTHORITY_FILES)} current .aksh contracts; 0 undeclared active contracts",
             ),
             ReleaseRequirement(
-                "All authored lexical authorities complete and peer-equal in glyph body",
-                len(lexical_authority_counts) == len(LEXICAL_AUTHORITY_FILES) and all(count == 179 for _, count in lexical_authority_counts),
+                "Authored lexical authorities preserve ordinary glyph bodies",
+                lexical_shape_ok,
                 repr(lexical_authority_counts),
             ),
         )

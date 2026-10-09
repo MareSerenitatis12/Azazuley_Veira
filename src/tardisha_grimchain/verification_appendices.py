@@ -95,13 +95,13 @@ MILLENNIUM_PROFILES: Final[tuple[MillenniumCorollaryProfile, ...]] = (
     ),
     MillenniumCorollaryProfile(
         "hodge", "Hodge Mirror Computation", (136, 137),
-        ("𝔓", "✡", "❄", "T_Bound"),
+        ("࿂", "✡", "❄", "T_Bound"),
         "rational harmonic input is mirrored into a committed standing-wave cycle",
         "rational algebraic-cycle office", True, False,
     ),
     MillenniumCorollaryProfile(
         "poincare", "Poincaré Topological Supersession", (137, 140),
-        ("𝔓", "⚝", "⛎"),
+        ("࿂", "⚝", "⛎"),
         "non-orientable return cancels Q2 accumulation and preserves recursive memory",
         "Klein stability return", True, False,
     ),

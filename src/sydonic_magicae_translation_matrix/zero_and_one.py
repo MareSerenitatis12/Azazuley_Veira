@@ -1,7 +1,7 @@
 """Zero-and-One source witness for ordinary lexical bodies plus Shadow Locus and Axiomyr.
 
 This module owns the Q0/Q1 special-body boundary and ordinary lexical source
-resolution. Living Cadences are authored separately in Living_Cadences.aksh;
+resolution. Living Cadences are authored in the_4_cadences.aksh;
 Enochian grammar executes in SequentialDomusExecutor.
 """
 from __future__ import annotations
@@ -86,7 +86,14 @@ class ZeroAndOneMachine:
         return trace
 
     def _validate_trace(self, tokens: tuple[GlyphToken, ...], trace: ZeroAndOneTrace) -> None:
-        expected_positions = {token.position for token in tokens if token.value in self.ordinary_lexical_glyphs}
+        expected_positions = {
+            token.position for token in tokens
+            if token.value in self.ordinary_lexical_glyphs
+            or (token.value == AXIOMYR_GLYPH and any(
+                event.position == token.position and event.event == "lexical-resolution"
+                for event in trace.events
+            ))
+        }
         actual_positions = [event.position for event in trace.lexical_events]
         if len(actual_positions) != len(set(actual_positions)):
             raise ZeroAndOneError("a lexical position received more than one resolution record")

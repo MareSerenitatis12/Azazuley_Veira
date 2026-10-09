@@ -12,10 +12,11 @@ from .lexer import ExactGlyphLexer
 from .models import DomusFrame
 from tardisha_grimchain.domus import parse_public_living_domus
 from .english_renderer import EnglishRealizer, EnglishRendering, HouseVoiceRealizer
-from .lexical_resolver import LexicalResolver
+from .lexical_resolver import ApprovedLexicalEntry, LexicalResolver
 from .implementation_reconciliation import PACKAGE_AKSH_ROOT, require_package_aksh_authority
 from .sequential_executor import SequentialDomusExecutor
 from .trace import DomusTrace, DomusTraceBuilder
+from .temporal_operator import validate_tail_resolution, temporal_operator_positions
 
 ENGINE_VERSION = "absolute-fidelity-phase2-v1"
 TargetLanguage = Literal["en"]
@@ -46,6 +47,7 @@ class TranslationResult:
     semantic_trace: DomusTrace | None
     version_witness: VersionWitness
     rendering: EnglishRendering
+    resolved_entries: tuple[ApprovedLexicalEntry | None, ...]
 
     def to_json(self) -> str:
         payload = {
@@ -129,6 +131,42 @@ class SydonicMagicaeEngine:
     ) -> TranslationResult:
         trace = self.trace_builder.build(frame, zero_and_one, local)
         rendering = self.english.render(trace, style=output_style)
+
+        entries_by_body_id: dict[str, ApprovedLexicalEntry] = {}
+        for body in local.bodies:
+            resolutions = (
+                *((body.lexical_resolution,) if body.lexical_resolution is not None else ()),
+                *body.office_resolutions,
+            )
+            for resolution in resolutions:
+                entry = resolution.entry
+                body_id = f"{resolution.source_authority}:{body.glyph}"
+                if resolution.ostensive_variant is not None:
+                    body_id += f":ostensive{resolution.ostensive_variant}"
+                entries_by_body_id[body_id] = entry
+
+        for state in local.transmutations:
+            for body, resolution in zip(state.vessels, state.office_resolutions, strict=True):
+                body_id = (
+                    f"{resolution.source_authority}:{body.glyph}:"
+                    f"ostensive{resolution.ostensive_variant}"
+                )
+                entries_by_body_id[body_id] = resolution.entry
+
+        resolved_entries: list[ApprovedLexicalEntry | None] = []
+        for word in rendering.final_words:
+            if word.kind != "content":
+                resolved_entries.append(None)
+                continue
+            if word.source_body_id is None:
+                raise EngineError("Sydonic content word has no source-body identity")
+            try:
+                resolved_entries.append(entries_by_body_id[word.source_body_id])
+            except KeyError as exc:
+                raise EngineError(
+                    f"Sydonic rendered word lost its resolved lexical entry: {word.source_body_id!r}"
+                ) from exc
+
         witness = VersionWitness(
             engine=self.version,
             renderer=rendering.renderer_version,
@@ -144,6 +182,7 @@ class SydonicMagicaeEngine:
             semantic_trace=trace if include_trace else None,
             version_witness=witness,
             rendering=rendering,
+            resolved_entries=tuple(resolved_entries),
         )
 
     def translate_domus_with_execution(
@@ -178,6 +217,16 @@ class SydonicMagicaeEngine:
                 aeternum_pair_reorder=aeternum_pair_reorder,
                 aeternum_corridor_reorder=aeternum_corridor_reorder,
             )
+            if temporal_operator_positions(frame):
+                if local.tail_resolution is None:
+                    raise EngineError("Tail-dependent execution did not return a resolved traversal")
+                validate_tail_resolution(frame, local.tail_resolution)
+                if local.execution_positions != local.tail_resolution.execution_positions:
+                    raise EngineError("grammar did not execute the completed Tail traversal")
+                expected_scan = tuple(pos for pos in local.execution_positions if frame.tokens[pos].value != "⟲")
+                actual_scan = tuple(event.position for event in zero_and_one.events if event.glyph != "⟲")
+                if actual_scan != expected_scan:
+                    raise EngineError("recorded grammar encounters differ from the completed Tail order")
             return self._complete_translation(
                 domus_string=domus_string,
                 frame=frame,

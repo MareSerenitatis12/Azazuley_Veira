@@ -23,8 +23,8 @@ from .hashing import (
     validate_nonce,
 )
 
-_GRIM_OBJECT_OPEN = "\u0f3a"
-_GRIM_OBJECT_CLOSE = "\u0f3b"
+_GRIM_OBJECT_OPEN = "\u169b"
+_GRIM_OBJECT_CLOSE = "\u169c"
 _GRIM_COLLECTION_OPEN = "\u2235"
 _GRIM_COLLECTION_CLOSE = "\u2234"
 _GRIM_FIELD_OPEN = "\u10fb"

@@ -91,8 +91,8 @@ def is_ouroboric_reversal(glyph: str) -> bool:
 
 if {glyph for glyph, body in ENOCH_OFFICES.items() if body.reaches_backward} != _BACKWARD_ENOCHS:
     raise RuntimeError("exactly ཪ ☍ ߷ 🜚 🜛 must reach backward")
-if len(GENERATED_ENOCH_GLYPHS) != 10 or "⟠" in GENERATED_ENOCH_GLYPHS or "𝔓" in GENERATED_ENOCH_GLYPHS:
-    raise RuntimeError("exactly ten Enochs are generated; ⟠ and 𝔓 remain non-generated")
+if len(GENERATED_ENOCH_GLYPHS) != 10 or "⟠" in GENERATED_ENOCH_GLYPHS or "࿂" in GENERATED_ENOCH_GLYPHS:
+    raise RuntimeError("exactly ten Enochs are generated; ⟠ and ࿂ remain non-generated")
 if ENOCH_OFFICES["⚶"].reaches_backward:
     raise RuntimeError("⚶ is positional Ouroboric Reversal, not backward depth")
 if not ENOCH_OFFICES["ཪ"].phantasmagoria:

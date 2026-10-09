@@ -56,23 +56,24 @@ def read_grim_import(path: str | Path) -> tuple[tuple[str, str], ...]:
     if source.suffix != ".grim" or not source.is_file():
         raise ValueError(f"Grim import requires one .grim file: {source}")
     lines = source.read_text(encoding="utf-8").splitlines()
+    object_open, object_close = ("༺", "༻") if lines[:1] == ["༺"] else ("᚛", "᚜")
     try:
         close_index = len(lines) - 1 - lines[::-1].index("∴")
     except ValueError as exc:
         raise ValueError(f".grim manifest has no entries terminator: {source}") from exc
-    if lines[close_index + 1:close_index + 2] != ["༻"] or len(lines[close_index + 2:]) != 1:
+    if lines[close_index + 1:close_index + 2] != [object_close] or len(lines[close_index + 2:]) != 1:
         raise ValueError(f".grim manifest has no singular trailing GrimChain: {source}")
     records: list[tuple[str, str]] = []
     entry_path: str | None = None
     entry_grimchain: str | None = None
     depth = 0
     for line in lines[:close_index]:
-        if line == "༺":
+        if line == object_open:
             depth += 1
             if depth == 2:
                 entry_path = None
                 entry_grimchain = None
-        elif line == "༻":
+        elif line == object_close:
             if depth == 2 and entry_grimchain is not None:
                 if entry_path is None:
                     raise ValueError(f".grim GrimChain entry has no path: {source}")

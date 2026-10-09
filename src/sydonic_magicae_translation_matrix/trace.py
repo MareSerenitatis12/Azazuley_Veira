@@ -9,7 +9,8 @@ from typing import Protocol
 
 from .zero_and_one import ZeroAndOneTrace
 from .local_grammar import LocalGrammarTrace
-from .models import DomusFrame
+from .models import DomusFrame, GlyphToken
+from .temporal_operator import TailResolution, tail_resolution_from_dict, validate_tail_resolution
 from .lexical_resolver import LEXICON_VERSION, LexicalResolver
 from .aksh_reader import attributes
 
@@ -162,11 +163,16 @@ class DomusTrace:
     rendering_input: RenderingInput
     aeternum_bearing_traces: tuple[AeternumBearingTrace, ...] = ()
     utterance_state: str = "uttered"
+    tail_resolution: TailResolution | None = None
+    final_body_order: tuple[int, ...] = ()
     _sha256_cache: str | None = field(default=None, init=False, repr=False, compare=False)
 
     def to_dict(self) -> dict[str, object]:
         payload = asdict(self)
         payload.pop("_sha256_cache", None)
+        if self.tail_resolution is None:
+            payload.pop("tail_resolution", None)
+            payload.pop("final_body_order", None)
         return payload
 
     def to_json(self) -> str:
@@ -215,10 +221,30 @@ class RenderedOutput:
     sentence: str
 
 def render_from_trace(trace: DomusTrace, renderer: TraceRenderer) -> RenderedOutput:
+    validate_tail_trace(trace)
     sentence = renderer.render(trace.rendering_input)
     if not isinstance(sentence, str):
         raise TraceError("renderer must return str")
     return RenderedOutput(renderer.version, trace.sha256, sentence)
+
+
+def validate_tail_trace(trace: DomusTrace) -> None:
+    """A saved trace must prove Tail execution before any rendering boundary."""
+    if not any(token.exact_glyph == "⟲" for token in trace.token_traces):
+        return
+    if trace.tail_resolution is None:
+        raise TraceError("Tail-dependent translation has no completed traversal")
+    frame = DomusFrame(trace.source_string, tuple(
+        GlyphToken(token.exact_glyph, token.source_position, token.token_class)
+        for token in trace.token_traces
+    ))
+    validate_tail_resolution(frame, trace.tail_resolution)
+    speaking = {token.source_position for token in trace.token_traces if token.utterances}
+    if len(trace.final_body_order) != len(speaking) or set(trace.final_body_order) != speaking:
+        raise TraceError("Tail-dependent final order lost a speaking body")
+    rendered = tuple(token.source_position for token in trace.rendering_input.tokens if token.source_position in speaking)
+    if rendered != trace.final_body_order:
+        raise TraceError("renderer order differs from completed Tail-dependent grammar")
 
 def authority_versions(resolver: LexicalResolver, understandings: str | Path) -> AuthorityVersions:
     versions = resolver.authority_version_items()
@@ -311,7 +337,11 @@ class DomusTraceBuilder:
             if fields["semantic_lexicon_version"] is not None:
                 semantic_lexicon_versions.add(str(fields["semantic_lexicon_version"]))
             bearing = body.recognition if body is not None else None
-            realization_presence = event.event == "lexical-resolution" or token.value in {"⛎", "᳀"}
+            realization_presence = (
+                event.event == "lexical-resolution"
+                or token.value == "⛎"
+                or (token.value == "᳀" and effective_resolution is not None)
+            )
             token_traces.append(TokenTrace(
                 source_position=token.position,
                 exact_glyph=token.value,
@@ -439,7 +469,7 @@ class DomusTraceBuilder:
         ) for pos in rendering_positions)
 
         trace = DomusTrace(
-            trace_version=TRACE_VERSION,
+            trace_version="aeonic-line-v3-tail" if local.tail_resolution is not None else TRACE_VERSION,
             source_string=frame.source,
             parsed_frame=ParsedFrameTrace(source=frame.source, exact_roundtrip=True),
             semantic_lexicon_version=LEXICON_VERSION,
@@ -458,12 +488,15 @@ class DomusTraceBuilder:
                 if not rendering_tokens and frame.tokens and all(token.kind == "grammar" for token in frame.tokens)
                 else "uttered"
             ),
+            tail_resolution=local.tail_resolution,
+            final_body_order=local.causal_body_order if local.tail_resolution is not None else (),
         )
         self._validate(trace, frame)
         return trace
 
     @staticmethod
     def _validate(trace: DomusTrace, frame: DomusFrame) -> None:
+        validate_tail_trace(trace)
         positions = [t.source_position for t in trace.token_traces]
         expected = [t.position for t in frame.tokens]
         if positions != expected:
@@ -595,4 +628,9 @@ def _trace_from_dict(data: dict[str, object]) -> DomusTrace:
         rendering_input=rendering,
         aeternum_bearing_traces=aeternum,
         utterance_state=str(data.get("utterance_state", "uttered")),
+        tail_resolution=(
+            tail_resolution_from_dict(data["tail_resolution"])
+            if data.get("tail_resolution") is not None else None
+        ),
+        final_body_order=tuple(data.get("final_body_order", ())),
     )

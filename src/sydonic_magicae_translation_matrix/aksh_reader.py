@@ -97,6 +97,6 @@ def read_enochian_inventory(path: str | Path) -> tuple[tuple[str, ...], tuple[st
             if any(attrs.get(k) != "false" for k in ("tokenized", "written", "spoken", "parser_trigger")):
                 raise ValueError(f"non-runtime Enochian Understanding {glyph_text!r} must remain non-tokenized/non-written/non-spoken/non-triggering")
             non_runtime.extend(glyph_text)
-    if enoch_count != 10:
-        raise ValueError(f"{source.name}: expected 10 authored Enochian Understanding entries, found {enoch_count}")
+    if enoch_count != 11:
+        raise ValueError(f"{source.name}: expected 11 authored Enochian Understanding entries, found {enoch_count}")
     return tuple(visible), tuple(dict.fromkeys(non_runtime))

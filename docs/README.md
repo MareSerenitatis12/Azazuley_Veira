@@ -94,7 +94,7 @@ Current engine construction calls `require_package_aksh_authority()` and builds
 
 The enforced runtime tuple contains thirteen authorities: SeeD Body,
 `Axiomyr…Shadow…Locus.aksh`, eight ordinary office files, Phantasmagoria,
-`Living_Cadences.aksh`, and Enochian Understandings. Living Cadences carries
+`the_4_cadences.aksh`, and Enochian Understandings. Living Cadences carries
 Regia, Breath, Cantillation, and Prosody; Enochian Understandings carries the
 ten runtime Enochians. The Axiomyr/Shadow file is a live contextual special
 authority in `AKSH_AUTHORITY_FILES`. Required field names are validated structurally. An explicitly present empty field body remains valid authored `""` data through lexical resolution, transaction construction, tracing, and presentation.

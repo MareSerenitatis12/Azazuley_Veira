@@ -90,14 +90,9 @@ class EnochContract:
 class CadenceContract:
     cadence_id: str
     glyphs: tuple[str, ...]
-    operation_type: str
-    presence: str
-    parser_trigger: bool
-    written: bool
-    spoken: bool
 
     def __post_init__(self) -> None:
-        if not self.cadence_id or not self.glyphs or any(len(glyph) != 1 for glyph in self.glyphs) or not self.operation_type:
+        if not self.cadence_id or not self.glyphs or any(len(glyph) != 1 for glyph in self.glyphs):
             raise TranslationMatrixIntegrationError("Living Cadence contract is incomplete")
 
 
@@ -113,13 +108,13 @@ class TranslationMatrixContracts:
     def __post_init__(self) -> None:
         if tuple(pin.filename for pin in self.pins) != AKSH_AUTHORITY_FILES:
             raise TranslationMatrixIntegrationError("Translation Matrix contracts must contain the exact .aksh authority set")
-        if len(self.enochs) != 10 or len({item.enoch_id for item in self.enochs}) != 10:
-            raise TranslationMatrixIntegrationError("Translation Matrix must preserve the ten authored Enoch entries")
+        if len(self.enochs) != 11 or len({item.enoch_id for item in self.enochs}) != 11:
+            raise TranslationMatrixIntegrationError("Translation Matrix must preserve the eleven authored Enoch entries")
         ordered = tuple(item.order for item in self.enochs)
-        if ordered != tuple(range(1, 11)):
-            raise TranslationMatrixIntegrationError("Enoch runtime records must preserve authored order 1..10")
+        if ordered != tuple(range(1, 12)):
+            raise TranslationMatrixIntegrationError("Enoch runtime records must preserve authored order 1..11")
         if not all(item.parser_trigger and item.written and item.spoken for item in self.enochs):
-            raise TranslationMatrixIntegrationError("all ten Enochs must remain written parser-active spoken grammar")
+            raise TranslationMatrixIntegrationError("all eleven Enochs must remain written parser-active spoken grammar")
         if len(self.cadences) != 4 or len({item.cadence_id for item in self.cadences}) != 4:
             raise TranslationMatrixIntegrationError("Translation Matrix must preserve the four authored Living Cadences")
         cadence_by_id = {item.cadence_id: item for item in self.cadences}
@@ -133,8 +128,6 @@ class TranslationMatrixContracts:
             item = cadence_by_id.get(cadence_id)
             if item is None or item.glyphs != glyphs:
                 raise TranslationMatrixIntegrationError(f"Living Cadence identity moved: {cadence_id}")
-            if item.parser_trigger or item.written or item.spoken:
-                raise TranslationMatrixIntegrationError(f"Living Cadence entered runtime token grammar: {cadence_id}")
         if len(self.semantic_digest) != 64 or len(self.byte_manifest_digest) != 64:
             raise TranslationMatrixIntegrationError("Translation Matrix contract digests are incomplete")
 
@@ -481,51 +474,32 @@ def _enoch_contracts(text: str) -> tuple[EnochContract, ...]:
 
 
 def _cadence_contracts(text: str) -> tuple[CadenceContract, ...]:
+    cadence_ids = {
+        "☽☉☾": "regia…cosmos…above",
+        "𑁦": "breath…throughout",
+        "࿂": "cantillation…chant",
+        "⟠": "magic…subspace…prosody",
+    }
     cadences: list[CadenceContract] = []
-    current: dict[str, str] | None = None
-    operation_type = ""
     for line in text.splitlines():
-        if line.startswith("⁖cadence "):
-            if current is not None:
-                raise TranslationMatrixIntegrationError("nested Living Cadence declaration")
-            current = attributes(line)
-            operation_type = ""
+        if not line.startswith("⁖glyph "):
             continue
-        if current is None:
+        glyph_text = attributes(line).get("symbol", "")
+        cadence_id = cadence_ids.get(glyph_text)
+        if cadence_id is None:
             continue
-        if line.startswith("⁖operation "):
-            operation_type = attributes(line).get("type", "")
-            continue
-        if line == "⁖⋰cadence჻":
-            glyph_text = current.get("glyph", "")
-            cadence_id = current.get("id", "")
-            if not glyph_text or not cadence_id or not operation_type:
-                raise TranslationMatrixIntegrationError(
-                    f"Living Cadence declaration is incomplete: {current!r}"
-                )
-            cadences.append(CadenceContract(
-                cadence_id=cadence_id,
-                glyphs=tuple(glyph_text),
-                operation_type=operation_type,
-                presence=current.get("presence", "ever⊹present"),
-                parser_trigger=_bool_attribute(current, "parser_trigger", glyph_text),
-                written=_bool_attribute(current, "written", glyph_text),
-                spoken=_bool_attribute(current, "spoken", glyph_text),
-            ))
-            current = None
-            operation_type = ""
-    if current is not None:
-        raise TranslationMatrixIntegrationError("unterminated Living Cadence declaration")
+        cadences.append(CadenceContract(
+            cadence_id=cadence_id,
+            glyphs=tuple(glyph_text),
+        ))
     return tuple(cadences)
-
-
 def build_translation_matrix_contracts(aksh_root: str | Path) -> TranslationMatrixContracts:
     """Load the sole current .aksh authority body after chooser closure."""
     root_path = Path(aksh_root).resolve()
     pins: list[MatrixContractPin] = []
     semantic_bodies: list[tuple[str, str]] = []
     understandings = ""
-    living_cadences = ""
+    cadence_authority = ""
     for filename in AKSH_AUTHORITY_FILES:
         path = root_path / filename
         if not path.is_file():
@@ -543,17 +517,17 @@ def build_translation_matrix_contracts(aksh_root: str | Path) -> TranslationMatr
             semantic,
         ))
         semantic_bodies.append((filename, semantic))
-        if filename == "Living_Cadences.aksh":
-            living_cadences = text
+        if filename == "the_4_cadences.aksh":
+            cadence_authority = text
         if filename == "Enochian…Understandings.aksh":
             understandings = text
 
-    if not living_cadences:
-        raise TranslationMatrixIntegrationError("Living Cadences .aksh authority is absent")
+    if not cadence_authority:
+        raise TranslationMatrixIntegrationError("the_4_cadences.aksh authority is absent")
     if not understandings:
         raise TranslationMatrixIntegrationError("Enochian Understandings .aksh authority is absent")
     enochs = _enoch_contracts(understandings)
-    cadences = _cadence_contracts(living_cadences)
+    cadences = _cadence_contracts(cadence_authority)
     pin_tuple = tuple(pins)
     semantic_digest = _digest(tuple(semantic_bodies))
     byte_manifest_digest = _digest(tuple(

@@ -7,7 +7,6 @@ import secrets
 from pathlib import Path
 from .aksh_reader import read_lexicon, field_name
 
-
 OFFICE_FILES: dict[str, tuple[str, str]] = {
     "recursive_identity": ("🜗…Recursive…Identity.aksh", "🜗"),
     "relic": ("🜛…Relic.aksh", "🜛"),
@@ -25,12 +24,12 @@ CADENCE_FILE = "the_4_cadences.aksh"
 CADENCE_GLYPHS = ("☽☉☾", "𑁦", "࿂", "⟠")
 SPECIAL_GLYPHS = frozenset({"᳀", "⛎"})
 
-# These are the ten peer-aligned 179-glyph lexical/office authorities.
+# SeeD carries 179 ordinary lexical glyphs; each of the nine office authorities
+# carries those same 179 glyphs plus the Gaia ᳀ projection.
 # The two-body Axiomyr/Shadow authority is intentionally separate.
 LEXICAL_AUTHORITY_FILES: tuple[str, ...] = (SEED_FILE, *(filename for filename, _ in OFFICE_FILES.values()))
 LEXICON_VERSION = "nine-office-three-definition-v3"
 GRAMMAR_VERSION = "enochian-understandings-v1"
-
 
 class LexicalResolverError(RuntimeError):
     pass
@@ -38,10 +37,6 @@ class LexicalResolverError(RuntimeError):
 
 class UnknownGlyphError(LexicalResolverError):
     pass
-
-
-
-
 
 @dataclass(frozen=True, slots=True)
 class ApprovedLexicalEntry:
@@ -60,7 +55,6 @@ class ApprovedLexicalEntry:
     authored_office: str
     ostensive_variants: tuple[str, str, str] = ()
 
-
 @dataclass(frozen=True, slots=True)
 class LexicalResolution:
     source_glyph: str
@@ -73,6 +67,7 @@ class LexicalResolution:
     leysyff: str
     source_authority: str
     authored_office: str
+    entry: ApprovedLexicalEntry
     ostensive_variant: str | None = None
 
     def to_json(self) -> str:
@@ -157,11 +152,16 @@ class LexicalResolver:
         self._record_authority_version(path, body.header.get("version", ""))
         entries: dict[str, ApprovedLexicalEntry] = {}
         for item in body.glyphs:
+            if item.symbol == "᳀":
+                if field_name(item.category) != "axiomyr":
+                    raise LexicalResolverError(f"{path.name}: invalid authored Axiomyr category")
+                self._seed_axiomyr_entry = self._entry_from_aksh(
+                    item, office="seed_identity", source_name=path.name, allow_unfilled=False
+                )
+                continue
             if len(item.symbol) != 1 or item.symbol in entries:
                 raise LexicalResolverError(f"{path.name}: invalid or duplicate exact glyph key {item.symbol!r}")
             entries[item.symbol] = self._entry_from_aksh(item, office="seed_identity", source_name=path.name, allow_unfilled=False)
-        if len(entries) != 179:
-            raise LexicalResolverError(f"{path.name}: expected 179 lexical entries, found {len(entries)}")
         return entries
 
     def _load_special_inventory(self, path: Path) -> dict[str, ApprovedLexicalEntry]:
@@ -212,8 +212,6 @@ class LexicalResolver:
             if item.lookup_attributes.get("enoch") != expected_enoch:
                 raise LexicalResolverError(f"{path.name}: glyph {item.symbol!r} lookup Enoch is not {expected_enoch!r}")
             entries[item.symbol] = self._entry_from_aksh(item, office=office, source_name=path.name, allow_unfilled=allow_unfilled)
-        if len(entries) != 179:
-            raise LexicalResolverError(f"{path.name}: expected 179 lexical entries, found {len(entries)}")
         return entries
 
     def _validate_alignment(self) -> None:
@@ -221,16 +219,16 @@ class LexicalResolver:
         reference_name = "seed_identity"
         reference_entries = self._seed_entries
         reference_glyphs = frozenset(reference_entries)
-        if len(reference_glyphs) != 179:
-            raise LexicalResolverError(f"{reference_name} must carry exactly 179 exact glyph keys")
+        office_glyphs = frozenset(inventories[0][1])
         for name, entries in inventories:
             glyphs = frozenset(entries)
-            if glyphs != reference_glyphs:
-                missing = tuple(sorted(reference_glyphs - glyphs))
-                extra = tuple(sorted(glyphs - reference_glyphs))
+            if glyphs != office_glyphs:
+                missing = tuple(sorted(office_glyphs - glyphs))
+                extra = tuple(sorted(glyphs - office_glyphs))
                 raise LexicalResolverError(
-                    f"{name} glyph set differs from {reference_name}: missing={missing!r}, extra={extra!r}"
-                )
+                    f"{name} glyph set differs from the shared office inventory: "
+                    f"missing={missing!r}, extra={extra!r}"
+               )
         reference_categories = {glyph: reference_entries[glyph].category for glyph in reference_glyphs}
         for name, entries in inventories:
             categories = {glyph: entries[glyph].category for glyph in reference_glyphs}
@@ -264,9 +262,12 @@ class LexicalResolver:
             leysyff=entry.leysyff,
             source_authority=entry.source_authority,
             authored_office=entry.authored_office,
+            entry=entry,
         )
 
     def resolve(self, glyph: str) -> LexicalResolution:
+        if glyph == "᳀":
+            return self._resolution(self._seed_axiomyr_entry, glyph)
         try:
             entry = self._seed_entries[glyph]
         except KeyError as exc:
@@ -326,12 +327,13 @@ class LexicalResolver:
                 leysyff=entry.leysyff,
                 source_authority=entry.source_authority,
                 authored_office=entry.authored_office,
+                entry=entry,
                 ostensive_variant=variant,
             )
         return self._resolution(entry, glyph)
 
     def authority_entries(self) -> tuple[tuple[str, tuple[ApprovedLexicalEntry, ...]], ...]:
-        """Return the ten peer-aligned 179-glyph lexical/office inventories."""
+        """Return the peer-aligned lexical/office inventories."""
         return (
             (self.seed_path.name, tuple(self._seed_entries.values())),
             *((self.office_paths[office].name, tuple(entries.values())) for office, entries in self._office_entries.items()),

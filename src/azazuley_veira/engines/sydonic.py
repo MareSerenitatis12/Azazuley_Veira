@@ -14,6 +14,7 @@ from sydonic_magicae_translation_matrix.lexical_resolver import ApprovedLexicalE
 from sydonic_magicae_translation_matrix.english_renderer import SydonicSpokenVoice
 from sydonic_magicae_translation_matrix.models import DomusFrame, ReflectedGlyphToken
 from azazuley_veira.ailalubar_render import AilalubarRenderWitness
+from azazuley_veira.path_out import PathOut, build_path
 
 BREATH_SEPARATOR = "𑁦"
 OSTENSIVE_PARAGRAPH_PREFIXES = tuple("בגדכפרתךםןףץ")
@@ -166,6 +167,7 @@ class SydonicRenderTransaction:
     definition: DefinitionPresentation
     leysyff: LeySyffPresentation
     ffysyel: LeySyffPresentation
+    path_out: PathOut | None = None
 
     @property
     def azalalia_body(self) -> str:
@@ -217,7 +219,6 @@ class SydonicRenderTransaction:
             raise EngineError("Azazuley render transaction requires a semantic trace")
         return trace.sha256
 
-
 def parse_source_body_id(source_body_id: str, grammatical_bearing: str | None) -> SourceBodyIdentity:
     """Parse one renderer source-body ID in one canonical place."""
     if grammatical_bearing == "phantasmagoria":
@@ -228,14 +229,16 @@ def parse_source_body_id(source_body_id: str, grammatical_bearing: str | None) -
     source_authority, glyph = source_body_id.rsplit(":", 1)
     return SourceBodyIdentity(source_authority, glyph)
 
-
 def _resolved_words(
-    engine: SydonicMagicaeEngine,
     result: TranslationResult,
     visual_source_positions: tuple[int, ...],
 ) -> tuple[ResolvedRenderWord, ...]:
     words: list[ResolvedRenderWord] = []
-    for word in result.rendering.final_words:
+    for word, entry in zip(
+        result.rendering.final_words,
+        result.resolved_entries,
+        strict=True,
+    ):
         if (
             word.kind != "content"
             or word.source_position is None
@@ -243,8 +246,9 @@ def _resolved_words(
             or word.source_glyph is None
         ):
             continue
+        if entry is None:
+            raise EngineError("Sydonic content word has no resolved lexical entry")
         identity = parse_source_body_id(word.source_body_id, word.grammatical_bearing)
-        entry = engine.lexical_resolver.entry_from_authority(word.source_glyph, identity.source_authority)
         try:
             prosody_position = visual_source_positions[word.source_position]
         except IndexError as exc:
@@ -260,9 +264,6 @@ def _resolved_words(
             entry=entry,
         ))
     return tuple(words)
-
-
-
 
 class _AilalubarSydonicAdapter:
     """Azuzaley-owned adapter from Ailalubar presentation order to Sydonic's generic execution API."""
@@ -391,7 +392,7 @@ def render_transaction(
             aeternum_corridor_reorder=adapter.reorder_corridor,
             parsed_frame=frame,
         )
-        resolved = _resolved_words(engine, result, witness.visual_source_positions)
+        resolved = _resolved_words(result, witness.visual_source_positions)
 
     azalalia_runs = _written_projection_runs(resolved)
     ailalaza_runs = _written_projection_runs(tuple(reversed(resolved)))
@@ -462,6 +463,7 @@ def render_transaction(
         definition=definition,
         leysyff=leysyff,
         ffysyel=ffysyel,
+        path_out=build_path(witness.source, engine),
     )
 
 

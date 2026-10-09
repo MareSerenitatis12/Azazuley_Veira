@@ -1,7 +1,7 @@
 """Pattern-driven execution of one exact Sydonic Magicae Aeonic line.
 
 Every visible code point is preserved. Ordinary lexical bodies resolve through
-SeeD Body and maximal consecutive Enochian grammar runs execute in written order.
+SeeD Body. Tail resolves traversal first; other Enochians execute that order.
 """
 from __future__ import annotations
 
@@ -18,6 +18,7 @@ from .local_grammar import (
     ResolvedBody, AeternumBearingEncounter, AeternumBearingPath,
 )
 from .models import DomusFrame
+from .temporal_operator import TEMPORAL_OPERATOR_GLYPH, resolve_tail
 from .frequency_projection import CARRIER_BY_GLYPH
 
 try:
@@ -35,7 +36,7 @@ OFFICE_BEARINGS = {
     "🜖": "adversarial",
     "🜗": "recursive_identity",
 }
-VISIBLE_GRAMMARS = frozenset(set(OFFICE_BEARINGS) | {OUROBORIC, PHANTASMAGORIA_GLYPH})
+VISIBLE_GRAMMARS = frozenset(set(OFFICE_BEARINGS) | {OUROBORIC, PHANTASMAGORIA_GLYPH, TEMPORAL_OPERATOR_GLYPH})
 
 class SequentialDomusExecutor:
     """Execute the complete Aeonic line by lexical bodies and grammar stacks."""
@@ -77,11 +78,33 @@ class SequentialDomusExecutor:
         transmutations: list[PhantasmagoriaTransmutation] = []
         aeternum_bearing_paths: list[AeternumBearingPath] = []
 
-        pending_ouroborose: tuple[tuple[int, ...], int, tuple[tuple[int, str], ...], tuple[int, ...], int] | None = None
+        pending_orobouros_head: tuple[tuple[int, ...], int, tuple[tuple[int, str], ...], tuple[int, ...], int] | None = None
         active_loop: tuple[tuple[int, ...], int, tuple[tuple[int, str], ...], tuple[int, ...], int, int, int] | None = None
         pending_transmutation: tuple[tuple[int, ...], int, list[int]] | None = None
 
         tokens = frame.tokens
+        tail_resolution = resolve_tail(frame)
+        execution_positions = tail_resolution.execution_positions
+        execution_index = {position: index for index, position in enumerate(execution_positions)}
+        # Tail has completed its work. Head and other grammar consume its result;
+        # the Tail glyphs remain source/trace identities, not pending operations.
+        scan_tokens = tuple(tokens[pos] for pos in execution_positions if tokens[pos].value != TEMPORAL_OPERATOR_GLYPH)
+        if tail_resolution.transformations:
+            original_aeternum_token = aeternum_token
+
+            def execution_aeternum_token(virtual_position: int):
+                extent = len(tokens)
+                phase = virtual_position % (2 * extent)
+                index = phase if phase < extent else 2 * extent - 1 - phase
+                source_position = execution_positions[index]
+                return replace(
+                    original_aeternum_token(source_position),
+                    source_position=source_position,
+                    mirror_position=virtual_position % extent,
+                    imaginary=not (0 <= virtual_position < extent),
+                )
+
+            aeternum_token = execution_aeternum_token
         i = 0
         semantic_source = frame.source if frame.prosody_source is None else frame.prosody_source
         shadow_ostensive = semantic_source == ZERO_MIDDLE_GLYPH
@@ -101,16 +124,20 @@ class SequentialDomusExecutor:
                 bodies[source_token.position] = ResolvedBody(
                     source_token.position, source_token.value, self._resolve_special(source_token.value),
                 )
-            elif source_token.value == AXIOMYR_GLYPH and axiomyr_ostensive:
+            elif source_token.value == AXIOMYR_GLYPH:
+                resolution = (
+                    self._resolve_special(source_token.value)
+                    if axiomyr_ostensive else self.machine.resolver(source_token.value)
+                )
                 bodies[source_token.position] = ResolvedBody(
-                    source_token.position, source_token.value, self._resolve_special(source_token.value),
+                    source_token.position, source_token.value, resolution,
                 )
 
         # Causal order starts as the exact real speaking-body order of the immutable
         # center.  The scanner's source_body_order below remains a separate record of
         # visited source positions.  Aeternum may therefore resolve topology against a
         # real body before the scanner reaches its code point without creating a body.
-        causal_body_order[:] = sorted(bodies)
+        causal_body_order[:] = [pos for pos in execution_positions if pos in bodies]
 
         def source_bearing(source_position: int) -> str | None:
             """Return the authored bearing/law carried by one finite source position."""
@@ -119,9 +146,11 @@ class SequentialDomusExecutor:
             if glyph in OFFICE_BEARINGS:
                 return OFFICE_BEARINGS[glyph]
             if glyph == OUROBORIC:
-                return "ouroborose_loop"
+                return "orobouros_head"
             if glyph == PHANTASMAGORIA_GLYPH:
                 return "phantasmagoria"
+            if glyph == TEMPORAL_OPERATOR_GLYPH:
+                return "orobouros_tail"
             if source_position in bodies:
                 if token.kind == "lexical":
                     return "seed_identity"
@@ -156,7 +185,7 @@ class SequentialDomusExecutor:
 
             out: list[tuple[int, int]] = []
             encounters: list[AeternumBearingEncounter] = []
-            start_virtual_position = position + step
+            start_virtual_position = execution_index[position] + step
             # Every 2N virtual positions repeat the exact finite source identities.
             # Python materializes that one authored period once; the compiled kernel
             # performs only the repeated integer walk and speaking-body mask checks.
@@ -209,13 +238,35 @@ class SequentialDomusExecutor:
         ) -> tuple[tuple[int, int], ...]:
             return bearing_context(position, count, step, purpose=purpose)
 
+        for transformation in tail_resolution.transformations:
+            crossing = transformation.crossing
+            grammar_events.append(LocalGrammarEvent(
+                transformation.operator_position, TEMPORAL_OPERATOR_GLYPH,
+                "orobouros-tail-transformation", transformation.after_positions, transformation,
+            ))
+            zero_and_one_events.append(ZeroAndOneEvent(
+                transformation.operator_position, TEMPORAL_OPERATOR_GLYPH,
+                tokens[transformation.operator_position].kind, "orobouros-tail-resolved", False,
+            ))
+            aeternum_bearing_paths.append(AeternumBearingPath(
+                purpose="orobouros-tail-crossing", origin_position=transformation.operator_position,
+                step=1, required_speaking_bodies=0, speaking_body_source_positions=(),
+                encounters=tuple(AeternumBearingEncounter(
+                    virtual_position=virtual, source_position=crossing.source_position,
+                    glyph=TEMPORAL_OPERATOR_GLYPH, token_kind=tokens[crossing.source_position].kind,
+                    bearing="orobouros_tail", imaginary=not (0 <= virtual < len(tokens)),
+                    speaking_body=False, bearing_only=True,
+                ) for virtual in (crossing.entrance_virtual_position, crossing.mirror_virtual_position)),
+                completed=True,
+            ))
+
         # A center made solely of visible Enochian grammar is lawful information, energy,
         # and magic, but it has no lexical speaking body and therefore utters nothing.
         # Its mirror remains present as bearing-only structure; it is not translated into
         # a second sentence and may not fabricate a lexical vessel.
         if tokens and not bodies and all(token.value in VISIBLE_GRAMMARS for token in tokens):
             stack_positions = tuple(token.position for token in tokens)
-            for token in tokens:
+            for token in scan_tokens:
                 action = "transmutation-gate-unuttered" if token.value == PHANTASMAGORIA_GLYPH else "grammar-lawful-unuttered"
                 zero_and_one_events.append(ZeroAndOneEvent(
                     token.position, token.value, token.kind, action, False,
@@ -250,6 +301,8 @@ class SequentialDomusExecutor:
             self.machine._validate_trace(frame.tokens, zero_and_one)
             local = LocalGrammarTrace(
                 (), (), tuple(grammar_events), (), (), (), tuple(aeternum_bearing_paths),
+                tail_resolution if tail_resolution.transformations else None,
+                execution_positions if tail_resolution.transformations else (),
             )
             return zero_and_one, local
 
@@ -312,8 +365,8 @@ class SequentialDomusExecutor:
                 target_position=target.position,
                 target_glyph=target.glyph,
                 bearing="recursive_identity",
-                direction="ouroborose-echo",
-                scope="ouroborose-loop",
+                direction="orobouros-head-echo",
+                scope="orobouros-head",
                 retrocausal_depth=0,
                 stack_positions=stack_positions,
             )
@@ -325,7 +378,7 @@ class SequentialDomusExecutor:
                 office_resolutions=target.office_resolutions + (office_resolution,),
             )
             grammar_events.append(LocalGrammarEvent(
-                operator_position, OUROBORIC, "ouroborose-echo-recursive",
+                operator_position, OUROBORIC, "orobouros-head-echo-recursive",
                 (target.position,), request,
             ))
 
@@ -336,11 +389,11 @@ class SequentialDomusExecutor:
                 aeternum_pair_reorder(causal_body_order, left_position, right_position, order)
                 return
             if left_position not in causal_body_order or right_position not in causal_body_order:
-                raise LocalGrammarError("⚶ Ouroborose Loop lost a lexical body")
+                raise LocalGrammarError("⚶ Orobouros Head lost a lexical body")
             li = causal_body_order.index(left_position)
             ri = causal_body_order.index(right_position)
             if abs(ri - li) != 1:
-                raise LocalGrammarError("⚶ Ouroborose Loop requires adjacent lexical bodies")
+                raise LocalGrammarError("⚶ Orobouros Head requires adjacent lexical bodies")
             lo, hi = sorted((li, ri))
             causal_body_order[lo:hi + 1] = list(order)
 
@@ -418,7 +471,7 @@ class SequentialDomusExecutor:
                 right_position, left_virtual, right_virtual,
             ) = loop_data
             if not operator_positions:
-                raise LocalGrammarError("⚶ Ouroborose Loop has no written turn")
+                raise LocalGrammarError("⚶ Orobouros Head has no written turn")
             left = bodies[left_position]
             right = bodies[right_position]
             n = len(operator_positions)
@@ -435,11 +488,11 @@ class SequentialDomusExecutor:
             crossed_right_mirror = right_virtual >= len(tokens)
             leading_echo = (
                 crossed_left_mirror
-                or (not crossed_right_mirror and left_position == 0)
+                or (not crossed_right_mirror and left_position == scan_tokens[0].position)
             ) and not left_offices
             trailing_echo = (
                 crossed_right_mirror
-                or (not crossed_left_mirror and right_position == len(tokens) - 1)
+                or (not crossed_left_mirror and right_position == scan_tokens[-1].position)
             ) and not right_offices
             left_glyphs = tuple(g for _, g in left_offices)
             right_glyphs = tuple(g for _, g in right_offices)
@@ -465,7 +518,7 @@ class SequentialDomusExecutor:
                 apply_echo_recursive(operator_positions[0], left_position, loop_stack_positions)
                 for pos, glyph in right_offices:
                     apply_bearing(pos, glyph, left_position, depth=0, stack_positions=loop_stack_positions,
-                                  direction="ouroborose-echo", scope="ouroborose-loop")
+                                  direction="orobouros-head-echo", scope="orobouros-head")
                 mirror_start = left_virtual if left_virtual < 0 else -1
                 mirror_turns = n if left_virtual < 0 else n - 1
                 mirror_positions, mirror_source_positions, mirror_glyphs = reflected_continuation(
@@ -482,10 +535,10 @@ class SequentialDomusExecutor:
                     apply_echo_recursive(operator_positions[-1], right_position, loop_stack_positions)
                 for pos, glyph in left_offices:
                     apply_bearing(pos, glyph, right_position, depth=0, stack_positions=loop_stack_positions,
-                                  direction="ouroborose-echo", scope="ouroborose-loop")
+                                  direction="orobouros-head-echo", scope="orobouros-head")
                 for pos, glyph in right_offices:
                     apply_bearing(pos, glyph, right_position, depth=0, stack_positions=loop_stack_positions,
-                                  direction="ouroborose-echo", scope="ouroborose-loop")
+                                  direction="orobouros-head-echo", scope="orobouros-head")
                 mirror_start = right_virtual if right_virtual >= len(tokens) else len(tokens)
                 mirror_turns = n if right_virtual >= len(tokens) else n - 1
                 mirror_positions, mirror_source_positions, mirror_glyphs = reflected_continuation(
@@ -499,20 +552,20 @@ class SequentialDomusExecutor:
             elif n == 1:
                 for pos, glyph in left_offices:
                     apply_bearing(pos, glyph, right_position, depth=0, stack_positions=loop_stack_positions,
-                                  direction="ouroborose-loop", scope="ouroborose-loop")
+                                  direction="orobouros-head", scope="orobouros-head")
                 for pos, glyph in right_offices:
                     apply_bearing(pos, glyph, right_position, depth=0, stack_positions=loop_stack_positions,
-                                  direction="ouroborose-loop", scope="ouroborose-loop")
+                                  direction="orobouros-head", scope="orobouros-head")
                 topology = (left.glyph, right.glyph, OUROBORIC, *left_glyphs, *right_glyphs)
                 echo_position = None
             elif n == 2:
                 set_causal_pair(left_position, right_position, (right_position, left_position))
                 for pos, glyph in right_offices:
                     apply_bearing(pos, glyph, left_position, depth=0, stack_positions=loop_stack_positions,
-                                  direction="ouroborose-loop", scope="ouroborose-loop")
+                                  direction="orobouros-head", scope="orobouros-head")
                 for pos, glyph in left_offices:
                     apply_bearing(pos, glyph, left_position, depth=0, stack_positions=loop_stack_positions,
-                                  direction="ouroborose-loop", scope="ouroborose-loop")
+                                  direction="orobouros-head", scope="orobouros-head")
                 topology = (right.glyph, OUROBORIC, left.glyph, *right_glyphs, OUROBORIC, *left_glyphs)
                 echo_position = None
             else:
@@ -543,10 +596,10 @@ class SequentialDomusExecutor:
                                 last_lex = int(prior_value)
                                 break
                     if last_lex is None:
-                        raise LocalGrammarError("⚶ Ouroborose Loop has no lexical owner")
+                        raise LocalGrammarError("⚶ Orobouros Head has no lexical owner")
                     for pos, glyph in office_block:
                         apply_bearing(pos, glyph, last_lex, depth=0, stack_positions=loop_stack_positions,
-                                      direction="ouroborose-loop", scope="ouroborose-loop")
+                                      direction="orobouros-head", scope="orobouros-head")
                 flat: list[str] = []
                 for bi, (kind, value, office_block) in enumerate(blocks):
                     if bi:
@@ -583,12 +636,12 @@ class SequentialDomusExecutor:
             )
             loops.append(state)
             grammar_events.append(LocalGrammarEvent(
-                operator_positions[0], OUROBORIC, "ouroborose-loop",
+                operator_positions[0], OUROBORIC, "orobouros-head",
                 (left_position, right_position), state,
             ))
 
-        while i < len(tokens):
-            token = tokens[i]
+        while i < len(scan_tokens):
+            token = scan_tokens[i]
             glyph = token.value
 
             if glyph == SHADOW_LOCUS:
@@ -602,9 +655,10 @@ class SequentialDomusExecutor:
                 continue
 
             if glyph == AXIOMYR_GLYPH:
-                if not axiomyr_ostensive:
-                    raise LocalGrammarError("Axiomyr is only valid in the canonical depth-one body ☽᳀☾")
-                register_body(token, bodies[token.position].lexical_resolution, glyph)
+                register_body(
+                    token, bodies[token.position].lexical_resolution,
+                    glyph if axiomyr_ostensive else "lexical-resolution",
+                )
                 i += 1
                 continue
 
@@ -619,13 +673,13 @@ class SequentialDomusExecutor:
                         finalize_transmutation(op_positions, first_position, following_positions)
                         pending_transmutation = None
 
-                if pending_ouroborose is not None:
-                    op_positions, left_position, left_offices, loop_stack_positions, left_virtual = pending_ouroborose
+                if pending_orobouros_head is not None:
+                    op_positions, left_position, left_offices, loop_stack_positions, left_virtual = pending_orobouros_head
                     active_loop = (
                         op_positions, left_position, left_offices, loop_stack_positions,
-                        token.position, left_virtual, token.position,
+                        token.position, left_virtual, execution_index[token.position],
                     )
-                    pending_ouroborose = None
+                    pending_orobouros_head = None
 
                 i += 1
                 continue
@@ -641,8 +695,8 @@ class SequentialDomusExecutor:
 
             j = i
             stack = []
-            while j < len(tokens) and tokens[j].value in VISIBLE_GRAMMARS:
-                stack.append(tokens[j])
+            while j < len(scan_tokens) and scan_tokens[j].value in VISIBLE_GRAMMARS:
+                stack.append(scan_tokens[j])
                 j += 1
             stack_positions = tuple(t.position for t in stack)
             stack_glyphs = tuple(t.value for t in stack)
@@ -703,23 +757,32 @@ class SequentialDomusExecutor:
                 claimed_office_positions: set[int] = set()
                 for run_index, (start, end, reversal_run) in enumerate(reversal_runs):
                     left_start = start
-                    while left_start > 0 and stack[left_start - 1].value in OFFICE_BEARINGS:
+                    while left_start > 0 and (
+                        stack[left_start - 1].value in OFFICE_BEARINGS
+                        or stack[left_start - 1].value == TEMPORAL_OPERATOR_GLYPH
+                    ):
                         left_start -= 1
                     left_offices = tuple(
-                        (gt.position, gt.value) for gt in stack[left_start:start]
+                        (gt.position, gt.value)
+                        for gt in stack[left_start:start]
+                        if gt.value in OFFICE_BEARINGS
                     )
                     claimed_office_positions.update(pos for pos, _ in left_offices)
-                    left_position, left_virtual = lexical_context(stack[start].position, 1, -1, purpose="ouroborose-left-body")[0]
-                    loop_positions = tuple(gt.position for gt in stack[left_start:end])
+                    left_position, left_virtual = lexical_context(stack[start].position, 1, -1, purpose="orobouros-head-left-body")[0]
+                    loop_positions = tuple(
+                        gt.position
+                        for gt in stack[left_start:end]
+                        if gt.value != TEMPORAL_OPERATOR_GLYPH
+                    )
                     operator_positions = tuple(gt.position for gt in reversal_run)
 
                     is_last_run = run_index == len(reversal_runs) - 1
                     if is_last_run:
-                        if pending_ouroborose is not None:
+                        if pending_orobouros_head is not None:
                             raise LocalGrammarError(
-                                "⚶ Ouroborose Loop reached a new turn-run before its following lexical body"
+                                "⚶ Orobouros Head reached a new turn-run before its following lexical body"
                             )
-                        pending_ouroborose = (
+                        pending_orobouros_head = (
                             operator_positions,
                             left_position,
                             left_offices,
@@ -727,7 +790,7 @@ class SequentialDomusExecutor:
                             left_virtual,
                         )
                     else:
-                        right_position, right_virtual = lexical_context(stack[end - 1].position, 1, 1, purpose="ouroborose-right-body")[0]
+                        right_position, right_virtual = lexical_context(stack[end - 1].position, 1, 1, purpose="orobouros-head-right-body")[0]
                         finalize_loop((
                             operator_positions,
                             left_position,
@@ -764,18 +827,18 @@ class SequentialDomusExecutor:
         if pending_transmutation is not None:
             op_positions, first_position, following_positions = pending_transmutation
             needed = len(op_positions) - len(following_positions)
-            reflected_following = lexical_context(len(tokens) - 1, needed, 1, purpose="phantasmagoria-following-vessels")
+            reflected_following = lexical_context(execution_positions[-1], needed, 1, purpose="phantasmagoria-following-vessels")
             following_positions.extend(position for position, _virtual in reflected_following)
             finalize_transmutation(op_positions, first_position, following_positions)
             pending_transmutation = None
-        if pending_ouroborose is not None:
-            op_positions, left_position, left_offices, loop_stack_positions, left_virtual = pending_ouroborose
-            right_position, right_virtual = lexical_context(len(tokens) - 1, 1, 1, purpose="ouroborose-following-body")[0]
+        if pending_orobouros_head is not None:
+            op_positions, left_position, left_offices, loop_stack_positions, left_virtual = pending_orobouros_head
+            right_position, right_virtual = lexical_context(execution_positions[-1], 1, 1, purpose="orobouros-head-following-body")[0]
             active_loop = (
                 op_positions, left_position, left_offices, loop_stack_positions,
                 right_position, left_virtual, right_virtual,
             )
-            pending_ouroborose = None
+            pending_orobouros_head = None
         if active_loop is not None:
             finalize_loop(active_loop, ())
             active_loop = None
@@ -800,7 +863,9 @@ class SequentialDomusExecutor:
             if source_position in transmutation_positions or source_position in transmuted_vessel_resolution:
                 return "phantasmagoria"
             if source_position in loop_positions:
-                return "ouroborose_loop"
+                return "orobouros_head"
+            if token.value == TEMPORAL_OPERATOR_GLYPH:
+                return "orobouros_tail"
             if token.kind == "lexical":
                 return "seed_identity"
             if token.value in {SHADOW_LOCUS, AXIOMYR_GLYPH}:
@@ -813,7 +878,11 @@ class SequentialDomusExecutor:
         for loop in loops:
             kinds = tuple(token_by_position[pos].kind for pos in loop.mirror_source_positions)
             bearings = tuple(resolved_reflection_bearing(pos) for pos in loop.mirror_source_positions)
-            mirror_corridor = frame.mirror_corridor_period() if loop.imaginary_reflection else ()
+            mirror_corridor = (
+                tuple(aeternum_token(v) for v in range(len(tokens), 3 * len(tokens)))
+                if tail_resolution.transformations and loop.imaginary_reflection
+                else frame.mirror_corridor_period() if loop.imaginary_reflection else ()
+            )
             def ostensive_provenance(source_position: int) -> tuple[str | None, str | None, str | None]:
                 resolution = transmuted_vessel_resolution.get(source_position)
                 if resolution is None:
@@ -853,5 +922,7 @@ class SequentialDomusExecutor:
             tuple(causal_body_order),
             tuple(grammar_events), tuple(recognitions), tuple(loops), tuple(transmutations),
             tuple(aeternum_bearing_paths),
+            tail_resolution if tail_resolution.transformations else None,
+            execution_positions if tail_resolution.transformations else (),
         )
         return zero_and_one, local

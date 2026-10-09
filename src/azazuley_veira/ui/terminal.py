@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unicodedata
+from azazuley_veira.ui.path_out import PathBackView, PathOutView
 
 from PySide6.QtCore import QSize, Qt, Signal
 from PySide6.QtGui import QColor, QKeyEvent, QPalette
@@ -240,6 +241,10 @@ class Terminal(QWidget):
         self.ffysyel_output = self._output_field()
         self.glossolalia_output = self._output_field()
         self.ailalossolg_output = self._output_field()
+        self.path_out_output = PathOutView()
+        self.path_out_output.setObjectName("pathOutOutput")
+        self.path_back_output = PathBackView()
+        self.path_back_output.setObjectName("pathBackOutput")
 
         self.leysyff_output.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.ffysyel_output.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
@@ -278,6 +283,8 @@ class Terminal(QWidget):
         self.output_tabs.addTab(self.leysyff_ffysyel_output, "LeySyff | FfysYel")
         self.output_tabs.addTab(self.definition_output, "Definition")
         self.output_tabs.addTab(self.canon_glossary_output, "Canon Glossary")
+        self.output_tabs.addTab(self.path_out_output, "Path Out")
+        self.output_tabs.addTab(self.path_back_output, "Path Back")
         self.output_tabs.currentChanged.connect(self._refresh_scripture_tab_geometry)
         layout.addWidget(self.output_tabs, 1)
 

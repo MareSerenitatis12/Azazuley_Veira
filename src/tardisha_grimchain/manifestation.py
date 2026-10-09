@@ -681,7 +681,7 @@ def close_boundary(origin_q: Sequence[object], resolution_q: Sequence[object], *
         return_friction_weight=float(RETURN_FRICTION_WEIGHT),
         commutator_model=(
             "exact inverse-endpoint, preserved-operator-order, parity-return witness; "
-            "[ℳ,ℜ] and ℳ-𝔓(ℜ) computed without endpoint substitution"
+            "[ℳ,ℜ] and ℳ-࿂(ℜ) computed without endpoint substitution"
         ),
         commutator_pressure=float(exact.commutator_pressure),
         return_pressure=float(exact.return_pressure),

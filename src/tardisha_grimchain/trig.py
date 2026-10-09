@@ -27,7 +27,7 @@ TRIG_FREQUENCY: Final[FrequencyAnchor] = law(TRIG_GLYPH).frequency
 TRIG_Q_BIAS: Final[str] = "Q3"
 TRIG_Q_VECTOR: Final[tuple[int, int, int, int]] = (1, 1, 3, 2)
 
-PARITY_OPERATOR: Final[str] = "𝔓"
+PARITY_OPERATOR: Final[str] = "࿂"
 BOUND_TENSOR_OPERATOR: Final[str] = "T_Bound"
 COMMITMENT_OPERATOR: Final[str] = "✡"
 COMMITMENT_FREQUENCY: Final[FrequencyAnchor] = law(COMMITMENT_OPERATOR).frequency
@@ -337,7 +337,7 @@ def derive_trig_mirror(
     completion = mirror_typed and return_typed and shadow_parity_preserved and one_turn and terminal == 0.0
 
     derivation = (
-        "Q1 --𝔓[T_Bound]--> Q3 --✡/❄--> Q1; "
+        "Q1 --࿂[T_Bound]--> Q3 --✡/❄--> Q1; "
         "Q2↔Q3 remains the separate Shadow parity law; "
         f"⌬ completion={'reached' if completion else 'owed'} from the complete return body."
     )

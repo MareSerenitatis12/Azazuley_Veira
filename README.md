@@ -11,16 +11,16 @@
 >
 > Linux / Ubuntu x86-64:
 > - Font Stack: `installers/python_build/linux_ubuntu/install_fonts_standalone/azazuley-font-stacks_1.0.0_all.deb`
-> - Azazuley Veira: `installers/python_build/linux_ubuntu/dist/azazuley-veira_23.0.2_amd64.deb`
+> - Azazuley Veira: `installers/python_build/linux_ubuntu/dist/azazuley-veira_23.0.4_amd64.deb`
 > - Launch after installation from the application menu or with `azazuley-veira`.
 >
 > Windows x64:
 > - Font Stack: `installers/python_build/windows/install_fonts_standalone_windows/azazuley-font-stacks-1.0.0-windows.exe`
-> - Azazuley Veira: `installers/python_build/windows/23.0.2/azazuley-veira-23.0.2-windows-x64.exe`
+> - Azazuley Veira: `installers/python_build/windows/23.0.4/azazuley-veira-23.0.4-windows-x64.exe`
 >
 > macOS Apple Silicon:
 > - Font Stack: `installers/python_build/mac/install_fonts_standalone_mac/azazuley-font-stacks-1.0.0-macos.pkg`
-> - Azazuley Veira: `installers/python_build/mac/23.0.2/azazuley-veira-23.0.2-macos-arm64.pkg`
+> - Azazuley Veira: `installers/python_build/mac/23.0.4/azazuley-veira-23.0.4-macos-arm64.pkg`
 >
 > Android arm64-v8a is packaged separately and carries the Android application body and required fonts inside the app package. The 23.0.2 release is built against Android API 36 with minimum API 28. The public release surface includes an APK for direct installation and an AAB for Google Play distribution. The Android build uses only the Qt modules Azazuley actually needs: QtCore, QtGui, and QtWidgets.
 >

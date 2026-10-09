@@ -33,6 +33,7 @@ from azazuley_veira.grimchain_journal import GrimchainHistorySession, append_gri
 from azazuley_veira.ui.help_viewer import HelpViewer
 from azazuley_veira.ui.terminal import SubmitTextEdit, Terminal, _format_exact_prose_uncovered
 from azazuley_veira.ui.exact_text import write_exact_surface_groups_pdf
+from azazuley_veira.ui.path_pdf import write_path_pdf
 
 
 class _GrimchainHistoryModel(QAbstractListModel):
@@ -226,6 +227,10 @@ class MainWindow(QMainWindow):
         self._export_bio_action = self.export_menu.addAction("Export GrimChained Bio (.shk)")
         self._export_words_action = self.export_menu.addAction("Export Words & Definitions (PDF)")
         self._export_glossary_action = self.export_menu.addAction("Export Canon Glossary (PDF)")
+        self._export_path_out_action = self.export_menu.addAction("Export Path Out (PDF)")
+        self._export_path_back_action = self.export_menu.addAction("Export Path Back (PDF)")
+        self.export_menu.addSeparator()
+        self._export_all_action = self.export_menu.addAction("Export All")
         self._export_bio_action.triggered.connect(
             lambda _checked=False: self._run_export(self._export_grimchained_bio)
         )
@@ -234,6 +239,15 @@ class MainWindow(QMainWindow):
         )
         self._export_glossary_action.triggered.connect(
             lambda _checked=False: self._run_export(self._export_canon_glossary_pdf)
+        )
+        self._export_path_out_action.triggered.connect(
+            lambda _checked=False: self._run_export(self._export_path_out_pdf)
+        )
+        self._export_path_back_action.triggered.connect(
+            lambda _checked=False: self._run_export(self._export_path_back_pdf)
+        )
+        self._export_all_action.triggered.connect(
+            lambda _checked=False: self._run_export(self._export_all)
         )
         self.export_menu.aboutToShow.connect(self._refresh_export_menu)
         self.export_button.setMenu(self.export_menu)
@@ -356,6 +370,15 @@ class MainWindow(QMainWindow):
             all(any(bool(surface.toPlainText()) for surface in group) for group in self._words_definition_groups())
         )
         self._export_glossary_action.setEnabled(bool(self.terminal.canon_glossary_output.toPlainText()))
+        for action, surface in (
+            (self._export_path_out_action, self.terminal.path_out_output),
+            (self._export_path_back_action, self.terminal.path_back_output),
+        ):
+            action.setEnabled(surface.model is not None and not surface.model.capture_error)
+        self._export_all_action.setEnabled(any(action.isEnabled() for action in (
+            self._export_bio_action, self._export_words_action, self._export_glossary_action,
+            self._export_path_out_action, self._export_path_back_action,
+        )))
 
     def _run_export(self, operation) -> None:
         try:
@@ -415,6 +438,29 @@ class MainWindow(QMainWindow):
             section_headers=(self._export_section_header("Canon Glossary"),),
         )
         return self._embed_export_pdf(destination)
+
+    def _export_path_out_pdf(self) -> Path:
+        destination = self._export_directory() / "path_out.pdf"
+        write_path_pdf(self.terminal.path_out_output.model, destination)
+        return self._embed_export_pdf(destination)
+
+    def _export_path_back_pdf(self) -> Path:
+        destination = self._export_directory() / "path_back.pdf"
+        write_path_pdf(self.terminal.path_back_output.model, destination, reverse=True)
+        return self._embed_export_pdf(destination)
+
+    def _export_all(self) -> Path:
+        self._refresh_export_menu()
+        for action, operation in (
+            (self._export_bio_action, self._export_grimchained_bio),
+            (self._export_words_action, self._export_words_definitions_pdf),
+            (self._export_glossary_action, self._export_canon_glossary_pdf),
+            (self._export_path_out_action, self._export_path_out_pdf),
+            (self._export_path_back_action, self._export_path_back_pdf),
+        ):
+            if action.isEnabled():
+                operation()
+        return self._export_directory()
 
     def _show_help(self) -> None:
         viewer = HelpViewer(self)
@@ -552,6 +598,8 @@ class MainWindow(QMainWindow):
         reflection = render_ailalubar(chain, self.terminal.ailalubar_output.pointSizeF())
         self.terminal.set_ailalubar(reflection)
         mirror_witness = self.terminal.ailalubar_render_witness(reflection)
+        self.terminal.path_out_output.set_path(None)
+        self.terminal.path_back_output.set_path(None)
 
         try:
             transaction = sydonic.render_transaction(mirror_witness, cadence_translation=cadence_translation)
@@ -560,6 +608,8 @@ class MainWindow(QMainWindow):
             return
 
         self._render_transaction = transaction
+        self.terminal.path_out_output.set_path(transaction.path_out)
+        self.terminal.path_back_output.set_path(transaction.path_out)
         self.terminal.set_azazuley(
             transaction.azalalia_body,
             transaction.azalalia_runs,

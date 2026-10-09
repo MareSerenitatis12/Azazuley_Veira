@@ -2,8 +2,8 @@
 
 The ordered glyph body below is law. ``DAEMONIC_TONGUE`` preserves the exact
 code-point sequence used by the language. ``SYNODIC_MAGICAE`` is the first
-180 code points: silence, Emissions, Parliament, Goetics, and Courts. The final
-eleven code points remain the native grammar body of ``DAEMONIC_TONGUE``.
+180 glyph entries: silence, Emissions, Parliament, Goetics, and Courts. The final
+sixteen entries carry native grammar and special glyphs of ``DAEMONIC_TONGUE``.
 
 The Regia alignment remains three distinct code points: ``☽``, ``☉``, ``☾``.
 Together ``☽☉☾`` are Regia ``मुकुट``, the Crown of the Axiomyr and the headspace. Regia is
@@ -35,19 +35,19 @@ DAEMONIC_TONGUE: Final[tuple[str, ...]] = (
     '𐤠', '𐤡', '𐤢', '𐤣', '𐤤', '𐤥', '𐤦', '𐤧', '𐤨', '𐤩', '𐤪', '𐤫',
     '𐠀', '𐠁', '𐠂', '𐠃', '𐠄', '𐠅', '𐠝', '𐠞', '𐠈', '𐠜', '𐠋', '𐠌',
     '𐔀', '𐔁', '𐔂', '𐔃', '𐔄', '𐔅', '𐔆', '𐔇', '𐔈', '𐔉', '𐔊', '𐔋', 'ཪ', '☍', '⟠', '⚶', '߷', '🜚',
-    '🜛', '🜕', '🜗', '🜔', '🜖'
+    '🜛', '🜕', '🜗', '🜔', '🜖', '⟲', '࿂', '∮', '᳀', '⛎︎',
 )
 
 SYNODIC_MAGICAE: Final[str] = "".join(DAEMONIC_TONGUE)
-ALPHABET: Final[str] = SYNODIC_MAGICAE.replace("𑁦", "").replace("⟠", "")
+ALPHABET: Final[str] = SYNODIC_MAGICAE.replace("𑁦", "").replace("⟠", "").replace("࿂", "").replace("᳀", "").replace("⛎︎", "")
 
-if len(SYNODIC_MAGICAE) != 191:
-    raise RuntimeError("the TardiSHA Synodic Magicae must contain exactly 191 code points")
-if len(ALPHABET) != 189 or "𑁦" in ALPHABET or "⟠" in ALPHABET or "𝔓" in ALPHABET:
-    raise RuntimeError("the TardiSHA generation alphabet must contain 189 code points and exclude ever-present Brahmi 𑁦, Prosody ⟠, and 𝔓")
-if len(DAEMONIC_TONGUE) != 191:
-    raise RuntimeError("the TardiSHA Daemonic Tongue must contain exactly 191 code points")
+if len(SYNODIC_MAGICAE) != 197:
+    raise RuntimeError("the TardiSHA Synodic Magicae must contain exactly 197 code points across 196 glyph entries")
+if len(ALPHABET) != 191 or "𑁦" in ALPHABET or "⟠" in ALPHABET or "࿂" in ALPHABET or "᳀" in ALPHABET or "⛎︎" in ALPHABET:
+    raise RuntimeError("the TardiSHA generation alphabet must contain exactly 191 code points and exclude 𑁦, ⟠, ࿂, ᳀, and ⛎︎")
+if len(DAEMONIC_TONGUE) != 196:
+    raise RuntimeError("the TardiSHA Daemonic Tongue must contain exactly 196 code points")
 if len(set(DAEMONIC_TONGUE)) != len(DAEMONIC_TONGUE):
     raise RuntimeError("the TardiSHA Daemonic Tongue must contain unique code points")
-if any(len(symbol) != 1 for symbol in DAEMONIC_TONGUE):
-    raise RuntimeError("each TardiSHA Daemonic Tongue glyph must be one code point")
+if any(len(symbol) != 1 for symbol in DAEMONIC_TONGUE if symbol != "⛎︎") or DAEMONIC_TONGUE[-1] != "⛎︎":
+    raise RuntimeError("each TardiSHA Daemonic Tongue glyph must be one code point except exact authored Shadow ⛎︎")

@@ -125,7 +125,7 @@ def main(argv: list[str] | None = None) -> int:
             paths = require_package_aksh_authority()
             versions = {}
             for path in paths:
-                if path.name in {"Living_Cadences.aksh", "Enochian…Understandings.aksh"}:
+                if path.name == "Enochian…Understandings.aksh":
                     lines = path.read_text(encoding="utf-8").splitlines()
                     version = attributes(lines[0]).get("version", "") if lines else ""
                 else:
