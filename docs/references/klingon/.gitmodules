@@ -1,0 +1,3 @@
+[submodule "klingon-assistant-data"]
+	path = klingon-assistant-data
+	url = https://github.com/De7vID/klingon-assistant-data

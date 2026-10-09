@@ -1,0 +1,47 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Thu, 08 Oct 2026 22:04:41 -0400
+Source: azazuley-veira
+Built-For-Profiles: noudeb
+Architecture: source
+Version: 23.0.6-1
+Distribution: noble
+Urgency: medium
+Maintainer: Ahnend, Magus <witchofalways@gmail.com>
+Changed-By: Ahnend, Magus <witchofalways@gmail.com>
+Changes:
+ azazuley-veira (23.0.6-1) noble; urgency=medium
+ .
+   * Package internal Azazuley Veira 23.0.6 for Launchpad release 23.0.6.
+   * Carry the current Azazuley source, Sydonic Magicae Translation Matrix,
+     bundled TardiSHA GrimChain runtime, embedded Python runtime, and native kernels.
+   * Remove the obsolete Pillow/PyMuPDF runtime-package requirement.
+Checksums-Sha1:
+ 4b861ba0c439d796a67b58a67072b7853992e0a1 1401 azazuley-veira_23.0.6-1.dsc
+ eb60cb5ad484b11db9297579af0ea13142a06e83 69818817 azazuley-veira_23.0.6.orig.tar.gz
+ c4eeb996b9d0ba50893f475ed5cb445236ce9eec 1480 azazuley-veira_23.0.6-1.debian.tar.xz
+ 42ce2793b0bfb0b17230721456f5ab45bc30d932 7004 azazuley-veira_23.0.6-1_source.buildinfo
+Checksums-Sha256:
+ fdc4bc8ca8bd8e2f84b525a6801d2a9f810e53f2df37cfa274afc7989d38d31a 1401 azazuley-veira_23.0.6-1.dsc
+ 327432872d8b5d5813af8f4789abb844349978b28b6c64088940f0bb22b64641 69818817 azazuley-veira_23.0.6.orig.tar.gz
+ 650e1d6096a3083405a47434a58f17ee1756f3c74f6a4c8d46d4aaa7132a88fd 1480 azazuley-veira_23.0.6-1.debian.tar.xz
+ e6f49c8b995d3f18590a137f14f3cc2054b0b99daf5cbf1daf3badf0b4bec971 7004 azazuley-veira_23.0.6-1_source.buildinfo
+Files:
+ 505701edea62f8573df78e1d58a84c34 1401 utils optional azazuley-veira_23.0.6-1.dsc
+ 93bc4b0458bb7d55a9b22d2e8637e698 69818817 utils optional azazuley-veira_23.0.6.orig.tar.gz
+ 4a1b857cad6ab424fe9f86b4f02619b0 1480 utils optional azazuley-veira_23.0.6-1.debian.tar.xz
+ 050a7139e240f0bb6d5fdf481dcda493 7004 utils optional azazuley-veira_23.0.6-1_source.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEk2Sg6ZOZnOwonM1AV8BJv048SygFAmrITXsACgkQV8BJv048
+Syj25wf9EiaeOcQIqsRG3M+I/mbURLG+sQpL0UMWQyM8y+7dy/FA4i8jdPebUtXA
+EFxTgWSlxWOR1hbz/H8IWlxIoWUMn6Qpi4T1cIs301bMcrWGunwu4y597c6bz2wR
+KVnXd504p8qTnJgpkA4zWzUJpQVp1ZD1vwN0hYJ6pLhcixm6f/70G6UFsRjQaxll
+Z1kblMDTvpfDVFm/TKvTJYFwUAyXHN1BdqfF0qCWmaIaKvJQfBbBMOgA/SNsL23j
+kRbmWQJjrhB6lDXLl0IxQAMjFx7XcFm35ib4cizTQQ1jxbbkHL2B9+oH3jRAeN0a
+Qvh/KbaNunxw+uaYETK2K965T3UTPA==
+=7mTs
+-----END PGP SIGNATURE-----

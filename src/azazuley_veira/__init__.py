@@ -1,0 +1,1 @@
+"""Azazuley Veira Language Terminal."""

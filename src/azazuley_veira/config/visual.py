@@ -1,0 +1,13 @@
+"""Visible first-body law for Azazuley Veira."""
+
+TSHIRT_GRAY = "#70726d"
+TSHIRT_DARK = "#5d605b"
+TSHIRT_LIGHT = "#7c7e78"
+EDGE = "#3d4541"
+EDGE_SOFT = "#58605b"
+TERMINAL_BG = "#101714"
+TERMINAL_BG_DEEP = "#0b110f"
+TEAL = "#68f5df"
+TEAL_SOFT = "#45c9b6"
+TEAL_DIM = "#2d8579"
+TEAL_FAINT = "#1d514b"
