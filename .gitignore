@@ -12,6 +12,7 @@ __pycache__/
 .coverage.*
 htmlcov/
 .hypothesis/
+installers/python_build/linux_ubuntu/launchpad/
 
 # Notebook/editor/OS noise
 .ipynb_checkpoints/
@@ -80,13 +81,7 @@ installers/python_build/**
 !installers/python_build/linux_ubuntu/
 !installers/python_build/linux_ubuntu/dist/
 !installers/python_build/linux_ubuntu/dist/azazuley-veira_23.0.6_amd64.deb
-!installers/python_build/linux_ubuntu/launchpad/
-!installers/python_build/linux_ubuntu/launchpad/VERSION
-!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.6.orig.tar.gz
-!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.6-1.debian.tar.xz
-!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.6-1.dsc
-!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.6-1_source.buildinfo
-!installers/python_build/linux_ubuntu/launchpad/azazuley-veira_23.0.6-1_source.changes
+
 !installers/python_build/mac/
 !installers/python_build/mac/23.0.6/
 !installers/python_build/mac/23.0.6/azazuley-veira-23.0.6-macos-arm64.pkg
